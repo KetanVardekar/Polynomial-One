@@ -1,0 +1,96 @@
+<form class="d-flex flex-column form-section" [formGroup]="pdForm" id="pdForm">
+  <h6 class="m-2 text-center">Property View Card</h6>
+  <div class="form-group  flex-grow-1">
+      <input placeholder="Property Name" name="propertyName" formControlName="propertyName" type="text" required />
+  </div>
+  <div class="form-section">
+      <div class="text-center">Property Image Urls</div>
+      <ng-container *ngFor="let url of piArray.controls;let j = index;">
+          <div class="range-item position-relative mr-2" [formGroup]="url">
+              <i class="fa fa-close position-absolute" style="top: 8px;right: -16px;" (click)="removeUrl(j)"
+                  *ngIf="piArray.controls.length>1" aria-hidden="true"></i>
+              <div class="form-group  flex-grow-1">
+                  <input placeholder="Image URL" name="ImageUrl" formControlName="url" type="text" />
+              </div>
+          </div>
+      </ng-container>
+      <div class="text-center mb-2">
+          <button class="btn btn-shona  ml-0" (click)="addUrl()">Add
+              Image Url</button>
+      </div>
+  </div>
+  <div class="form-group  flex-grow-1">
+      <input placeholder="Property Description" name="propertyDescription" formControlName="propertyDescription"
+          type="text" required />
+  </div>
+  <div class="form-section">
+      <div class="text-center">Location Description</div>
+      <ng-container *ngFor="let url of ldArray.controls;let j = index;">
+          <div class="range-item position-relative mr-2" [formGroup]="url">
+              <i class="fa fa-close position-absolute" style="top: 8px;right: -16px;" (click)="removeLD(j)"
+                  *ngIf="ldArray.controls.length>1" aria-hidden="true"></i>
+              <div class="form-group  flex-grow-1">
+                  <input placeholder="Address" name="address" formControlName="address" type="text" />
+              </div>
+              <div class="form-group  flex-grow-1">
+                  <input placeholder="Icon URL" name="iconUrl" formControlName="iconUrl" type="text" />
+              </div>
+          </div>
+      </ng-container>
+      <div class="text-center mb-2">
+          <button class="btn btn-shona  ml-0" (click)="addLD()">Add Location Description</button>
+      </div>
+  </div>
+  <div class="form-section">
+      <div class="text-center">House Features</div>
+      <ng-container *ngFor="let hf of hfArray.controls;let hfIndex = index;">
+          <div class="range-item position-relative mr-2" [formGroup]="hf">
+              <i class="fa fa-close position-absolute" style="top: 8px;right: -16px;" (click)="removeHF(hfIndex)"
+                  *ngIf="hfArray.controls.length>1" aria-hidden="true"></i>
+              <div class="form-group  flex-grow-1">
+                  <input placeholder="Title" name="featureTitle" formControlName="featureTitle" type="text" />
+              </div>
+              <div class="form-section">
+                  <div class="text-center fw-100">Description</div>
+                  <ng-container *ngFor="let hfd of hf.get('description').controls;let hfdIndex = index;">
+                      <div class="range-item position-relative mr-2" [formGroup]="hfd">
+                          <i class="fa fa-close position-absolute" style="top: 8px;right: -16px;"
+                              (click)="removeHFD(hfdIndex)" *ngIf="hf.get('description').controls.length>1"
+                              aria-hidden="true"></i>
+                          <div class="form-group  flex-grow-1">
+                              <input placeholder="Title" name="title" formControlName="title" type="text" />
+                          </div>
+                          <div class="form-section">
+                              <!-- <h5 class="text-center">House Feature Description Value</h5> -->
+                              <ng-container *ngFor="let hfdv of hfd.get('value').controls;let hfdvIndex = index;">
+                                  <div class="range-item position-relative mr-2" [formGroup]="hfdv">
+                                      <i class="fa fa-close position-absolute" style="top: 8px;right: -16px;"
+                                          (click)="removeHFDV(hfIndex,hfdIndex,hfdvIndex)" *ngIf="hfd.get('value').controls.length>1" aria-hidden="true"></i>
+                                      <div class="form-group  flex-grow-1">
+                                          <input placeholder="Value" name="value" formControlName="value"
+                                              type="text" />
+                                      </div>
+                                  </div>
+                              </ng-container>
+                              <div class="text-center mb-2">
+                                  <button class="btn btn-shona  ml-0" (click)="addHFDV(hfIndex,hfdIndex)">Add
+                                      Value</button>
+                              </div>
+                          </div>
+                      </div>
+                  </ng-container>
+                  <div class="text-center mb-2">
+                      <button class="btn btn-shona  ml-0" (click)="addHFD(hfIndex)">Add Description</button>
+                  </div>
+              </div>
+          </div>
+      </ng-container>
+      <div class="text-center mb-2">
+          <button class="btn btn-shona  ml-0" (click)="addHF()">Add House Features</button>
+      </div>
+  </div>
+</form>
+<div class="d-flex align-items-center justify-content-center">
+  <button (click)="add()" *ngIf="!isUpdate" class="btn btn-shona">Add card</button>
+  <button (click)="update()" *ngIf="isUpdate" class="btn btn-shona">Update card</button>
+</div>

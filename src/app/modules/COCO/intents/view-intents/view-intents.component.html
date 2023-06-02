@@ -1,0 +1,23 @@
+<div class="">
+  <h5 class="d-flex align-items-center">
+   {{setIntentsName}}
+  </h5>
+<div *ngIf="intentText && intentText.length ; else noIntents">
+<div *ngFor="let value of intentText"
+class="entity-list-wrap-intents flex-column d-flex jutify-content-between align-items-center mr-3">
+<div class="details-container">
+  <div class="entity-title flex-grow-1">
+    {{value.text}}
+  </div>
+</div>
+</div>
+</div>
+<ng-template #noIntents>
+  <div class="nodata">
+    <img src="assets/img/no-data.svg" class="no-found-img">
+    <div class="mb-5">
+      <span class="text mt-0"> No Available Intents </span>
+    </div>
+  </div>
+</ng-template>
+</div>

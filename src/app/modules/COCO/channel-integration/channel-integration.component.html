@@ -1,0 +1,65 @@
+<div class="ml-81">
+  <div class="row col-12 mb-0">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;CHANNEL INTEGRATION</span>
+    </p>
+  </div>
+
+  <div class="row col-lg-12 col-md-12 mt-3 pr-0 mr-0 w-100"
+    *ngIf="(createChannel || activeChannel) && (createChannel.length || activeChannel.length); else noChannelIntegration">
+    <div class="w-100 d-flex justify-content-between">
+      <nav class="w-100">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <ng-container>
+            <a class="nav-link nav-item active text-center" id="'create'" data-toggle="tab" role="tab"
+              aria-controls="create" aria-selected="true" [class.active]="tab == 'create'" (click)="tab = 'create'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'create' }">
+                  Create A Channel
+                </span>
+              </div>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="!showConfigureChannelFlag">
+            <a class="nav-link nav-item text-center" id="'active'" data-toggle="tab" role="tab" aria-controls="active"
+              aria-selected="false" [class.active]="tab == 'active'" (click)="tab = 'active'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'active' }" class="detail-font-color ">
+                  Active Channels
+                </span>
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </nav>
+
+    </div>
+    <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="create" role="tabpanel" [class.active]="tab == 'create'"
+        aria-labelledby="create">
+        <app-create-channel *ngIf="!showConfigureChannelFlag" (configure)="configure($event)"
+          [createChannelData]="createChannel"></app-create-channel>
+        <app-selected-channel *ngIf="showConfigureChannelFlag  " (configure)="configure($event) ">
+        </app-selected-channel>
+      </div>
+    </div>
+    <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="active" role="tabpanel" [class.active]="tab == 'active'"
+        aria-labelledby="active">
+        <app-active-channel *ngIf="!showConfigureChannelFlag" (editChannel)="editChannel($event)"
+          [activeChannelData]="activeChannel"></app-active-channel>
+        <app-selected-channel [showEditFlag]="editChannel" *ngIf="showConfigureChannelFlag  "
+          (configure)="editChannel($event) ">
+        </app-selected-channel>
+      </div>
+    </div>
+  </div>
+  <ng-template #noChannelIntegration>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available Channel Integration </span>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,46 @@
+<div class="pr-dt-crd neum-shadow">
+  <div>
+       <i class="fa fa-close" aria-hidden="true" (click)="remove($event)"></i>
+       <i class="fa fa-edit ml-2" aria-hidden="true" (click)="edit($event)"></i>
+   </div>
+   <div class="image_wrapper">
+     <ngx-slick-carousel class="carousel pt-3" #slickModal="slick-carousel" [config]="slideConfig">
+       <div ngxSlickItem class="single-image" *ngFor="let item of propertyCard.propertyImageUrls; let i = index">
+         <img [src]="item"  />
+       </div>
+     </ngx-slick-carousel>
+   </div>
+
+   <div class="content">
+     <h4>{{propertyCard.propertyName}}</h4>
+     <p>
+       {{propertyCard.propertyDescription}}
+     </p>
+     <div class="text-center">
+       <ul class="d-flex justify-content-center ppt-btn-ul">
+         <li>
+           <button class="btn" [ngClass]="locationTabOpen?'btn-shona':'btn-outline-shona'" (click)="changeLocationTab(true)">Location</button>
+         </li>
+         <li class="pl-2">
+           <button class="btn" [ngClass]="!locationTabOpen?'btn-shona':'btn-outline-shona'" (click)="changeLocationTab(false)">House Features</button>
+         </li>
+       </ul>
+     </div>
+     <div class="location_tab" *ngIf="locationTabOpen">
+       <p *ngFor="let locItem of propertyCard.locationDescription">
+         <img [src]=locItem.iconUrl />{{locItem.address}}
+       </p>
+     </div>
+     <div class="home_feature" *ngIf="!locationTabOpen">
+       <div class="main_row" *ngFor="let val of propertyCard.houseFeatures">
+         <h4>{{val.featureTitle}}</h4>
+         <div class="home_tab_row">
+           <div class="home_tab_col" *ngFor="let colVal of val.description">
+             <h5>{{colVal.title}}</h5>
+             <p *ngFor="let secVal of colVal.value">{{secVal}}</p>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>

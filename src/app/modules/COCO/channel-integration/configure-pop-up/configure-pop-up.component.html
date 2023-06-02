@@ -1,0 +1,374 @@
+<div *ngIf="showWhatsapp">
+  <div class="row w-100 mt-0 col-md-12 text-center justify-content-center heading-text mt-4">
+    <span>Configure your WhatsApp channel</span>
+  </div>
+
+  <!-- First Page -->
+  <div *ngIf="count ==0">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text">
+        <span>1.</span>&nbsp;<span>Create a Meta Account by clicking on the below link:</span>
+      </div>
+      <div class="row w-100 mt-0 col-md-12 mt-2 ">
+        <a href="https://developers.facebook.com" target="_blank"
+          class="redirecting-link">https://developers.facebook.com
+        </a>
+      </div>
+    </div>
+ <div class="d-flex justify-content-center mt-4">
+      <img class="img-size" src="assets/img/wp1.jpg" alt="">
+    </div>
+ <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+ <button class="btn btn-cancel mr-4" (click)="close()">Cancel</button>
+      <button class="btn btn-continue" (click)=" nextPage()">Start</button>
+    </div>
+  </div>
+  <!-- Second Page -->
+  <div *ngIf="count ==1">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text  ">
+        <span>2.</span>&nbsp;<span>Add Whatsapp to your META account.</span>
+      </div>
+    </div>
+ <div class="d-flex justify-content-center mt-4">
+      <img class="img-size-two" src="assets/img/wp2.jpg" alt="">
+    </div>
+ <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+ <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn btn-continue" (click)=" nextPage()">Next</button>
+    </div>
+  </div>
+  <!-- Third Page -->
+  <div *ngIf="count ==2">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>3.</span>&nbsp;<span>Go to getting started tab and copy the access token provided and paste in the
+          interaction studio UI</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <img class="img-size-three" src="assets/img/wp3.jpg" alt="">
+    </div>
+    <div class="mt-5">
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Enter access token</label>
+          <input type="text" name="name" class="form-control input-auth-configure" id="name" [(ngModel)]="accessToken">
+        </div>
+      </div>
+    </div>
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+ <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn btn-continue" (click)="getaccessToken(accessToken)">Next</button>
+    </div>
+  </div>
+  <!-- Fourth Page -->
+  <div *ngIf="count ==3">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>4.</span>&nbsp;<span>Provide a custom verification token in UI and click on get Webhook URL</span>
+      </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text">
+        <span class="imp-note">Note: please remember verification for later steps</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <img class="img-size-three" src="assets/img/wp3.jpg" alt="">
+    </div>
+    <div class="mt-5">
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Enter verification token</label>
+          <input type="text" name="name" class="form-control input-auth-configure" id="name"
+            [(ngModel)]="verificationToken">
+        </div>
+      </div>
+    </div>
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+      <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn btn-webhook" (click)="getWebHookUrlWhatsapp(verificationToken)">Get webhook URL</button>
+    </div>
+  </div>
+  <!-- Fifth Page -->
+  <div *ngIf="count ==4">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text">
+        <span>5.</span>&nbsp;<span>Copy the webhook URL mentioned below</span>
+ </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3   sub-text">
+        <span>6.</span>&nbsp;<span>Paste the webhoook URl to Meta webhook URL box</span>
+
+      </div>
+    </div>
+ <div class="d-flex justify-content-center mt-4">
+      <img class="img-size-three" src="assets/img/wp3.jpg" alt="">
+    </div>
+    <div class="mt-5">
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Webhook URL</label>
+
+          <input type="text" name="name" class="form-control input-auth-configure" id="name" [(ngModel)]="encryptInfoWhatsapp"
+            #userinput1 readonly>
+          <img class="copy-icon" src="assets/img/copy-icon.png" alt="" (click)=" copyWebHookURLDetail(userinput1)">
+        </div>
+ </div>
+     </div>
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+
+      <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn btn-webhook" (click)=" nextPage()">Next</button>
+    </div>
+  </div>
+  <!-- Sixth Page -->
+  <div *ngIf="count ==5">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>7.</span>&nbsp;<span>Copy the verification token shown below.</span>
+ </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>8.</span>&nbsp;<span>Paste the verification token on meta.</span>
+ </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>9.</span>&nbsp;<span>Click verify and save.</span>
+ </div>
+    </div>
+
+
+    <div class="d-flex justify-content-center mt-4">
+      <img class="img-size-three" src="assets/img/wp5.jpg" alt="">
+    </div>
+
+    <div class="mt-5">
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Enter verification token</label>
+          <input type="text" name="name" class="form-control input-auth-configure" id="name" #userinput2
+            [(ngModel)]="verificationToken" readonly>
+          <img class="copy-icon" src="assets/img/copy-icon.png" alt=""
+            (click)="copyVerificationTokenDetail(userinput2)">
+        </div>
+      </div>
+      <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+
+        <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+        <button class="btn  btn-webhook" (click)="nextPage()">Next</button>
+      </div>
+    </div>
+  </div>
+  <!-- Seventh Page -->
+  <div *ngIf="count==6">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>7.</span>&nbsp;<span>Copy the verification token shown below.</span>
+
+      </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>8.</span>&nbsp;<span>Paste the verification token on meta..</span>
+
+      </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>9.</span>&nbsp;<span>Click verify and save.</span>
+
+      </div>
+    </div>
+  <div class="d-flex justify-content-center mt-4">
+      <img class="img-size-three" src="assets/img/wp6.jpg" alt="">
+    </div>
+<div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+<button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn  btn-complete" (click)="completeWhatsappBoarding()">Complete Onboarding</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- SLACK -->
+
+<div *ngIf="showSlack">
+  <div class="row w-100 mt-0 col-md-12 text-center justify-content-center heading-text mt-4">
+    <span>Configure your Slack channel</span>
+  </div>
+
+  <!-- First Page -->
+  <div *ngIf="count ==0">
+    <div class="row w-100 mt-0 col-md-12 mt-3 ml-5  sub-text">
+      <span>1.</span>&nbsp;<span>Create a Slack account. Use the link given below to be redirected to slack onboarding
+        page.</span>
+    </div>
+    <div class="row w-100 mt-0 col-md-12 mt-2 ml-5">
+      <span class="redirecting-link mr-5">https://slack.com/signin#/signin</span>
+    </div>
+ <div class="d-flex justify-content-center mt-5">
+      <!-- <img class="img-size" src="assets/img/wp1.jpg" alt=""> -->
+      <div class="box"></div>
+    </div>
+<div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+<button class="btn btn-cancel mr-4" (click)="close()">Cancel</button>
+      <button class="btn btn-continue" (click)=" nextPage()">Start</button>
+    </div>
+  </div>
+  <!-- Second Page -->
+  <div *ngIf="count ==1">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text  ">
+        <span>2.</span>&nbsp;<span>Create a workspace to it. And also create a channel in which your bot will
+          work</span>
+
+      </div>
+</div>
+<div class="d-flex justify-content-center mt-4">
+      <!-- <img class="img-size-two" src="assets/img/wp2.jpg" alt=""> -->
+      <div class="box"></div>
+    </div>
+
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+
+      <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn btn-continue" (click)=" nextPage()">Next</button>
+    </div>
+  </div>
+  <!-- Third Page -->
+  <div *ngIf="count ==2">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text">
+        <span>3.</span>&nbsp;<span>Create an app by going to the following link:<span class="redirecting-link">
+            "https://api.slack.com/apps"</span></span>
+      </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text">
+        <span>4.</span>&nbsp;<span>In the dashboard, click create a new app and select from scratch<br> - Give app name
+          (your bot name) <br> - Select your workshop in which the app would function</span>
+      </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+      <!-- <img class="img-size-three" src="assets/img/wp3.jpg" alt=""> -->
+      <div class="box"></div>
+    </div>
+
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+
+      <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn btn-continue" (click)=" nextPage()">Next</button>
+    </div>
+  </div>
+  <!-- Fourth Page -->
+  <div *ngIf="count ==3">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text">
+        <span>5.&nbsp;</span><span>Go to Incoming Webhooks and activate it <br>- Click on "Add new Webhook to
+          workspace"<br>- Select the channel in which you want your bot to work. If no channel is created,<br> go to
+          Slack and create a new channel<br>- Click on Allow </span>
+        <span class="ml-3">You will be redirected to the incoming webhooks webpage.Deactivte incoming Webhooks now.</span>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <!-- <img class="img-size-three" src="assets/img/wp3.jpg" alt=""> -->
+      <div class="box"></div>
+    </div>
+<div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+
+      <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn btn-continue" (click)=" nextPage()">Next</button>
+    </div>
+  </div>
+  <!-- Fifth Page -->
+  <div *ngIf="count ==4">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <!-- <span>6.&nbsp;</span><span>Copy the Webhook URL and paste it in interaction Studio UI.Also copy the channel ID
+          and poste it in Interaction Studio UI.</span> -->
+          <span>6.</span>&nbsp;<span>Copy the Webhook URL and paste it in interaction Studio UI.Also copy the channel ID
+            and<br> paste it in Interaction Studio UI.</span>
+      </div>
+ </div>
+ <div class="d-flex justify-content-center mt-4">
+      <!-- <img class="img-size-three" src="assets/img/wp5.jpg" alt=""> -->
+      <div class="box"></div>
+    </div>
+    <div class="mt-5">
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Enter access token</label>
+          <input type="text" name="name" class="form-control input-auth-configure" id="name">
+        </div>
+      </div>
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Enter Channel ID</label>
+          <input type="text" name="name" class="form-control input-auth-configure" id="name">
+        </div>
+      </div>
+    </div>
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+
+      <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn  btn-webhook" (click)=" getWebHookUrlSlack()">Get webhook URL</button>
+    </div>
+  </div>
+  <!-- Sixth Page -->
+  <div *ngIf="count ==5">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3 sub-text ">
+        <span>6.&nbsp;</span><span>Copy the Webhook URL and paste it in interaction Studio UI.Also copy the channel ID
+          and <br>paste it in Interaction Studio UI.</span>
+
+      </div>
+
+    </div>
+ <div class="d-flex justify-content-center mt-4">
+      <!-- <img class="img-size-three" src="assets/img/wp5.jpg" alt=""> -->
+      <div class="box"></div>
+    </div>
+    <div class="mt-5">
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Webhook URL</label>
+          <input type="text" name="name" class="form-control input-auth-configure" id="name" [(ngModel)]="encryptInfoSlack" #userinput5 readonly>
+          <img class="copy-icon" src="assets/img/copy-icon.png" alt="" (click)=" copyWebHookURLDetail(userinput5)">
+        </div>
+      </div>
+    </div>
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+
+      <button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn  btn-webhook" (click)="nextPage()">Next</button>
+    </div>
+  </div>
+  <!-- Seventh Page -->
+  <div *ngIf="count ==6">
+    <div class="ml-5">
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>7.</span>&nbsp;<span>Now copy the URL from IS and paste it in the URL of "Events and Subscriptions" as
+          well as<br>"Interactivity and Shortcuts"
+          <br>"https://intelligence.polynomial.ai/directline_dev/polyline/slack/webhook/?botType</span>
+
+      </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>8.</span>&nbsp;<span>Click on Complete on the Interaction Studio UI.</span>
+
+      </div>
+      <div class="row w-100 mt-0 col-md-12 mt-3  sub-text ">
+        <span>9.</span>&nbsp;<span>You are ready to Go.</span>
+
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <img class="img-size" src="assets/img/wp1.jpg" alt="">
+    </div>
+    <div class="mt-5">
+      <div class="pl-5 pr-5 mt-2 w-100">
+        <div class="form-group">
+          <label class="field-name">Webhook URL</label>
+          <input type="text" name="name" class="form-control input-auth-configure" id="name" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-4">
+<button class="btn btn-cancel mr-4" (click)="back()">Back</button>
+      <button class="btn  btn-webhook">Complete</button>
+    </div>
+  </div>
+</div>

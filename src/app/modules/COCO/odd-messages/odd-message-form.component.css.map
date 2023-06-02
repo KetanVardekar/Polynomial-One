@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,SAAS,CAAA;EACL,MAAM,EAAC,OAAO;CACjB;;AACD,AAAA,SAAS,AAAA,MAAM,CAAA;EACX,KAAK,EAAC,oBAAoB;CAC7B",
+    "sources": [
+        "odd-message-form.component.scss"
+    ],
+    "names": [],
+    "file": "odd-message-form.component.css"
+}

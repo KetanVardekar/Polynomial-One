@@ -1,0 +1,1480 @@
+<div class="ml-81">
+  <div class="row col-12 mb-0 d-flex justify-content-between ">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;RESPONSE LIBRARY</span>
+    </p>
+    <div>
+      <button class="btn btn-primary mt-4" value="" routerLink="/response-library">
+        Back
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-container d-flex p-3 ml-3 mr-3 row">
+        <h5 class="d-flex align-items-center heading col-lg-9 col-md-9 col-12 p-0">
+          <span class="heading">Intents</span>
+          <span class="ml-2 mr-2 dash">|</span>
+          <span class="intent-name">{{ intentName }}</span>
+        </h5>
+        <div class="button-container ml-auto col-lg-3 col-md-3 col-12 text-end">
+          <!-- *ngIf="conversationArray.length>0" (click)="deleteResponse()" -->
+          <button class="btn btn-shona font-change" (click)="deleteResponse()">Delete responses</button>
+          <!-- *ngIf="conversationArray.length>0 && !showUpdateButton"
+                  (click)="addResponse()" -->
+          <button *ngIf="conversationArray.length>=0 && !showUpdateButton" class="btn btn-shona ml-2 font-change"
+            (click)="addResponse()">
+            Save
+          </button>
+          <button *ngIf="conversationArray.length>0 && showUpdateButton" class="btn btn-shona ml-2 font-change"
+            (click)="uploadResponseList()">
+            Update
+          </button>
+          <!-- *ngIf="conversationArray.length>0 && showUpdateButton"
+                  (click)="updateResponse()" -->
+          <!-- <button class="btn btn-shona ml-2" routerLink="/response-library">
+            Back
+          </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3 w-100 mr-0 ml-0">
+    <div class="col-md-6 col-lg-6 col-sm-12 w-100">
+      <div class="card-container p-3 pl-4 pr-4">
+        <div class="d-flex justify-content-between">
+          <span class="font-change">Add Global Response</span>
+          <label class="switch ml-auto mb-0" [ngClass]="'' ? 'disabled' : ''">
+            <input type="checkbox" class="form-control" id="globalResponse" (change)="grChangeHandler()"
+              name="globalResponse" [(ngModel)]="globalResponse" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="d-flex justify-content-between mt-2">
+          <span class="font-change">Add Condition</span>
+          <label class="switch ml-auto mb-0" [ngClass]="'' ? 'disabled' : ''">
+            <input type="checkbox" id="conditionResponse" class="form-control" name="conditionResponse"
+              [(ngModel)]="conditionResponse" />
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      <div class="card-container mt-3 p-3 pl-4 pr-4" *ngIf="globalResponse">
+        <label class="font-change">Add previous intent</label>
+        <form class="d-flex" [formGroup]="prevIntentForm" id="prevIntentForm">
+          <div class="d-flex justify-content-between w-100">
+            <div class="form-group d-flex align-items-center w-100 pr-4">
+              <ng-select name="textInput" id="textInput" class="w-100" required formControlName="textInput">
+                <ng-option value="">No intent selected</ng-option>
+                <ng-option [value]="intent" *ngFor="let intent of intentsArray">
+                  {{ intent.intentName }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-shona ml-0 font-change" type="submit" *ngIf="!prevIntentUpdate"
+                (click)="addPreviousIntent()">
+                Add
+              </button>
+              <button class="btn btn-shona ml-0 font-change" type="submit" *ngIf="prevIntentUpdate"
+                (click)="updatePreviousIntent()">
+                Update
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-container mt-3 p-3 pl-4 pr-4" *ngIf="conditionResponse">
+        <label class="font-change">Add Condition</label>
+        <form class="d-flex" [formGroup]="conditionForm" id="conditionForm">
+          <div class="form-group flex-grow-1 pl-0">
+            <input placeholder="Add text" class="form-control" name="textInput" formControlName="textInput" type="text"
+              required />
+          </div>
+          <div class="form-group d-flex align-items-center flex-grow-1">
+            <label for="isFreetext" class="mb-0 font-change">Freetext</label>
+            <label class="switch ml-2 mb-0">
+              <input type="checkbox" class="form-control" id="isFreeText" name="isFreeText"
+                formControlName="isFreeText" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="form-group flex-grow-1">
+            <button class="btn btn-shona ml-0" type="submit" *ngIf="!condUpdate" (click)="addCondition()" [disabled]="
+                conditionForm.get('textInput').value === null ||
+                conditionForm.get('textInput').value === ''
+              ">
+              Add
+            </button>
+            <button class="btn btn-shona ml-0" type="submit" *ngIf="condUpdate" (click)="updateCondition()" [disabled]="
+                conditionForm.get('textInput').value === null ||
+                conditionForm.get('textInput').value === ''
+              ">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-container mt-3 p-3 pl-4 pr-4" *ngIf="
+          (globalResponse && conversationArray.length > 0) || !globalResponse
+        ">
+        <div class="d-flex justify-content-between">
+          <label class="mt-2  font-change">Add Response</label>
+          <div class="d-flex mt-0 align-items-center btn-container">
+            <button [ngClass]="textResponse ? 'active' : ''" (click)="txtVoiceRespChngHandler('text')"
+              class="btn btn-link font-change">
+              Text
+            </button>
+            <!-- <button [ngClass]="voiceResponse ? 'active' : ''" (click)="txtVoiceRespChngHandler('voice')"
+              class="btn btn-link">
+              Voice
+            </button> -->
+            <ng-select class="ml-3 select-rich-cards select-input" (change)="rcChangeHandler()" [(ngModel)]="selectedRC"
+              placeholder="Select Rich Card">
+              <ng-option value="" selected disabled>Select Rich Card</ng-option>
+              <ng-option class="option-card" [value]="item" *ngFor="let item of rcList">{{
+                item
+                }}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-container mt-3 p-3 pl-4 pr-4 mb-3" *ngIf="selectedRC != '' || textResponse || voiceResponse">
+        <div class="response-form-container">
+          <!------------ Text response ----------->
+
+          <div class="text" *ngIf="textResponse">
+            <h6>Text response</h6>
+            <form class="d-flex align-items-center" *ngIf="responseTypeArray.length == 0 || update">
+              <div class="form-group flex-grow-1 pl-0">
+                <input placeholder="Add text" class="form-control" name="textInput" [(ngModel)]="textInput"
+                  type="text" />
+              </div>
+              <div class="form-group">
+                <button class="btn btn-shona" *ngIf="!update" (click)="addTextResponse()">
+                  Add
+                </button>
+                <button class="btn btn-shona" *ngIf="update" (click)="updateTextResponse()">
+                  Update
+                </button>
+              </div>
+            </form>
+            <div class="range-container" *ngIf="responseTypeArray.length > 0 && !update">
+              <ng-container *ngFor="let rt of tTypeArray.controls; let i = index">
+                <div [formGroup]="rt">
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Response Type" class="form-control" readonly name="responseType"
+                      formControlName="responseType" type="text" required />
+                  </div>
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Text Response" class="form-control" name="text" formControlName="text"
+                      type="text" required />
+                  </div>
+                </div>
+              </ng-container>
+              <div class="form-group flex-grow-1">
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="!update" (click)="addTResp()">
+                  Add to Preview
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="update" (click)="updateTResp()">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!------------ Voice response ----------->
+
+          <div class="text" *ngIf="voiceResponse">
+            <h6>Voice response</h6>
+            <form class="d-flex align-items-center" *ngIf="responseTypeArray.length == 0 || update">
+              <div class="form-group flex-grow-1 pl-0">
+                <input placeholder="Add voice message" class="form-control" name="voiceInput" [(ngModel)]="voiceInput"
+                  type="text" />
+              </div>
+              <div class="form-group">
+                <button class="btn btn-shona" *ngIf="!update" (click)="addVoiceResponse()">
+                  Add
+                </button>
+                <button class="btn btn-shona" *ngIf="update" (click)="updateVoiceResponse()">
+                  Update
+                </button>
+              </div>
+            </form>
+            <div class="range-container" *ngIf="responseTypeArray.length > 0 && !update">
+              <ng-container *ngFor="let rt of vTypeArray.controls; let i = index">
+                <div [formGroup]="rt">
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Response Type" class="form-control" readonly name="responseType"
+                      formControlName="responseType" type="text" required />
+                  </div>
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Text Response" class="form-control" name="text" formControlName="text"
+                      type="text" required />
+                  </div>
+                </div>
+              </ng-container>
+              <div class="form-group flex-grow-1">
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="!update" (click)="addVResp()">
+                  Add to Preview
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="update" (click)="updateVResp()">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!------------ Plain Quick Reply  ----------->
+
+          <div class="text" *ngIf="selectedRC == 'Plain Quick Reply'">
+            <form class="d-flex flex-column form-section" [formGroup]="pqrForm" id="pqrForm">
+              <h6 class="m-2 text-center">{{ selectedRC }}</h6>
+              <div class="d-flex justify-content-center align-items-center flex-row">
+                <div class="form-group flex-grow-1">
+                  <input placeholder="Add text" class="form-control" name="textInput" formControlName="textInput"
+                    type="text" required />
+                </div>
+                <div class="form-group flex-grow-1">
+                  <input placeholder="Add value" class="form-control" name="textInput" formControlName="valueInput"
+                    type="text" required />
+                </div>
+              </div>
+
+              <div class="text-center mb-2">
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="!update" (click)="addPQR()">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="update" (click)="updatePQR()">
+                  Update
+                </button>
+              </div>
+            </form>
+
+            <!--Plain Quick Reply list-->
+            <div class="pqr-container" *ngif="pqrList&&pqrList.lenth">
+              <button class="pqr-button" *ngFor="let pqr of pqrList; let i = index" [title]="pqr.value">
+                {{ pqr.text }}
+                <i class="fa fa-close" (click)="removePQR(i, 0)" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-shona" *ngIf="pqrList.length > 0" (click)="addToConversation(selectedRC, pqrList)">
+                Add to preview
+              </button>
+            </div>
+          </div>
+
+          <!---------------------Rounded Quick Reply--------------->
+
+          <div class="text" *ngIf="selectedRC == 'Rounded Quick Reply'">
+            <form class="d-flex form-response form-section" [formGroup]="rqrForm" id="rqrForm">
+              <h6 class="m-2">{{ selectedRC }}</h6>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Add text" class="form-control" name="textInput" formControlName="textInput"
+                  type="text" required />
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Add value" class="form-control" name="textInput" formControlName="valueInput"
+                  type="text" required />
+              </div>
+              <div class="form-group text-center flex-grow-1">
+                <button *ngIf="!update" class="btn btn-shona ml-0" type="submit" (click)="addRQR()">
+                  Add
+                </button>
+                <button *ngIf="update" class="btn btn-shona ml-0" type="submit" (click)="updateRQR()">
+                  Update
+                </button>
+              </div>
+            </form>
+
+            <!--Rounded Quick Reply list-->
+            <div class="pqr-container" *ngIf="rqrList&&rqrList.length">
+              <button class="pqr-button rounded" *ngFor="let rqr of rqrList; let i = index" [title]="rqr.value">
+                {{ rqr.text }}
+                <i class="fa fa-close" (click)="removeRQR(i, 0)" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-shona" *ngIf="rqrList.length > 0" (click)="addToConversation(selectedRC, rqrList)">
+                Add to preview
+              </button>
+            </div>
+          </div>
+
+          <!------------ Icon Quick Reply----------->
+
+          <div class="text" *ngIf="selectedRC == 'Icon Quick Reply'">
+            <form class="d-flex form-response form-section" [formGroup]="iqrForm" id="iqrForm">
+              <h6 class="m-2">{{ selectedRC }}</h6>
+              <div class="form-group full-width text-center flex-grow-1">
+                <input placeholder="Upload image" class="form-control" name="icon" (change)="upload($event)"
+                  accept=".jpg, .jpeg, .png" type="file" required />
+                <div class="or mt-2">or</div>
+                <input class="form-control mt-2" placeholder="Paste icon link here" name="icon" formControlName="icon"
+                  type="text" required />
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Add text" name="textInput" class="form-control" formControlName="textInput"
+                  type="text" required />
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Add value" name="textInput" class="form-control" formControlName="valueInput"
+                  type="text" required />
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0" *ngIf="!update" type="submit"
+                  [disabled]='iqrForm.invalid || isNextDisabled' (click)="addIQR()">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-0" *ngIf="update" type="submit" (click)="updateIQR()">
+                  Update
+                </button>
+              </div>
+            </form>
+
+            <!--Icon Quick Reply-->
+            <div class="pqr-container" *ngif="iqrList&&iqrList.length">
+              <button class="pqr-button" *ngFor="let iqr of iqrList; let i = index" [title]="iqr.value">
+                <img [src]="iqr.iconUrl" [alt]="iqr.value" />
+                {{ iqr.text }}
+                <i class="fa fa-close" (click)="removeIQR(i, 0)" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-shona" *ngIf="iqrList.length > 0" (click)="addToConversation(selectedRC, iqrList)">
+                Add to preview
+              </button>
+            </div>
+          </div>
+
+          <!------------ Image reply----------->
+
+          <div class="text" *ngIf="selectedRC == 'Image Reply'">
+            <form class="d-flex form-response form-section" [formGroup]="imageReplyForm" id="imageReplyForm">
+              <h6 class="m-2">{{ selectedRC }}</h6>
+              <div class="form-group full-width text-center flex-grow-1">
+                <input placeholder="Upload image" class="form-control" name="image" (change)="upload($event)"
+                  accept=".jpg, .jpeg, .png" type="file" required />
+                <span class="or mt-2">or</span>
+                <input placeholder="Paste image link here" class="form-control mt-2" name="image"
+                  formControlName="image" type="text" required />
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Add text" name="textInput" class="form-control" formControlName="textInput"
+                  type="text" required />
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Add value" name="textInput" class="form-control" formControlName="valueInput"
+                  type="text" required />
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0" *ngIf="!update" type="submit" (click)="addImageReply()"
+                  [disabled]='imageReplyForm.invalid || isNextDisabled'>
+                  Add
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" (click)="updateImageReply()" *ngIf="update">
+                  Update
+                </button>
+              </div>
+            </form>
+
+            <!--Image Reply-->
+            <div class="pqr-container image-reply" *ngif="imageReplyList&&imageReplyList.length">
+              <div class="ir" *ngFor="let ir of imageReplyList; let i = index">
+                <div><img [src]="ir.imageUrl" [alt]="ir.value" /></div>
+                <p>{{ ir.text }}</p>
+                <i class="fa fa-close" (click)="removeImageReply(i, 0)" aria-hidden="true"></i>
+              </div>
+              <button class="btn btn-shona" *ngIf="imageReplyList.length > 0"
+                (click)="addToConversation(selectedRC, imageReplyList)">
+                Add to preview
+              </button>
+            </div>
+          </div>
+
+          <!------------ Slider card----------->
+
+          <div class="text" *ngIf="selectedRC == 'Slider'">
+            <form class="d-flex form-response form-section" [formGroup]="sliderForm" id="sliderForm">
+              <h6 class="m-2">{{ selectedRC }}</h6>
+
+
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <input placeholder="Slider Title" class="form-control" name="title" formControlName="title"
+                    type="text" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <input placeholder="Minimum value" class="form-control" name="min" min="0" formControlName="min"
+                    type="number" required (keypress)="numericOnly($event)" (keyup)="minChange()" />
+                </div>
+                <div class="form-group col-md-6 ">
+                  <input placeholder="Maximum value" class="form-control" name="max" min="0" formControlName="max"
+                    type="number" required (keyup)="maxChange()" (keypress)="numericOnly($event)" />
+                </div>
+              </div>
+              <hr>
+
+              <ng-container *ngFor="let rangeItem of rangeArray.controls; let i = index ">
+                <div class="range-item row text-center justify-content-center" [formGroup]="rangeItem">
+                  <!-- <i class="fa fa-close position-absolute pointer" style=" right: 30px"
+                    *ngIf="rangeArray.controls.length > 1" (click)="removeSlider(i)"
+                            aria-hidden="true"></i> -->
+
+                  <div class="form-group col-md-5">
+                    <input placeholder="Title" class="form-control" name="rangeTitle" formControlName="rangeTitle"
+                      type="text" required />
+                  </div>
+                  <div class="form-group col-md-5 ">
+                    <input placeholder="Value" class="form-control" name="rangeValue" min="0"
+                      formControlName="rangeValue" type="number" required (keypress)="numericOnly($event)" />
+
+                  </div>
+
+                  <span class="close-icon">
+                    <i class="fa fa-close  pointer" style="top: 1px; right: 1px" *ngIf="rangeArray.controls.length > 1"
+                      (click)="removeSlider(i)" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </ng-container>
+
+              <div class="range-controls d-flex justify-content-center mt-2">
+                <button class="btn btn-shona mr-2" (click)="addRange()"
+                  [disabled]="(this.maxValue===this.addedLength) && (this.rangeArray.length ===this.maxValue) ">
+                  Add
+                </button>
+                <!-- <button class="btn btn-shona" (click)="removeRange()">
+                  Remove
+                </button> -->
+
+              </div>
+
+              <hr>
+              <div class="form-group d-flex justify-content-center">
+                <button class="btn btn-shona ml-0" *ngIf="!update" type="submit" (click)="addSlider()"
+                  [disabled]="(sliderForm.invalid || isPreviewDisabled)">
+                  Add to preview
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" (click)="updateSlider()" *ngIf="update">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!------------ Icon Message ----------->
+
+          <div class="text" *ngIf="selectedRC == 'Icon Message'">
+            <form class="d-flex form-response form-section" [formGroup]="imForm" id="imForm">
+              <h6 class="m-2">{{ selectedRC }}</h6>
+              <div class="form-group full-width text-center flex-grow-1">
+                <input placeholder="Upload image" class="form-control" name="icon" (change)="upload($event)"
+                  accept=".jpg, .jpeg, .png" type="file" required />
+                <div class="or mt-2">or</div>
+                <input class="form-control mt-2" placeholder="Paste icon link here" name="icon" formControlName="icon"
+                  type="text" required />
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Add message" class="form-control" name="message" formControlName="message"
+                  type="text" required />
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0 " *ngIf="!update" type="submit"
+                  [disabled]='imForm.invalid || isNextDisabled' (click)="addIM()">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" (click)="updateIM()" *ngIf="update">
+                  Update
+                </button>
+              </div>
+            </form>
+
+            <!--Icon message list-->
+
+            <div class="pqr-container" *ngif="imList&&imList.length">
+              <button class="pqr-button" *ngFor="let im of imList; let i = index">
+                <img [src]="im.url" alt="message icon" />
+                {{ im.message }}
+                <i class="fa fa-close" (click)="removeIM(i, 0)" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-shona" *ngIf="imList.length > 0" (click)="addToConversation(selectedRC, imList)">
+                Add to preview
+              </button>
+            </div>
+          </div>
+
+          <!------------ Image response ----------->
+
+          <div class="text" *ngIf="selectedRC == 'Image Response'">
+            <form class="d-flex form-response  form-section" [formGroup]="irspForm" id="irspForm">
+              <h6 class="m-2">{{ selectedRC }}</h6>
+              <div class="form-group full-width text-center flex-grow-1">
+                <input placeholder="Upload image" class="form-control" name="icon" (change)="upload($event)"
+                  accept=".jpg, .jpeg, .png" type="file" required />
+                <div class="or mt-2">or</div>
+
+                <input class="form-control mt-2" placeholder="Paste image link here" name="image"
+                  formControlName="image" type="text" required />
+
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0" type="submit" (click)="addIRsp()" *ngIf="!update"
+                  [disabled]='irspForm.invalid || isNextDisabled'>
+                  Add
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" (click)="updateIRsp()" *ngIf="update">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!------------ Feedback Card ----------->
+
+          <div class="text" *ngIf="selectedRC == 'Feedback Card'">
+            <form class="d-flex form-response form-section" [formGroup]="feedbackForm" id="feedbackForm">
+              <span>
+                <h6 class="m-2">{{ selectedRC }}</h6>
+              </span>
+              <div class="d-flex align-items-center flex-column full-width">
+                <div class="full-width">
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Title" class="form-control" type="text" name="title" formControlName="title" />
+                  </div>
+                </div>
+                <div class="d-flex align-items-center full-width">
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Min Value" name="min" (keyup)="boundary('min')" formControlName="min"
+                      class="form-control" min="1" type="number" required />
+                  </div>
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Max value" name="max" (keyup)="boundary('max')" formControlName="max"
+                      class="form-control" min="1" type="number" required />
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!--Feedback star list-->
+            <form class="d-flex form-response star-container">
+              <div class="form-group flex-grow-1" *ngFor="let star of starsArray; let i = index">
+                <i *ngFor="let star of generateArray(star.input)" class="fa fa-star" aria-hidden="true"></i>
+                <input placeholder="Text" class="form-control" [(ngModel)]="star.value" type="text"
+                  [name]="'star' + i" />
+              </div>
+              <span class="d-flex justify-content-center">
+
+                <button class="btn btn-shona preview-btn" [disabled]="starsArray.length == 0" *ngIf="!update"
+                  (click)="addToConversation(selectedRC, starsArray)">
+                  Add to preview
+                </button>
+                <button class="btn btn-shona" *ngIf="starsArray.length > 0 && update" (click)="updateFeedbackCard()">
+                  Update
+                </button>
+              </span>
+            </form>
+          </div>
+
+          <!------------ Visual Reply ----------->
+
+          <div class="text" *ngIf="selectedRC == 'Visual Reply'">
+            <form class="d-flex form-response form-section" [formGroup]="vrForm" id="vrForm">
+              <h6 class="m-2 text-center">{{ selectedRC }}</h6>
+              <div class="form-group full-width text-center flex-grow-1">
+                <input placeholder="Upload image" class="form-control" name="icon" (change)="upload($event)"
+                  accept=".jpg, .jpeg, .png" type="file" required />
+                <div class="or mt-2">or</div>
+                <input class="form-control mt-2" placeholder="Paste image link here" name="image"
+                  formControlName="image" type="text" />
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <ng-select name="imagePosition" class="w-100" (change)="selectionChanged($event)"
+                  formControlName="imagePosition" placeholder="Select Position">
+                  <ng-option value="">Select position</ng-option>
+                  <ng-option value="Top">Top</ng-option>
+                  <ng-option value="Bottom">Bottom</ng-option>
+                </ng-select>
+              </div>
+              <div class="form-group full-width flex-grow-1">
+                <input placeholder="Value" class="form-control" type="text" name="text" formControlName="text" />
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0" *ngIf="!update" type="submit"
+                  [disabled]='vrForm.invalid || isNextDisabled' (click)="addToConversation(selectedRC, '')">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-0" *ngIf="update" type="submit" (click)="updateVisualReply()">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!------------Greetings Response------->
+          <div class="paragraph" *ngIf="selectedRC == 'Greetings Card'">
+            <form class="form-section">
+              <h6 class="m-2 text-center">Add Greetings Message</h6>
+              <div class="form-group flex-grow-1">
+                <input placeholder="This rich card will show Good Morning / Good Evening / Good Night / Good Afternoon"
+                  class="form-control" type="text" [(ngModel)]="greetingsInput" name="greetingsInput" />
+              </div>
+              <div class="text-center mb-3">
+                <button class="btn btn-shona ml-2" *ngIf="!update" (click)="addGreetingsResponse()">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-2" *ngIf="update" (click)="updateGreetingsResponse()">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+
+
+          <!------------ Paragraph Card ----------->
+
+          <div class="paragraph" *ngIf="selectedRC == 'Paragraph'">
+            <form class="form-section">
+              <h6 class="m-2 text-center">Add Paragraph</h6>
+              <editor [init]="{
+                height: 200,
+                menubar: false,
+                base_url: '/tinymce', suffix: '.min',
+                plugins: ['image code ','advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code wordcount'],automatic_uploads: true,
+                            file_picker_types: 'image', 'theme_advanced_buttons3_add': 'code',
+                branding: false,
+                toolbar:
+                  'undo redo | formatselect | bold italic underline backcolor forecolor |\ fontsize div  | \
+                  bullist numlist |\ p h1 h2 h3 h4 h5 h6 address fontname  blockquote strikethrough subscript superscript aligncenter alignright alignleft'
+              }" [(ngModel)]="paragraphInput" name="paragraphInput"></editor>
+              <div class=" flex-grow-1">
+
+                <!-- <textarea
+                  class="form-control"
+                  class="form-control"
+                  [(ngModel)]="paragraphInput"
+                  name="paragraphInput"
+                  placeholder="Add paragraph here"
+                ></textarea> -->
+              </div>
+              <div class="text-center mb-2 mt-2">
+                <button class="btn btn-shona ml-2" *ngIf="!update" (click)="addParagraphResponse()">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-2" *ngIf="update" (click)="updateParagraphResponse()">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!------------ Message Card ----------->
+
+          <div class="paragraph" *ngIf="selectedRC == 'Message'">
+            <form class="form-section">
+              <h6 class="m-2 text-center">Add Message</h6>
+              <div class="form-group flex-grow-1">
+                <editor [init]="{
+                    height: 200,
+                    menubar: false,
+                    base_url: '/tinymce', suffix: '.min',
+                    plugins: ['image code ','advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code wordcount'],automatic_uploads: true,
+                                file_picker_types: 'image', 'theme_advanced_buttons3_add': 'code',
+                    branding: false,
+                    toolbar:
+                      'undo redo | formatselect | bold italic underline backcolor forecolor |\ fontsize div  | \
+                      bullist numlist |\ p h1 h2 h3 h4 h5 h6 address fontname  blockquote strikethrough subscript superscript aligncenter alignright alignleft'
+                  }" [(ngModel)]="messageInput" name="messageInput" [ngModelOptions]="{standalone: true}"></editor>
+              </div>
+              <div class="text-center mb-3">
+                <button class="btn btn-shona ml-2" *ngIf="!update" (click)="addMessageResponse()">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-2" *ngIf="update" (click)="updateMessageResponse()">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+          <!-- ---------------- Download Card------------------ -->
+          <div *ngIf="selectedRC == 'Download Card'">
+            <form class="form-section" [formGroup]="dcForm" id="dcForm">
+              <h6 class="mt-1 ml-2 mb-0 text-center">Add Title</h6>
+              <div class="form-group flex-grow-1 mb-0">
+                <input placeholder="Add Title Here" class="form-control" type="text" formControlName="title" />
+              </div>
+              <h6 class="m-2 text-center">Add Message</h6>
+              <textarea placeholder=" Enter Your Message Here.." formControlName="message"
+                class="msg-details"></textarea>
+
+              <h6 class="mt-0 ml-2 mb-0 text-center">Add File</h6>
+              <div class="form-group full-width text-center flex-grow-1">
+                <input placeholder="Upload File Here" class="form-control" name="file" (change)="upload($event)"
+                  accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  type="file" required />
+                <div class="or mt-2">or</div>
+                <input class="form-control mt-2" placeholder="Paste icon link here" name="file" formControlName="file"
+                  type="text" required />
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0 " type="submit" (click)="addToConversation(selectedRC, '')"
+                  [disabled]='dcForm.invalid || isNextDisabled' *ngIf="!update">
+                  Add
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" [disabled]='dcForm.invalid || isNextDisabled'
+                  (click)="updateDownloadCard()" *ngIf="update">
+                  Update
+                </button>
+                <!-- <button class="btn btn-shona ml-0" type="submit" >
+                  Update
+                </button> -->
+              </div>
+            </form>
+          </div>
+
+
+          <!-- ---------------- video Carousal------------------ -->
+          <div *ngIf="selectedRC == 'Video Carousal'">
+            <form class="form-section" [formGroup]="videoCarouselForm" id="vcForm">
+              <h6 class="text-center m-2">{{ selectedRC }}</h6>
+              <div class="form-section position-relative"
+                *ngFor="let data of videoCarouselArray.controls; let i = index">
+                <h6 class="text-center mb-0 pl-2">Video - {{ i+1 }}</h6>
+                <i class="fa fa-close position-absolute" style="top: 1px; right: 1px"
+                  *ngIf="videoCarouselArray.controls.length > 1" (click)="removeVideoCarousel(i)"
+                  aria-hidden="true"></i>
+                <ng-container [formGroup]="data">
+                  <h6 class="m-2 text-center">Add Title</h6>
+                  <div class="form-group flex-grow-1 mb-0 title-field mt-0">
+                    <input placeholder="Add Title Here" class="form-control" type="text" name="title"
+                      formControlName="title" />
+                  </div>
+                  <h6 class="m-2 text-center">Add Description</h6>
+                  <textarea placeholder=" Enter Your Description Here.." required class="description-details msg-details"
+                    formControlName="description"></textarea>
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 ">
+                      <h6 class="m-2 text-center">Add Thumbnail</h6>
+                      <input placeholder="Add Thumbnail Here" class="form-control" type="file"
+                        accept=".jpg, .jpeg, .png" name="thumbnail" (change)="upload($event,'thumbnail',i)" required />
+                      <div class="or mt-2 text-center">or</div>
+                      <input class="form-control mt-2" placeholder="Paste Thumbnail link here" name="thumbnail"
+                        formControlName="thumbnail" type="text" required />
+
+                    </div>
+                    <div class="col-md-6 col-lg-6 ">
+                      <h6 class="m-2 text-center">Add Video URL</h6>
+                      <input placeholder="Add Video URL Here" class="form-control" type="file" name="videoUrl"
+                        (change)="upload($event,'video',i)" accept="video/mp4,video/x-m4v,video/*" required />
+                      <div class="or mt-2 text-center">or</div>
+                      <input class="form-control mt-2" placeholder="Paste Video URL link here" name="videoUrl"
+                        formControlName="videoUrl" type="text" required />
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                      <h6 class="m-2 text-center">Add Tags</h6>
+                      <input placeholder="Add Tags Here" class="form-control" type="text" name="tags"
+                        formControlName="tagName" />
+                      <div class="w-100 text-center">
+                        <button class="btn btn-shona ml-0 mt-3" type="submit" (click)="addTag(i)">
+                          Add Tags
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                      <div class="tag-container">
+                        <div class="added-tag-container d-flex justify-content-start ">
+                          <div class="">
+                            <span class="tag mr-2" *ngFor="let tags of data.get('tags').value; let i = index ">
+                              {{tags}}
+                              <span class="cancel-icon pl-1" (click)="deleteTag(i)">
+                                <img class="pointer" src="assets/img/White cancel icon.svg" width="10" height="10" />
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                </ng-container>
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0 mr-3 " type="submit" (click)="addVideoCarouselData()">
+                  Add Video
+                </button>
+                <button class="btn btn-shona ml-0 " type="submit" [disabled]="videoCarouselForm.status !== 'VALID' "
+                  *ngIf="!update" (click)="addVideoCarouselResp()">
+                  Add to Preview
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="update" (click)="updateVideoCarouselResp()">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!------------ Ticket Card ----------->
+
+          <div class="text" *ngIf="selectedRC == 'Ticket Card'">
+            <form class="d-flex form-response form-section" [formGroup]="ticketForm" id="ticketForm">
+              <h6 class="m-2">{{ selectedRC }}</h6>
+              <div class="pqr-container text-center">
+                <div class="form-section position-relative" *ngFor="let ticket of ticketArray.controls; let i = index">
+                  <div class="text-center">Ticket</div>
+                  <i class="fa fa-close position-absolute" style="top: 1px; right: 1px"
+                    *ngIf="ticketArray.controls.length > 1" (click)="removeTicket(i)" aria-hidden="true"></i>
+                  <div class="range-item" [formGroup]="ticket">
+                    <div class="form-group flex-grow-1">
+                      <input placeholder="Title of Ticket" class="form-control" name="title" formControlName="title"
+                        type="text" required />
+                    </div>
+                  </div>
+
+                  <div class="pqr-container text-center">
+                    <div class="form-section">
+                      <div class="text-center">Add Data</div>
+                      <ng-container *ngFor="
+                      let data of ticket.get('data').controls;
+                      let j = index
+                    ">
+                        <div class="range-item position-relative" [formGroup]="data">
+                          <i class="fa fa-close position-absolute" style="top: 18px; right: -3px"
+                            *ngIf="ticket.get('data').controls.length > 1" (click)="removeTicketData(i, j)"
+                            aria-hidden="true"></i>
+                          <div class="form-group flex-grow-1">
+                            <input placeholder="Key" name="key" class="form-control" formControlName="key" type="text"
+                              required />
+                          </div>
+                          <div class="form-group flex-grow-1">
+                            <input placeholder="Value" class="form-control" name="value" formControlName="value"
+                              type="text" required />
+                          </div>
+                        </div>
+                      </ng-container>
+                      <div class="text-center">
+                        <button class="btn btn-shona ml-0" (click)="addTicketData(i)">
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div></div>
+                  <div class="pqr-container text-center">
+                    <div class="form-section">
+                      <div class="text-center">Actions</div>
+                      <ng-container *ngFor="
+                      let action of ticket.get('action').controls;
+                      let j = index
+                    ">
+                        <div class="range-item position-relative" [formGroup]="action">
+                          <i class="fa fa-close position-absolute" style="top: 18px; right: -3px"
+                            *ngIf="ticket.get('action').controls.length > 1" (click)="removeTicketAction(i, j)"
+                            aria-hidden="true"></i>
+                          <div class="form-group flex-grow-1">
+                            <input placeholder="Title" class="form-control" name="title" formControlName="title"
+                              type="text" required />
+                          </div>
+                          <div class="form-group flex-grow-1">
+                            <input placeholder="Value" class="form-control" name="value" formControlName="value"
+                              type="text" required />
+                          </div>
+                        </div>
+
+                      </ng-container>
+                      <div class="text-center">
+                        <button class="btn btn-shona ml-0" (click)="addTicketAction(i)">
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group flex-grow-1">
+                  <button class="btn btn-shona ml-0" type="submit" *ngIf="!update" (click)="addTicket()">
+                    Add ticket
+                  </button>
+                  <button class="btn btn-shona ml-0" type="submit" *ngIf="update" (click)="updateTicket()">
+                    Update
+                  </button>
+                </div>
+              </div>
+            </form>
+            <hr>
+            <!--Ticket cards list-->
+            <span class="d-flex justify-content-center">
+              <button class="btn btn-shona " *ngIf="!update" (click)="addTicketToPreview()">
+                Add to preview
+              </button></span>
+
+          </div>
+
+          <!--Carousel Form-->
+
+          <div class="text" *ngIf="selectedRC == 'Carousel'">
+            <form class="d-flex form-response" [formGroup]="carouselForm" id="carouselForm">
+              <div class="form-section position-relative" *ngFor="let data of carouselArray.controls; let i = index">
+                <h6 class="text-center m-2">{{ selectedRC }}</h6>
+                <i class="fa fa-close position-absolute" style="top: 1px; right: 1px"
+                  *ngIf="carouselArray.controls.length > 1" (click)="removeCarousel(i)" aria-hidden="true"></i>
+                <ng-container [formGroup]="data">
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Title" class="form-control" name="title" formControlName="title" type="text"
+                      required />
+                  </div>
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Subtitle" class="form-control" name="subtitle" formControlName="subtitle"
+                      type="text" required />
+                  </div>
+                  <div class="form-group text-center flex-grow-1">
+                    <input placeholder="Upload image" class="form-control" name="image" (change)="upload($event)"
+                      accept=".jpg, .jpeg, .png" type="file" required />
+                    <span class="or">OR</span>
+                    <input placeholder="Paste image link here" class="form-control" name="imageURL"
+                      formControlName="imageURL" type="text" required />
+                  </div>
+                  <div class="form-group flex-grow-1">
+                    <input placeholder="Add value" class="form-control" name="value" formControlName="value" type="text"
+                      required />
+                  </div>
+                  <div class="description-container form-section">
+                    <ng-container *ngFor="
+                        let description of data.get('description').controls;
+                        let j = index
+                      ">
+                      <div class="range-item position-relative" [formGroup]="description">
+                        <i class="fa fa-close position-absolute" style="top: 18px; right: -3px"
+                          *ngIf="data.get('description').controls.length > 1" (click)="removeDesc(i, j)"
+                          aria-hidden="true"></i>
+                        <div class="form-group flex-grow-1">
+                          <input placeholder="Add Information Type" class="form-control" name="informationType"
+                            formControlName="informationType" type="text" required />
+                        </div>
+                        <div class="form-group flex-grow-1">
+                          <input placeholder="Add Display Value" class="form-control" name="displayValue"
+                            formControlName="displayValue" type="text" required />
+                        </div>
+                      </div>
+                    </ng-container>
+                    <div class="text-center">
+                      <button (click)="addCarouselDesc(i)" class="btn btn-shona">
+                        Add description
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center">
+                <button class="btn btn-shona ml-0" type="submit" (click)="addCarouselData()">
+                  Add
+                </button>
+              </div>
+              <div class="form-group flex-grow-1 d-flex justify-content-center ">
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="!update" (click)="addCarouselResp()">
+                  Add to Preview
+                </button>
+                <button class="btn btn-shona ml-0" type="submit" *ngIf="update" (click)="updateCarouselResp()">
+                  Update
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-12">
+      <div class="card-container mb-3">
+        <div class="preview-header">
+          <div class="logo">
+            <img [src]="botIcon" alt="Colive" />
+          </div>
+          <h5>
+            Preview
+            <span>{{ botName }}</span>
+          </h5>
+        </div>
+        <div class="conversation-body text-center p-2" [@listAnimation]="conversationArray.length"
+          [class.no-conversation]="!conversationArray.length">
+          <ng-container *ngFor="let conv of conversationArray; let j = index">
+            <ng-container [ngSwitch]="conv.type">
+              <!--Default condition-->
+              <h5 class="text-response pqr-container condition d-flex align-items-center justify-content-center"
+                (click)="editConv(conv, j, 0)" *ngSwitchCase="'condition'">
+                <span *ngIf="conv.response.isFreeText" class="badge-shona mr-2">Freetext</span>
+                <span class="heading">{{ conv.response.text }}</span>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                  <!-- <i class="fa fa-close" *ngIf="conv.response.text !== 'Default response'"
+                    (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </h5>
+
+              <!--Previous intent-->
+              <h4 class="text-response pqr-container text-center condition prev-intent" *ngSwitchCase="'prevIntent'"
+                (click)="editConv(conv, j, 0)">
+                <span class="heading">{{ conv.response }}</span>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                  <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </h4>
+
+              <!--Text response-->
+              <h5 class="text-response pqr-container text-center" *ngSwitchCase="'Text'">
+                <!-- <p (click)="editConv(conv,j,null)">
+                     {{ conv.response }}</p> -->
+                <span (click)="editConv(conv, j, 0)">{{ conv.response }}</span>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+              </h5>
+
+              <!--Voice response-->
+              <h5 class="voice-response pqr-container text-center" *ngSwitchCase="'Voice'">
+                <!-- <p> {{ conv.response }}</p> -->
+                <span (click)="editConv(conv, j, 0)">
+                  <i class="fa fa-volume-up" aria-hidden="true"></i>
+                  {{ conv.response }}
+                </span>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+              </h5>
+
+              <!--Paragraph response-->
+              <div class="paragraph-response pqr-container" *ngSwitchCase="'Paragraph'">
+                <span class="font-change" (click)="editConv(conv, j, 0)"
+                  [innerHTML]="conv.response.text | safeHtml"></span>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+              </div>
+
+              <!--Message response-->
+
+              <div class="paragraph-response pqr-container" *ngSwitchCase="'Message'">
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+                <span class="font-change" (click)="editConv(conv, j, 0)"
+                  [innerHTML]="conv.response.text | safeHtml"></span>
+
+              </div>
+
+              <!--Greetings Card Response-->
+              <div class="paragraph-response pqr-container" *ngSwitchCase="'Greetings Card'">
+                <span class="font-change" (click)="editConv(conv, j, 0)"
+                  [innerHTML]="conv.response.text | safeHtml"></span>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+              </div>
+              <!--Plain Quick Reply list-->
+              <div class="pqr-container" *ngSwitchCase="'Plain Quick Reply'">
+                <div style="margin: 20px 20px 12px;">
+                  <button class="pqr-button" (click)="editConv(conv, j, i)"
+                    *ngFor="let pqr of conv.response; let i = index" [title]="pqr.value">
+                    {{ pqr.text }}
+                    <i class="fa fa-close" (click)="removePQR(i, j)" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                  <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </div>
+
+              <!--Rounded Quick Reply list-->
+              <ng-container *ngif="conv.response&&conv.response.length">
+                <div class="pqr-container" *ngSwitchCase="'Rounded Quick Reply'">
+                  <div style="margin: 20px 20px 12px;">
+                    <button class="pqr-button rounded" (click)="editConv(conv, j, i)"
+                      *ngFor="let rqr of conv.response; let i = index" [title]="rqr.value">
+                      {{ rqr.text }}
+                      <i class="fa fa-close" (click)="removeRQR(i, j)" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="main">
+                    <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                      aria-hidden="true">
+                    <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                  </div>
+                </div>
+              </ng-container>
+
+              <!--Icon Quick Reply-->
+              <div class="pqr-container" *ngSwitchCase="'Icon Quick Reply'">
+                <div style="margin: 20px 20px 12px;">
+                  <button class="pqr-button pointer" (click)="editConv(conv, j, i)"
+                    *ngFor="let iqr of conv.response; let i = index" [title]="iqr.value">
+                    <img [src]="iqr.iconUrl" [alt]="iqr.value" />
+                    {{ iqr.text }}
+                    <!-- <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeIQR(i, j)"
+                    aria-hidden="true"> -->
+                    <i class="fa fa-close" (click)="removeIQR(i, j)" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                  <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </div>
+
+              <!--Image Reply-->
+              <div class="pqr-container image-reply" *ngSwitchCase="'Image Reply'">
+                <div style="margin: 20px 20px 12px;display:contents;">
+                  <div class="ir pointer" (click)="editConv(conv, j, i)"
+                    *ngFor="let ir of conv.response; let i = index">
+                    <div><img [src]="ir.imageUrl" [alt]="ir.value" /></div>
+                    <p>{{ ir.text }}</p>
+                    <i class="fa fa-close" (click)="removeImageReply(i, j)" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                  <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </div>
+
+              <!--Icon message list-->
+              <div class="pqr-container" *ngSwitchCase="'Icon Message'">
+                <div style="margin: 20px 20px 12px;" class="pointer">
+                  <button class="pqr-button" (click)="editConv(conv, j, i)"
+                    *ngFor="let im of conv.response; let i = index">
+                    <img [src]="im.url" alt="message icon" />
+                    {{ im.message }}
+                    <i class="fa fa-close" (click)="removeIM(i, j)" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                  <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </div>
+
+              <!--Image response card-->
+              <div class="pqr-container row" (click)="editConv(conv, j, 0)" *ngSwitchCase="'Image Response'">
+                <div class="image-wrap">
+                  <img [src]="conv.response.imageUrl" alt="Image Response" />
+                  <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+              </div>
+
+              <!--Visual Reply card-->
+              <div class="vr-container pqr-container" (click)="editConv(conv, j, 0)" *ngSwitchCase="'Visual Reply'">
+                <div style="margin: 20px 20px 12px;">
+                  <div class="img-outer">
+                    <div class="image-container" *ngIf="conv.response.imagePosition == 'Top'">
+                      <img [src]="conv.response.imageUrl" alt="Visual Reply" />
+                    </div>
+                    <p>
+                      {{ conv.response.text }}
+                    </p>
+                    <div class="image-container" *ngIf="conv.response.imagePosition == 'Bottom'">
+                      <img [src]="conv.response.imageUrl" alt="Visual Reply" />
+                    </div>
+                  </div>
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+                <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+              </div>
+              <!--Download card-->
+              <div class="vr-container pqr-container pointer" (click)="editConv(conv, j, 0)"
+                *ngSwitchCase="'Download Card'">
+                <div class="w-100 pl-4 pr-4" style="margin: 20px 20px 12px;">
+                  <div class="img-outer">
+
+                    <div class="d-flex justify-content-start title-response mt-2 ">
+                      {{ conv.response[0]?.title?conv.response[0]?.title:conv.response.title }}
+                    </div>
+                    <div class="d-flex justify-content-start download-response mt-2">
+                      {{ conv.response[0]?.message?conv.response[0].message:conv.response.message }}
+                    </div>
+
+                  </div>
+                  <div class="download mt-2">
+                    <button class="btn btn-shona ml-0" type="submit" (click)="downloadMyFile()">
+                      Download
+                    </button>
+                  </div>
+                </div>
+                <div class="main">
+                  <!-- <img src="assets/img/edit-icon.png" height="16px" width="16px" (click)="editConv(conv, j, 0)" class="mr-3"
+      aria-hidden="true"> -->
+
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+                <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+              </div>
+
+              <!--Feedback card-->
+              <div *ngSwitchCase="'Feedback Card'" class="pqr-container feedback-container"
+                (click)="editConv(conv, j, 0)">
+                <div class="feedback-card">
+                  <h5>{{ conv.response.title }}</h5>
+                  <h6 style="text-align:center !important;">{{ selectedStarValue }}</h6>
+                  <div class="star-element">
+                    <span class="fa fa-star mr-2" [ngClass]="{ checked: i <= selectedStarIndex }"
+                      *ngFor="let star of conv.response.data; let i = index"
+                      (mouseover)="selectStar(conv.response.data, i)"></span>
+                  </div>
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+                <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+              </div>
+
+              <!--Ticket Card-->
+              <div *ngSwitchCase="'Ticket Card'">
+                <ng-container *ngIf="conv.response.items.length == 1">
+                  <div class="content-area neum-shadow ticket pb-1 mt-3" (click)="editConv(conv, j, 0)">
+                    <div class="main" style="float:right;margin:10px;">
+                      <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                        aria-hidden="true">
+                      <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                    </div>
+                    <h5 class="text-center ticket-header pt-4 m-0 pb-3">
+                      <span class="ticket-icon ">
+                        <img
+                          src="https://coliveshona.blob.core.windows.net/coliveshonabot/Open%20ticket%20%E2%80%93%201.svg"
+                          alt="ticket-icon" />
+                      </span>
+                      {{ conv.response.items[0].title || "Ticket" }}
+                    </h5>
+                    <table class="table">
+                      <tbody>
+                        <tr *ngFor="let t of conv.response.items[0].data">
+                          <td class="font-600">
+                            {{ t.key }}
+                          </td>
+                          <td>
+                            {{ t.value }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <ul class="d-flex pl-0 justify-content-center list-style-none">
+                      <li *ngFor="
+                          let action of conv.response.items[0].action;
+                          let first = first;
+                          let last = last
+                        ">
+                        <button class="pqr-button" [ngClass]="{ 'mr-1': first, 'ml-1': last }">
+                          {{ action.title }}
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="conv.response.items.length > 1">
+                  <div class="main position-relative">
+                    <img src="assets/img/delete.svg" class=" position-absolute" style="right: 1px; z-index: 99999"
+                      height="20px" width="20px" (click)="removeConversation(j)" aria-hidden="true">
+                    <!-- <i class="fa fa-close position-absolute" style="right: 1px; z-index: 99999"
+                      (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                  </div>
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                    <div ngxSlickItem class="ngx-item slide" *ngFor="let item of conv.response.items; let i = index">
+                      <div class="content-area neum-shadow ticket pb-1 ml-4 mr-4 mt-4" (click)="editConv(conv, j, i)">
+                        <div class="main position-relative">
+                          <i class="fa fa-close position-absolute" style="right: 1px" (click)="removeConvTicket(i, j)"
+                            aria-hidden="true"></i>
+                        </div>
+                        <h5 class="text-center ticket-header pt-3 pb-3">
+                          <span class="ticket-icon mr-2">
+                            <img
+                              src="https://coliveshona.blob.core.windows.net/coliveshonabot/Open%20ticket%20%E2%80%93%201.svg"
+                              alt="ticket-icon" />
+                          </span>
+                          {{ conv.response.items[i].title || "Ticket" }}
+                        </h5>
+                        <table class="table">
+                          <tbody>
+                            <tr *ngFor="let t of conv.response.items[i].data">
+                              <td class="font-600">
+                                {{ t.key }}
+                              </td>
+                              <td>
+                                {{ t.value }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <ul class="d-flex pl-0 justify-content-center list-style-none">
+                          <li *ngFor="
+                              let action of conv.response.items[i].action;
+                              let first = first;
+                              let last = last
+                            ">
+                            <button class="pqr-button" [ngClass]="{ 'mr-1': first, 'ml-1': last }">
+                              {{ action.title }}
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ngx-slick-carousel>
+                </ng-container>
+              </div>
+
+              <!--Slider-->
+              <div class="pqr-container" *ngSwitchCase="'Slider'" (click)="editConv(conv, j, 0)">
+                <div style="margin: 20px 20px 12px;">
+                  <h5>{{ conv.title }}</h5>
+                  <div class="slider-container">
+                    <ng5-slider [(value)]="sliderMin" [options]="conv.options"></ng5-slider>
+                  </div>
+                </div>
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                  <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </div>
+
+              <app-odd-message-card *ngSwitchCase="'Odd Messages'" [oddMessagesArray]="conv.response" [convIndex]="j"
+                (onRemoveOddMsg)="removeOddMsg($event)" (onEditOddMsgs)="editOddMsgs($event)"
+                (onRemoveOddMsgs)="removeOddMsgs($event)">
+              </app-odd-message-card>
+
+              <app-login-card *ngSwitchCase="'Login Card'" [loginCardData]="conv.response" [convIndex]="j"
+                (onRemoveLoginCard)="removeLoginCard($event)" (onEditLoginCard)="editLoginCard($event)">
+              </app-login-card>
+
+              <app-property-details-card *ngSwitchCase="'Property View Card'" [data]="conv.response" [convIndex]="j">
+              </app-property-details-card>
+
+              <app-list-view-card *ngSwitchCase="'List View Card'" [data]="conv.response" [convIndex]="j">
+              </app-list-view-card>
+
+              <div class="carousel videoCarousel pointer" (click)="editConv(conv, j, 0)"
+                *ngSwitchCase="'Video Carousal'">
+                <!-- <div style="margin: 20px 20px 12px;">
+                  <div class="img-outer">
+
+                    <video controls width="250" *ngIf="conv.response.videoUrl">
+                      <source [src]="conv.response.videoUrl" type="video/mp4">
+                    </video>
+                    <div class="d-flex justify-content-start conv-response ">
+                      {{ conv.response.description }}
+                    </div>
+                    <div class="d-flex justify-content-start conv-response tags">
+                      #{{ conv.response.tags }}
+                    </div>
+
+                  </div>
+                </div> -->
+
+                <div style="margin: 20px 20px 12px;">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                    <div ngxSlickItem class="ngx-item slide video-custom-card"
+                      *ngFor="let item of conv.response; let i = index">
+                      <div style="height:140px">
+                        <video controls width="250" *ngIf="item.videoUrl">
+                          <source [src]="item.videoUrl" type="video/mp4">
+                        </video>
+                        <!-- <img style="width: 100%" [src]="item.thumbnailUrl" [alt]="item.title" /> -->
+                      </div>
+                      <div class="content">
+                        <h5 class="m-0">{{ item.title.length>20?item.title.slice(0,20)+'...':item.title }}</h5>
+                        <span class="mt-3">{{ item.description.length>50?item.description.slice(0,50)+'...':item.description }}</span><br>
+                        <div *ngFor="let tags of item.tags.split(',')" class="tag mt-2">
+                          {{tags}}
+                        </div>
+                        <!-- <div *ngFor="let desc of item.description" style="
+                          border-bottom: 1px solid var(--color-button-empty);
+                          font-size: 12px;
+                        ">
+                        <p class="m-0" style="font-weight: 600">
+                          {{ desc.informationType }}
+                        </p>
+                        <p class="m-0">{{ desc.displayValue }}</p>
+                      </div> -->
+                      </div>
+                      <!-- <div class="main position-relative">
+                      <img src="assets/img/delete.svg" class="position-absolute" height="20px" width="20px"
+                        (click)="removeConversation(j)" aria-hidden="true">
+                      <i class="fa fa-close position-absolute" (click)="removeCarouselCard(i, j, $event)"
+                        aria-hidden="true"></i>
+                    </div> -->
+                    </div>
+                  </ngx-slick-carousel>
+                </div>
+
+                <div class="main">
+                  <img src="assets/img/delete.svg" height="20px" width="20px" (click)="removeConversation(j)"
+                    aria-hidden="true">
+                </div>
+                <!-- <i class="fa fa-close" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+              </div>
+
+
+
+
+              <!--Carousel Card-->
+              <div class="carousel videoCarousel" *ngSwitchCase="'Carousel'" (click)="editConv(conv, j, 0)">
+                <div style="margin: 20px 20px 12px;">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                    <div ngxSlickItem class="ngx-item slide d-flex align-items-center custom-card"
+                      *ngFor="let item of conv.response; let i = index">
+                      <div style="width: 100px">
+                        <img style="width: 100%" [src]="item.imageURL" [alt]="item.title" />
+                      </div>
+                      <div class="description">
+                        <h5 class="m-0">{{ item.title }}</h5>
+                        <div *ngFor="let desc of item.description" style="
+                          border-bottom: 1px solid var(--color-button-empty);
+                          font-size: 12px;
+                        ">
+                          <p class="m-0" style="font-weight: 600">
+                            {{ desc.informationType }}
+                          </p>
+                          <p class="m-0">{{ desc.displayValue }}</p>
+                        </div>
+                      </div>
+                      <div class="main position-relative">
+                        <img src="assets/img/delete.svg" class="position-absolute" height="20px" width="20px"
+                          (click)="removeConversation(j)" aria-hidden="true">
+                        <!-- <i class="fa fa-close position-absolute" (click)="removeCarouselCard(i, j, $event)"
+                        aria-hidden="true"></i> -->
+                      </div>
+                    </div>
+                  </ngx-slick-carousel>
+                </div>
+                <div class="main" style="right:34px">
+                  <img src="assets/img/delete.svg" class="position-absolute" height="20px" width="20px"
+                    (click)="removeConversation(j)" aria-hidden="true">
+                  <!-- <i class="fa fa-close position-absolute" (click)="removeConversation(j)" aria-hidden="true"></i> -->
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

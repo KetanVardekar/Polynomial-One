@@ -1,0 +1,26 @@
+.heading {
+  background-color: #ededed;
+  font: normal normal 400 14px/30px Poppins;
+  letter-spacing: 0px;
+  font-weight: 600;
+  margin-top: 15px;
+  padding-left: 12px;
+  color: var(--color-tertiary);
+  text-transform: capitalize;
+}
+
+.config-color {
+  color: #1732a4;
+  cursor: pointer;
+}
+
+.detail-font-color {
+  color: #4d4d4d;
+}
+
+.img-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+/*# sourceMappingURL=active-channel.component.css.map */

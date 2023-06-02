@@ -1,0 +1,82 @@
+<!-- <div *ngIf="configureEntitiesFlag"> -->
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex p-3">
+      <h5 class="align-items-center">
+        {{selectedEntityName}}<br>
+        <span class="entity-type">{{entityType}}</span>
+      </h5>
+      <div class="button-container justify-content-between ml-auto">
+        <button class="btn btn-shona w-30" (click)="redirectToUploadJSON()">
+          Upload From File</button>&nbsp;&nbsp;
+        <button class="btn btn-shona-update w-20 just" (click)="updateEntity()">
+          Update
+        </button>
+      </div>
+    </div>
+    <div class="custom-panel">
+      <div class="response-box-content flex-grow-1">
+        <div class="col-md-12 justify-content-betwee container">
+          <h5 class="text-uppercase mt-3">
+            <span>Entities </span>
+          </h5>
+          <div class="d-flex w-100 mb-4 mt-3 ">
+            <input placeholder="Add Entity Value " (keydown.enter)="addEntity(entityDetails.entityValue)" type="text"
+              name="query" [(ngModel)]="entityDetails.entityValue" value="" class="response-box-entity w-100 mr-3"
+              style="border: 1px solid #adadad" />
+            <button class="btn btn-shona-add" (click)="addEntity(entityDetails.entityValue)" value="">
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="custom-panel">
+      <div class="response-inner-wrap d-flex flex-column">
+        <div class="entity-list p-1 mt-3">
+          <div *ngFor="let entity of entitiesArray; let i = index" (click)="addSyn(entity)"
+            class="entity-list-wrap flex-column d-flex jutify-content-between align-items-center">
+            <div class="details-container">
+              <div class="entity-title flex-grow-1 justify-content-end">
+                {{ entity.displayName }}
+              </div>
+
+              <div class="synonyms-container d-flex justify-content-end ">
+                <div class="scroll-container">
+                  <span class="synonym mr-3" *ngFor="let synonym of entity.synonyms; let j = index">
+                    {{ synonym }}
+                    <span class="cancel-icon" style="background-color: #1732A4;">
+                      <img class="pointer" src="assets/img/White cancel icon.svg" (click)="cancel($event,i, j)"
+                        width="10" height="10" />
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <span class="add-icon" tooltip="Add Synonym" placement="top" (click)="addSyn(entity)" *ngIf="addIcon">
+                <i class="fa">&#xf00d;</i>
+              </span>
+              <div class="text-right">
+                <img class="pointer" src="assets/img/delete.svg" (click)="deleteEntity($event,i)" width="20"
+                  height="20" />
+              </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3 mb-3" style="width: 100%;" *ngIf="entitiesArray[i].add">
+              <input type="text" (keydown.enter)="addSynonym($event,i,entityDetails.synonymText)"
+                class="form-control-synonym" [(ngModel)]="entityDetails.synonymText" placeholder="enter synonym here" />
+              <button class="btn btn-shona-cancel ml-3" (click)="closeSynonym($event,i)" value="">
+                Cancel</button>&nbsp;&nbsp;
+              <button class="btn btn-primary" (click)="addSynonym($event,i,entityDetails.synonymText)" value="">
+                Add synonym
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

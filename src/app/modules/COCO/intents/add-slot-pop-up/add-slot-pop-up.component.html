@@ -1,0 +1,31 @@
+<div class="row col-12 justify-content-center w-100 modal-title p-0 m-0">
+    <span class="text mt-3">Select slot</span>
+</div>
+   <div class=" d-flex mr-5 ml-5 mt-4">
+        <ng-select
+          name="slot"
+          id="slot"
+          [(ngModel)]="slotName"
+          style="margin-right: -19px"
+          class="w-100"
+          placeholder="-select-"
+          (keyup)="$event.keyCode == 13 ? addSlot() : null"
+           [multiple]="true"  [ngClass]="{'is-invalid':(rolevalidation.invalid)&&( rolevalidation.touched) }"  #rolevalidation="ngModel" required
+        >
+          <!-- <ng-option value="" selected>Slot</ng-option> -->
+          <ng-option *ngFor="let slot of slotList" [value]="slot.entityName">
+            {{ slot.entityName }}
+          </ng-option>
+        </ng-select></div>
+        <small class="text-danger text-center ml-5"
+        *ngIf="!rolevalidation.valid &&rolevalidation.touched ">Please Select a Slot </small>
+
+
+    <div class="w-100 d-flex justify-content-center mt-3 mb-4">
+    <button class="btn btn-primary " (click)="addSlot()">
+      Add</button
+    >&nbsp;&nbsp;
+    <button class="btn btn-shona " (click)="close()">
+    Cancel
+    </button>
+  </div>

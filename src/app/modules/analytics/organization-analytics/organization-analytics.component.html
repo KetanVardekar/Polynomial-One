@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="col-md-5 col-lg-5 col-sm-5 m-0 pl-0">
+    <div class="card-container p-3 org-border w-100">
+      <span class="org-card-title">About Organization</span>
+      <div class="row text-center justify-content-center mt-4">
+        <div class="col-md-4 col-lg-4 col-sm-4">
+          <div>
+            <img class="polynomial-icon" [src]="orgIcon" style="border-radius: 24px" />
+          </div>
+          <div class="mt-4 org-text word-break">
+            <span>{{ organizationName ? organizationName : "-" }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-lg-4 col-sm-4 mt-4 word-break">
+          <span class="org-number">{{orgAnalyticsList?.platformServices ? orgAnalyticsList?.platformServices :
+            "-"}}</span><br />
+          <div class="mt-4 org-text"><span>Platform Service</span></div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4 mt-4 word-break">
+          <span class="org-number mt-1">{{orgAnalyticsList?.lastUpdated?(orgAnalyticsList?.lastUpdated | date):
+            "-"}}</span>
+          <div class="mt-4 org-text"><span>Last Updated</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7 col-lg-7 col-sm-7 m-0 p-0">
+    <div class="card-container p-3 org-border d-flex justify-content-center">
+      <div class="row mt-3 mb-4 w-100">
+
+
+        <div class="col-md-3 col-lg-3 col-sm-3 mt-5 word-break">
+          <span class="org-number ml-5">{{orgAnalyticsList?.totalAgents?orgAnalyticsList?.totalAgents:'-'}}</span><br />
+          <div class="mt-4 org-text ml-4"><span>Total agents</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-3 mt-5 word-break">
+          <span
+            class="org-number ml-5">{{orgAnalyticsList?.totalUsageHrs?orgAnalyticsList?.totalUsageHrs:'-'}}</span><br />
+          <div class="mt-4 org-text"><span> Total usage hours (in hr)</span></div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-3 mt-5 word-break">
+          <span
+            class="org-number ml-5">{{orgAnalyticsList?.totalCredits?orgAnalyticsList?.totalCredits:'-'}}</span><br />
+          <div class="mt-4 org-text"><span>Total credits Offered</span></div>
+        </div>
+
+        <div class="col-md-3 col-lg-3 col-sm-3 mt-5 word-break">
+          <span class="org-number ml-3">{{orgAnalyticsList?.plan?orgAnalyticsList?.plan:'-'}}</span><br />
+          <div class="mt-4 org-text"><span>Subscription Plan</span></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="row sub-card-container col-md-12 col-sm-12 col-lg-12  p-3 mt-3 mb-3 justify-content-center text-center org-border">
+  <div class="w-100 mt-2 mb-4 d-flex justify-content-between">
+    <span class="title-font ">{{ organizationGraphTitle }} </span>
+    <div class="d-flex justify-content-between" style="width: 59%">
+      <nav class="w-100">
+        <div class="nav org-analysis nav-tabs" id="nav-tab" role="tablist">
+          <!-- <ng-container *ngIf="organizationGraphTitle !== 'Usage Analytics'">
+            <a class="nav-link nav-item active text-center" id="daily'" data-toggle="tab" role="tab"
+              aria-controls="daily" aria-selected="true" [class.active]="subTab == 'daily'"
+              (click)="subTab = 'daily'; getAnalyticsDataWithFilter() ">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': subTab == 'daily' }">
+                  Daily
+                </span>
+              </div>
+            </a>
+          </ng-container> -->
+          <!-- <ng-container>
+            <a class="nav-link nav-item text-center" id="'weekly'" data-toggle="tab" role="tab" aria-controls="weekly"
+              aria-selected="true" [class.active]="subTab == 'weekly'"
+              (click)="subTab = 'weekly'; getAnalyticsDataWithFilter() ">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': subTab == 'weekly' }">
+                  Weekly
+                </span>
+              </div>
+            </a>
+          </ng-container>
+          <ng-container>
+            <a class="nav-link nav-item text-center" id="'monthly'" data-toggle="tab" role="tab" aria-controls="monthly"
+              aria-selected="false" [class.active]="subTab == 'monthly'"
+              (click)="subTab = 'monthly'; getAnalyticsDataWithFilter() ">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{
+                            'tab-title-active': subTab == 'monthly'
+                          }">
+                  Monthly
+                </span>
+              </div>
+            </a>
+          </ng-container> -->
+
+          <ng-container>
+            <a class="nav-link nav-item text-center" id="'yearly'" data-toggle="tab" role="tab" aria-controls="yearly"
+              aria-selected="false" [class.active]="subTab == 'yearly'"
+              (click)="subTab = 'yearly'; getAnalyticsDataWithFilter()">
+
+              <span class="tab-title yearly-align" [ngClass]="{ 'tab-title-active': subTab == 'yearly' }">
+                Yearly
+              </span>
+
+            </a>
+          </ng-container>
+        </div>
+      </nav>
+      <div class="vl ml-3 mr-3"></div>
+      <ng-select class="w-25 year-analytics" (change)="getAnalyticsDataWithFilter()" [multiple]="false"
+        [clearable]="false" [searchable]="false" [(ngModel)]="organizationYear">
+        <ng-option *ngFor="let list of yearsList" [value]="list.value">
+          {{ list.year }}
+        </ng-option>
+
+      </ng-select>
+      <div class="vl ml-3 mr-3"></div>
+      <ng-select class="w-100 usage-analytics " [(ngModel)]="organizationGraphTitle" [multiple]="false"
+        [clearable]="false" [searchable]="false" (change)="getAnalyticsDataWithFilter()"
+        style="font-weight: 900  rewq  ;">
+        <ng-option selected value="Usage analytics">Usage analytics</ng-option>
+        <ng-option selected value="Cost analytics">Cost analytics</ng-option>
+      </ng-select>
+
+    </div>
+  </div>
+  <canvas baseChart height="100" [datasets]="orgLineChartData" [labels]="orgLineChartLabels"
+    [options]="lineChartOptions" [legend]="orgLineChartLegend" [type]="'line'" [plugins]="lineChartPlugins"></canvas>
+  <div class="row mt-4 w-75">
+    <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+      <canvas baseChart height="100" [datasets]="pieChartData" [labels]="pieChartLabels" [type]="'pie'"
+        [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+      </canvas>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <canvas baseChart height="100" [datasets]="pieChartData2" [labels]="pieChartLabels" [type]="'pie'"
+        [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+      </canvas>
+    </div> -->
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="row card-container col-md-12 col-sm-12 col-lg-12 w-100 p-2 mt-1 d-flex justify-content-center text-center">
+  <div class="card" *ngFor="let details of paltformAnalyticsList">
+    <div class="w-100 justify-content-center text-center mt-2 mb-2">
+      <img class="profile-img-icon pointer" [src]="details.image" />
+    </div>
+    <div class="mt-1">
+      <span class="number-value">{{ details.count }}</span>
+    </div>
+    <div class="mt-2 mb-2">
+      <span class="card-text">{{ details.displayName }}</span>
+    </div>
+  </div>
+</div>
+<div class="row card-container col-md-12 col-sm-12 col-lg-12 w-100 p-3 mt-3 mb-3 justify-content-center text-center">
+  <div class="w-100 text-left ml-4 mt-2 d-flex justify-content-between">
+    <span class="title-font ">Performance Analysis</span>
+    <ng-select class="w-25 platform-analytics" (change)="getYearGraphData()" [(ngModel)]="platformYear"
+      [multiple]="false" [clearable]="false" [searchable]="false">
+
+      <ng-option *ngFor="let list of  yearsList" [value]="list.value">
+        {{ list.year }}
+      </ng-option>
+
+    </ng-select>
+  </div>
+  <canvas baseChart height="100" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+    [legend]="lineChartLegend" [type]="'line'" [plugins]="lineChartPlugins"></canvas>
+  <!-- <app-graph></app-graph> -->
+</div>

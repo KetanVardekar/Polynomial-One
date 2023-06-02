@@ -1,0 +1,15 @@
+<div>
+  <i class="fa fa-close" aria-hidden="true" (click)="remove($event)"></i>
+  <i class="fa fa-edit ml-2" aria-hidden="true" (click)="edit($event)"></i>
+</div>
+<div class="title-container">
+  <div class="icon-container">
+      <img [src]="listView.url" [alt]="listView.title" />
+  </div>
+  <h4 class="title text-center">{{listView.title}}</h4>
+</div>
+<div class="listView-box neum-shadow">
+  <div class="list-item mb-2" *ngFor="let item of listView.values">
+      <img [src]="listView.url" [alt]="listView.title" /><span class="ml-3">{{ item.text}}</span>
+  </div>
+</div>

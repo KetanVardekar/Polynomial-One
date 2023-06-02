@@ -1,0 +1,113 @@
+<div class="container m-0 p-4">
+  <div class="row mb-4">
+    <div class="col-md-1 header">
+      <img class="lens-img" *ngIf="!addAgent" src="assets/img/lens.svg" width="36px" height="36px" />
+      <img class="coco-img" *ngIf="addAgent" src="assets/img/coco.svg" />
+    </div>
+    <div class="col-md-10 justify-content-center text-center title">
+      <span *ngIf="!editAgent ">CREATE AGENT</span>
+      <span *ngIf="editAgent">EDIT AGENT</span>
+    </div>
+    <div class="col-md-1 close-icon">
+      <img class="pointer" src="assets/img/close.png" width="16px" height="16px" (click)="close()" />
+    </div>
+  </div>
+
+  <div class="row w-100 mt-2">
+    <div class="col-md-9 col-lg-9">
+      <div *ngIf="!addAgent" class="row mr-0 pr-0 form-group">
+        <div class="col-md-6 col-lg-6 "><label class="field-name">Select kit</label>
+          <ng-select class="create-agent" name="kit" id="kit" class="w-100" placeholder="Select"
+            [(ngModel)]="agentDetails.kit" (change)="changeEvent(agentDetails.kit)">
+            <ng-option *ngFor="let kit of kitList" [value]="kit._id">
+              {{ kit.name }}
+            </ng-option>
+          </ng-select>
+        </div>
+        <div class="col-md-6 col-lg-6  form-group">
+          <div *ngIf="!addAgent">
+            <label class="field-name">Agent Name</label>
+            <input type="text" name="name" id="name" class="input-auth" [(ngModel)]="agentDetails.agentName" placeholder="Agent Name"
+              #lensAgentName="ngModel" required />
+            <small class="text-danger text-center ml--30" *ngIf="!lensAgentName.valid && lensAgentName.touched">Please
+              Enter Agent
+              Name</small>
+            <div *ngIf="(agentDetails.agentName.length>=16)">
+              <small class="text-danger ml--30">Agent Name Cannot be more than 15 Characters</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- addAgent is coco.... -->
+
+      <div class="row">
+        <div *ngIf="addAgent" class="col-md-6 col-lg-6 form-group">
+          <label class="field-name">Agent Name</label>
+          <input type="text" name="name" id="name" class="input-auth" [(ngModel)]="cocoAgent.name" required
+            #cocoAgentName="ngModel" placeholder="Agent Name" />
+          <small class="text-danger text-center ml--30" *ngIf="!cocoAgentName.valid && cocoAgentName.touched">Please
+            Enter Agent
+            Name</small>
+          <div *ngIf="(cocoAgent.name.length>=16)">
+            <small class="text-danger ml--30">Agent Name Cannot be more than 15 Characters</small>
+          </div>
+        </div>
+        <!-- <div *ngIf="!addAgent" class="col-md-6 col-lg-6 form-group pl-0">
+          <label class="field-name">Team</label>
+          <ng-select name="team" id="team" class="w-100" [(ngModel)]="agentDetails.team" placeholder="Select">
+            <ng-option *ngFor="let team of teamList" [value]="team._id">
+              {{ team.name }}
+            </ng-option>
+          </ng-select>
+        </div> -->
+        <div *ngIf="addAgent" class="col-md-6 col-lg-6 form-group pl-0">
+          <label class="field-name">Agent Color</label>
+          <input type="color" name="type" id="type" class="input-auth" [(ngModel)]="agentDetails.colorHex" />
+        </div>
+      </div>
+      <div class="row col-md-12 col-lg-12 form-group m-0 p-0">
+        <label class="field-name">Description</label>
+        <textarea placeholder=" Enter One line description for your agent" class="input-auth-description form-control"
+          [(ngModel)]="agentDetails.description"></textarea>
+      </div>
+    </div>
+    <div class="col-md-3 col-lg-3 justify-content-center text-center w-100 mt-0">
+      <div class="row col-md-12 col-lg-12 w-100 justify-content-center text-center m-0 p-0">
+        <span class="field-name">Upload Image</span>
+      </div>
+      <div class="d-flex justify-content-center text-center w-100 mt-3 mb-2">
+        <div class="user-info d-flex">
+          <div class="profile-pic-create-agent mr-2"  *ngIf="addAgent" >
+            A
+          </div>
+          <div class="profile-pic-create-agent mr-2" *ngIf="!addAgent">
+            {{ selectKit? selectKit : agent }}
+          </div>
+        </div>
+        <div class="img-button mr-2">
+          <img class="profile-img-icon pointer" src="assets/img/gallery.png" (click)="uploads.click()" />
+          <input type="file" (change)="uploadImage($event)" style="display: none"
+            accept="image/png, image/jpeg, image/jpg" #uploads required />
+        </div>
+        <div class="img-button">
+          <img class="profile-img-icon pointer" (click)="deleteImage()" src="assets/img/delete.svg" />
+        </div>
+      </div>
+      <div class="row col-md-12 col-lg-12 justify-content-center text-center w-100 m-0 p-0">
+        <div class="uploadFile mt-3 justify-content-center text-center">
+          <img *ngIf="agentDetails.image" [src]="agentDetails.image"
+            style="height: inherit; width: inherit; border-radius: 7px" />
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="row col-md-12 col-lg-12 justify-content-center text-center d-flex mt-4 mb-2">
+
+    <button class="btn btn-primary mr-3" (click)="close()">Cancel</button>
+    <button *ngIf="!addAgent" class="btn btn-shona mr-3" (click)="editMember()">{{ editAgent?'Edit':'Create'}}</button>
+    <button *ngIf="addAgent" class="btn btn-shona " (click)="addMember()">Create</button>
+
+  </div>
+</div>

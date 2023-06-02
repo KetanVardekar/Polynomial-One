@@ -1,0 +1,87 @@
+<div>
+  <div class="row">
+    <div class="col-12">
+      <div class=" d-flex p-3 ">
+        <h5 class="d-flex align-items-center">
+          {{setIntentsName}}
+        </h5>
+        <div class="button-container justify-content-between ml-auto">
+          <button class="btn btn-shona w-30 " (click)="redirectToUploadJSON()">
+            Upload From File</button>&nbsp;&nbsp;
+          <button class="btn btn-shona-update w-20" (click)="UpdateIntent()">
+            Update
+          </button>
+        </div>
+      </div>
+      <div class="response-box mr-3 ">
+        <div class="response-inner-wrap  d-flex flex-column ">
+          <div class="d-flex  justify-content-between ml-3 mr-4">
+            <h5 class="mt-4 mb-4">Add Slots</h5>
+            <form class="d-flex form-response">
+              <button class="btn btn-shona-add  mt-4 mb-3" (click)="addSlot()">Add Slot</button>
+            </form>
+          </div>
+          <div class="d-flex flex-wrap ">
+            <div class="slots-container  mt-1  d-flex" *ngFor="let slot of slotSelected ;let i=index;">
+              <button class="btn btn-primary mb-4 ml-3 shadow">{{ slot }}
+              </button>
+              <button class="btn btn-shona-cancel ">
+                <img class="pointer" src="assets/img/Cancel Icon.svg" width="10px" height="10px"
+                  (click)="removeSlots(i)" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="custom-panel mr-3 ">
+        <div class="response-box flex-grow-1 ">
+          <div class="col-md-12  justify-content-betwee container mt-4">
+            <h5 class="text-uppercase pt-3">
+              <span class="mt-3">TRAINING PHRASES
+              </span>
+            </h5>
+            <div class="d-flex w-100 mb-4 mt-3  ">
+              <input placeholder="Add Intent Value" (keydown.enter)="addTraniningPhrases()" type="text" name="query"
+                [(ngModel)]="intentsValue" value="" class="mb-4 shadow" style="border: 1px solid #adadad; " />
+              <button class="btn btn-shona-add " (click)="addTraniningPhrases()" value="">
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="custom-panel">
+      <div class="response-inner-wrap d-flex flex-column">
+        <div class="intent-list p-1 mt-3">
+          <div *ngFor="let intent of intentsArray;let i = index" (click)="intent.add=true"
+            class="entity-list-wrap flex-column mr-2" [ngStyle]="{'background-color':intent.isEdit ? '#ededed' : '' }">
+            <div class="details-container d-flex jutify-content-between align-items-center">
+              <div *ngIf="!intent.isEdit" class="intents-title flex-grow-1"
+                >{{intent.name}}</div>
+              <div *ngIf="intent.isEdit" class="intents-title flex-grow-1 mr-5 ">
+                <input class="flex-grow-1" type="text" name="query" [(ngModel)]="editText" value=""
+                  class="w-100 response-box-edit" (keydown.enter)="saveTrainingPhrases(i)"
+                  style="background-color: #fff;" />
+              </div>
+              <div class="text-right mr-4">
+                <img *ngIf="!intent.isEdit" class="pointer" src="assets/img/home edit.svg"
+                  (click)="editTrainingPhrases(i) " width="20" height="20" />
+                <img *ngIf="intent.isEdit" class="pointer" src="assets/img/save.svg" (click)="saveTrainingPhrases(i)"
+                  width="20" height="20">
+              </div>
+              <div class="text-right">
+                <img class="pointer" src="assets/img/delete.svg" (click)="deleteTraniningPhrases(i)" width="20"
+                  height="20" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

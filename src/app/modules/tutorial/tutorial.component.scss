@@ -1,0 +1,76 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+.heading-text {
+  font: normal normal 500 20px/30px Poppins;
+  letter-spacing: 0.1px;
+  // color: var(--color-tertiary);
+  text-transform: capitalize;
+}
+.heading-subtext {
+  font: normal normal 200 12px/30px Poppins;
+  letter-spacing: 0px;
+  color: #4d4d4d;
+}
+.brains-outer-container {
+  opacity: 1;
+  margin: 41px -32px 44px 43px;
+
+  padding: 16px;
+
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 8px #00000029;
+  border: 1px solid #707070;
+  border-radius: 10px;
+}
+.btn-shona {
+  color: #1732a4 !important;
+  border: 1px solid #1732a4;
+  background: #fff !important;
+  font-size: 17px !important;
+  border-radius: 6px;
+  font: normal normal normal 24px/35px Poppins;
+  letter-spacing: 0px;
+  font-weight: 600;
+  width: 99%;
+  margin-left: 40px;
+}
+.btn-plan {
+  background-color: #1732a4;
+  color: #ffffff;
+  font: normal normal normal 24px/35px Poppins;
+  letter-spacing: 0px;
+  font-size: 17px !important;
+  border-radius: 6px;
+  padding: 5px 54px;
+  width: 90%;
+  margin-left: 41px;
+}
+.font-styling {
+  font: normal normal medium 24px/35px Poppins;
+  letter-spacing: 0px;
+}
+.font-heading {
+  font: normal normal normal 15px/29px Poppins;
+  letter-spacing: 0px;
+  font-weight: 500;
+}
+.font-style-heading {
+  // font: normal normal medium 24px/35px Poppins;
+  letter-spacing: 0px;
+  color: #000000;
+  font-weight: 600;
+  font-size: 16px;
+}
+.para-style {
+  font-weight: 400;
+  font-size: 14px;
+}

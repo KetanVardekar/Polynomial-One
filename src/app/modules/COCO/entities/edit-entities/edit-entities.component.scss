@@ -1,0 +1,274 @@
+.entity-type{
+  font: normal normal 500 12px/10px Poppins;
+  color: #7d7b7b;
+}
+.btn-primary {
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 70% !important;
+  height: 32px;
+  background: #1732a4;
+}
+
+.btn-shona {
+  color: var(--color-button) !important;
+  border: 2px solid var(--color-button);
+  background: #fff !important;
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 64%;
+  height: 32px;
+  box-shadow: 3px 3px 8px -1px #00000033;
+}
+.btn-shona-update {
+  color: var(--color-button) !important;
+  border: 2px solid var(--color-button);
+  background: #fff !important;
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 0px 47px 0px 11px;
+  width: 30%;
+  height: 32px;
+  box-shadow: 3px 3px 8px -1px #00000033;
+}
+.btn-shona-cancel {
+  color: var(--color-button) !important;
+  border: 2px solid var(--color-button);
+  background: #fff !important;
+  font-size: 14px !important;
+  box-shadow: 4px 4px 8px #00000033;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 19%;
+  height: 36px;
+}
+.btn-shona-add {
+  color: var(--color-button) !important;
+  border: 2px solid var(--color-button);
+  background: #fff !important;
+  font-size: 14px !important;
+  box-shadow: 4px 4px 8px #00000033;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 10%;
+  height: 38px;
+}
+.btn-primary {
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 25% !important;
+  height: 37px;
+  background: #1732a4;
+  background-color: #1732a4 !important;
+  box-shadow: 4px 4px 8px #00000033;
+  margin-right: 200px;
+}
+
+.container {
+  background: #ededed 0% 0% no-repeat padding-box;
+  // box-shadow: 3px 3px 6px #00000033;
+  color: var(--color-tertiary);
+  border-radius: 10px;
+  opacity: 1;
+  border-bottom: 2px solid #d8d6d6;
+  border-top: 2px solid #d8d6d6;
+  box-shadow: 3px 3px 6px #00000033;
+}
+.container-text {
+  font: normal normal 400 26px/60px Poppins;
+  letter-spacing: 0px;
+}
+.entities-conteiner {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 6px #00000029;
+  border: 1px solid #adadad;
+  border-radius: 10px;
+  opacity: 1;
+  margin: 12px 0px;
+  padding: 16px;
+  overflow-y: scroll;
+  max-height: 476px;
+  // letter-spacing: 0px;
+  // background: #fff 0% 0% no-repeat padding-box;
+  // // box-shadow: 3px 3px 6px #00000033;
+  // color: var(--color-tertiary);
+
+  // opacity: 1;
+  // border-bottom: 2px solid #d8d6d6;
+}
+.entity-list-wrap .entity-title {
+  padding: 5px 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  width: 100%;
+  overflow: hidden;
+  font: normal normal 400 16px/20px Poppins;
+}
+.entities-synonym {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  // box-shadow: 0px 0px 6px #00000029;
+  border: 1px solid #1732a4;
+  // border-radius: 10px;
+  opacity: 1;
+  // margin: 12px 0px;
+  padding: 0px;
+  // overflow-y: scroll;
+  // max-height: 476px;
+  height: 25px;
+}
+.btn-primary-synonym {
+  font-size: 14px !important;
+  // border-radius: 6px;
+  padding: 4px 8px;
+  width: 10% !important;
+  height: 24px;
+  background: #1732a4;
+}
+.data-box {
+  width: 99%;
+}
+.entities-conteiner:focus {
+  background-color: #ededed;
+}
+.text-details {
+  font: normal normal 400 15px/20px Poppins;
+}
+.form-control {
+  width: 100%;
+}
+.form-control-synonym {
+  width: 100%;
+  display: block;
+
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font: normal normal normal 16px/35px Poppins;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0px 7px #00000033;
+  margin-left: 200px;
+  // transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.form-control-synonym:hover {
+  background-color: #fff !important;
+}
+
+
+.checkboxes label {
+  margin-bottom: 0px;
+  position: relative;
+}
+.checkboxes label .checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.entityName{
+  font: normal normal 400 15px/20px Poppins;
+}
+.entity-list-wrap .details-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.entity-list :hover {
+  background-color: #ced4da;
+  // font: normal normal 400 17px/20px Poppins;
+  color: #000000;
+
+}
+.btn-primary:hover{
+  color: #ffffff!important;
+}
+.entity-list-wrap .add-synonym-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.synonym {
+    white-space: nowrap;
+    border: 1px solid #1732a4;
+    /* color: #1732a4; */
+    /* font-weight: 400; */
+    font: normal normal 500 13px/25px Poppins !important;
+    padding: 0px 5px;
+    display: inline-block;
+    border-radius: 4px;
+    box-shadow: 4px 4px 8px #00000033;
+}
+.synonym {
+  background-color: #fff !important;
+}
+.synonym .fa {
+  background: #1732a4;
+  // border: 2px solid #1732a4;
+  padding: 7px 7px;
+  color: #fff;
+  // border-top-right-radius: 9px;
+  position: relative;
+  // border-bottom-right-radius: 10px;
+  right: -5px;
+
+}
+.synonym .fa:hover {
+  background: #1732a4;
+  color: #fff;
+}
+.synonyms-container {
+  padding: 5px 10px;
+  // max-width: 50%;
+  // overflow-x: scroll;
+}
+
+// .fa {
+//   font-size: 12px;
+// }
+
+.scroll-container {
+  // border: 2px solid silver;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  max-width: 700px;
+}
+.scroll-container:hover{
+  overflow-x: scroll;
+}
+.response-box-entity {
+  border-radius: 10px;
+  background: var(--color-quaternary);
+  color: var(--color-tertiary);
+  font: normal normal 400 15px/25px Poppins !important;
+  padding: 6px 10px;
+  box-shadow: 0px 0px 8px #00000033;
+}
+.cancel-icon{
+  background-color:#1732A4 ;
+      padding: 8px;
+    margin-right: -6px;
+    border-radius: 0px 10px 10px 0px;
+}
+.cancel-icon :hover{
+  background-color:#1732A4 ;
+}
+.fa{
+  transform: rotate(45deg);
+  font-size: 20px;
+}
+.add-icon{
+  margin-top: 2px;
+    margin-right: 15px;
+}

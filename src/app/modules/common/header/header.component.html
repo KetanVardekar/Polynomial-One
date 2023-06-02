@@ -1,0 +1,64 @@
+<div class="header d-flex container-fluid">
+  <div class="d-flex align-items-center heading-container w-100 justify-content-between">
+    <button type="button" class="navbar-toggle" (click)="showMenu = !showMenu">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    <img src="assets/img/Polynomial One logo2.svg" style="height: 52px; width: 85px" alt="Polynomial One"
+      class="img-fluid pr-4 mr-2" />
+    <div class="user-container text-right mb-2 mr-3 flex-1">
+      <div class="mr-3 bot-name">{{ botName }}</div>
+      <div class="d-flex align-items-center mr-3 agent">
+        <img *ngIf="avatarURI !== ''" [src]="
+            avatarURI !== ''
+              ? avatarURI
+              : 'https://bot.colive.in/dev/assets/Shona.png'
+          " alt="Interaction Studio" class="img-fluid avatar" />
+        <!-- <img class="img-fluid avatar" [src]="lensProfilePicture" alt="" /> -->
+        <!-- <img class="img-fluid avatar"
+          [src]="lensProfilePicture !==''?lensProfilePicture:'https://bot.colive.in/dev/assets/Shona.png'" alt="" /> -->
+
+        <div>
+
+        </div>
+      </div>
+      <!-- For Notification -->
+
+      <ng-container *ngIf="desktopNotificationAllowed">
+        <div class="d-flex align-items-center mr-3 bell" (click)="showHideNotification(!showNotification)" tabindex="-1"
+          (clickOutside)="closeNotification()">
+          <!-- src\assets\img\White Bell Icon.svg -->
+          <img src="assets/img/bell.svg" alt="Polynomial One" *ngIf="!showNotification" />
+          <img src="assets/img/White Bell Icon.svg" alt="Polynomial One" *ngIf="showNotification" />
+
+          <app-notification *ngIf="showNotification === true"></app-notification>
+
+        </div>
+        <div class="separator mr-3"  *ngIf="avatarURI === ''" ></div>
+      </ng-container>
+      <!-- ---------------- -->
+      <div class="separator mr-3" *ngIf="avatarURI !== ''" ></div>
+
+      <div class="user-info mr-3 d-flex">
+        <div class="profile-pic mr-2" *ngIf="!profilePicture">
+          <span class="first-character"> {{ updatedUserName ?updatedUserName.charAt(0).toUpperCase() : "" }}</span>
+        </div>
+
+        <div *ngIf="profilePicture">
+          <img class="profile-img-icon" [src]="profilePicture" />
+        </div>
+
+        <div class="heading">{{updatedUserName.length > 20 ? updatedUserName.slice(0, 20) + '...' : updatedUserName}}
+        </div>
+
+      </div>
+      <div>
+        <div class="d-flex align-items-center mr-3 drop-down" (click)="showHideAccount(!showAccountDropdown)"
+          (clickOutside)="closeAccount()">
+          <img [ngClass]="[showAccountDropdown === true ? 'arrow-up' : '']" src="assets/img/arrow-down.svg"
+            alt="Show menu" />
+          <app-account *ngIf="showAccountDropdown === true"></app-account>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

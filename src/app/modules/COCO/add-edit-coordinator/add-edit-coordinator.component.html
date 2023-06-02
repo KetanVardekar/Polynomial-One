@@ -1,0 +1,25 @@
+<div class="">
+  <div class="row col-12 text-left justify-content-end mt-4 pr-1">
+    <img class="pointer" src="assets/img/close.png" width="16px" height="16px" (click)="close()" />
+  </div>
+  <div class="row col-12 justify-content-center w-100 modal-title p-0 m-0 mt-2">
+    {{ editEntity ? "EDIT MAPPED INTENT" : "MAP INTENT" }}
+  </div>
+  <div class="m-4">
+    <div class="form-group">
+      <label>Intent</label>
+      <input type="text" name="name" id="name" [(ngModel)]="cIntentName" class="form-control input-auth" disabled />
+    </div>
+    <div class="form-group">
+      <label>Available APIs</label>
+      <ng-select class="w-100" [(ngModel)]="cApiName" placeholder="Select">
+        <ng-option *ngFor="let api of apiList" [value]="api.apiDetails.apiName">{{ api.apiDetails.apiName }}</ng-option>
+      </ng-select>
+    </div>
+    <div class="w-100 justify-content-center row col-md-12 col-sm-12 col-lg-12 text-center mt-4">
+      <button class="btn-shona" type="submit" (click)="addOrUpdate()">
+        {{ editEntity ? "Update" : "Add" }}
+      </button>
+    </div>
+  </div>
+</div>

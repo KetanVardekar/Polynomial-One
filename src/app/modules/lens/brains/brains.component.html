@@ -1,0 +1,71 @@
+<div class="ml-81 main mr-4">
+  <div class="row col-12 mb-0">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;Brains</span>
+    </p>
+  </div>
+  <div class="row pl-3 pr-3" *ngIf="brainList && brainList.length; else noBrains">
+    <div class="col-md-6">
+      <div class="d-flex justify-content-between">
+        <span class="pl-3 brain-title">CHOOSE BRAINS</span>
+        <div class="form-check mt-2 mr-4">
+          <label class="form-check-label mr-4 select-font" for="flexCheckChecked">
+            SELECT ALL &nbsp;&nbsp;&nbsp;
+          </label>
+          <input class="form-check-input largerCheckbox" type="checkbox" value="" id="flexCheckChecked"
+            (change)="selectDeselectAll($event)" [(ngModel)]="selectAll" />
+        </div>
+      </div>
+      <div class="row col-md-12 col-lg-12 col-12 w-100 pl-3 pr-3 brains-outer-container">
+        <div class="w-100 pl-2 pr-3 d-flex" *ngFor="let brainsData of brainDataList; let i=index">
+          <div class="text-right justify-content-end">
+            <div class="form-check  mt-2 ml-0">
+              <input type="checkbox" class=" mt-1 form-check-input largerCheckbox"
+                (change)="addOrDeleteMember(brainsData, $event)" [(ngModel)]="brainsData.checked" />
+            </div>
+          </div>
+          <div class="w-100">
+            <ngb-accordion [animation]="true" class="brains-accordion" activeIds="ngb-panel" #acc="ngbAccordion" [activeIds]="activeId"  (panelChange)="toggleAccordian($event)"
+              (click)="showDescription(brainsData)"  >
+              <ngb-panel >
+                <ng-template ngbPanelTitle class="d-flex">
+                  <span class="float-left  title">{{ brainsData.name }}</span>
+                  <span class="float-right compute-units">Compute units - {{ brainsData.quotaDemand }} &nbsp;&nbsp;<img
+                      src="assets/img/lens/down-arrow.png" class="rotate-down" alt=""></span>
+                </ng-template>
+
+                <ng-template ngbPanelContent class="d-flex">
+                  <span class="description"> {{ brainsData.subDescription }}.</span>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 pr-0">
+      <div class="d-flex justify-content-between">
+        <div class="mt-1">
+        <span class="brain-title" [ngStyle]="header?{color:'black'}:{color:'rgb(0,0,0,0.4)'}" >UNDERSTANDING</span></div>
+        <button class="btn btn-shona ml-0" (click)="updateAll()">Update</button>
+      </div>
+
+      <div class="row col-md-12 col-lg-12 description-outer-container" [ngStyle]="header ? { background   :'white', height:'auto'} : {background:'#00000029',height:'472px',border:'none',overflow :'hidden' }" >
+        <div class="row col-md-12 col-lg-12">
+            <span class="about">{{ header }}</span>
+        </div>
+        <div class="justify-content-center w-100">
+          <p class="mt-2 text-justify font-description">{{ longDescription }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noBrains>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available brains </span>
+      </div>
+    </div>
+  </ng-template>
+</div>

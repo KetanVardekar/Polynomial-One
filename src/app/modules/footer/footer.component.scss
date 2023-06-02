@@ -1,0 +1,26 @@
+// @import url("./../../../styles.scss");
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+.footer{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    height: 30px;
+    background: var(--color-primary);
+    // background: #1732a4;
+    a{
+      color:#fff;
+      margin-left:5px;
+      font-size: 12px;
+    }
+    img{
+      height: 12px;
+      margin-right:5px;
+    }
+    .orange{
+      color: #f37d38;
+    }
+  }

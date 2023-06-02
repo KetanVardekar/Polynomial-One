@@ -1,0 +1,35 @@
+.odd-msg-container{
+  border: 1px solid transparent;
+}
+ul{
+  margin: 0px;
+  list-style-type: none;
+  padding: 0px;
+}
+.odd-msg-container:hover{
+  border: 1px solid #f1f1f1;
+}
+.odd-msg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.odd-msg .fa-close{
+  display:none;
+}
+.odd-msg:hover .fa-close{
+  display:block;
+}
+.odd-msg:hover{
+  background-color: var(--color-button);
+  color:var(--color-tertiary);
+}
+.odd-msg:hover .fa-close{
+  color:var(--color-primary);
+}
+.fa-close{
+  cursor:pointer;
+}
+.fa-close:hover{
+  color:var(--color-primary);
+}

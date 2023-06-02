@@ -1,0 +1,50 @@
+<div *ngIf="activeChannelData.length; else noActiveChannel">
+  <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0  ml-0 heading">
+    ACTIVE CHANNELS
+  </div>
+  <div class="row w-100 mt-3 user-sub-heading-div">
+    <div class="col-md-3 mb-2">
+      <!-- <input type="checkbox" name="" id="" class="mr-3 mt-2" checked (change)="selectdeselectall($event)"
+        [(ngModel)]="selectall"> -->
+      <span class="mt-1">Channel Integrated</span>
+    </div>
+    <div class="col-md-2 mt-1">Platform</div>
+    <div class="col-md-2 mt-1">Agent</div>
+    <div class="col-md-2 mt-1">Date Created</div>
+    <div class="col-md-2 mt-1"></div>
+
+  </div>
+  <div class="row w-100 mt-2 user-sub-body-div detail-font-color" *ngFor="let details of activeChannelData">
+    <div class="col-md-3 mb-1 d-flex ">
+      <!-- <input type="checkbox" name="" id="" class="mr-3 mt-2" (change)="addOrDeleteMember(details, $event)"
+        [(ngModel)]="details.checked"> -->
+      <div class="mb-1 ">{{details.channelType | titlecase}}</div>
+    </div>
+    <!-- <div class="col-md-2 text-wrap">{{details.platform}}</div> -->
+    <div class="col-md-2 text-wrap">Polynomial One</div>
+
+    <div class="col-md-2">{{details.agent}}</div>
+    <div class="col-md-2">{{details.createdAt | date:"longDate"}}</div>
+    <div class="col-md-2 mt-1 d-flex justify-content-around">
+      <div class="pointer mb-2" (click)="viewActiveChannel(details.id)" style="color: #1732a4">
+        View
+      </div>
+      <div class="pointer mb-2" (click)="editactiveChannel()" style="color: #1732a4">
+        Edit
+      </div>
+      <!-- <div class="pointer" >
+        <img class=" col-md-1 img-icon d-flex " src="../../assets/img/coco/black-delete-icon.svg" alt="" srcset="">
+      </div> -->
+    </div>
+    <img class=" col-md-1 img-icon d-flex mt-1 " src="../../assets/img/delete.svg" (click) ="deleteChannel(details)" alt=""
+      srcset="">
+  </div>
+</div>
+<ng-template #noActiveChannel>
+  <div class="nodata">
+    <img src="assets/img/no-data.svg" class="no-found-img">
+    <div class="mb-5">
+      <span class="no-data mt-0"> No Active Channels Available </span>
+    </div>
+  </div>
+</ng-template>

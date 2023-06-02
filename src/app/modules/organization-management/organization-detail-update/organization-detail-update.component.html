@@ -1,0 +1,101 @@
+<div class="row w-100 col-md-12 col-lg-12 col-12 organization-heading">
+  <div class="text-left sub-heading"> UPDATE ORGANIZATION DETAILS</div>
+
+</div>
+<div class="row mt-2">
+  <div class="col-md-6 col-lg-6 col-sm-12 form-group">
+    <label class="org-label">Organization Name</label>
+    <!-- <input type="text" class="form-control input-auth-organization-detail"
+      [(ngModel)]="organizationDetails.organizationName" [disabled]="organizationNotUpdate"
+      (input)="alphaOnly($event)" required  /> -->
+    <input type="text" class="form-control input-auth-organization-detail" placeholder="Enter organization name"
+      [(ngModel)]="organizationDetails.organizationName" [disabled]="organizationNotUpdate"
+      (blur)="textvalidation(organizationDetails.organizationName)" required #textvalid #organizationName="ngModel"
+      (keydown)="alphaOnly($event)" required />
+      <span *ngIf="formSubmitted" >
+    <small class="text-danger text-center ml--30"
+      *ngIf="!organizationName.valid && organizationName.touched">Please Enter Valid Organization
+      Name</small></span>
+
+    <div *ngIf="(organizationDetails.organizationName.length>=129)">
+      <small class="text-danger ml--30">Organization Name Cannot be more than 128 Characters</small>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-lg-6 col-sm-12 form-group">
+    <label class="org-label">Website Link</label>
+    <div class="flex-grow-1  d-flex ">
+      <input type="text" class="form-control input-auth-organization-detail col-11 " [disabled]="organizationNotUpdate"  [(ngModel)]="organizationDetails.websiteLink" placeholder="Enter Website Link" #websitelink="ngModel" required   pattern="https?://.+" >
+
+      <span class="input-group-btn">
+        <button  class="btn btn-primary" style="width: 60px;height: 35px;"   (click)="gotourl()" type="submit"   [ngStyle]="(organizationDetails.websiteLink.length==0  )?{opacity:'0.4'}:{opacity:'1.0'} " [disabled]="organizationNotUpdate|| !websitelink.valid "  >
+            <img class="img-fluid ng-tns-c162-0"  src="assets/img/lens/arrow-location.png" style="height: 21px;align-items: center;"/>
+        </button>
+      </span>
+
+    </div>
+    <span *ngIf="formSubmitted" >
+    <small class="text-danger text-center ml--28 "
+    *ngIf="!websitelink.valid && websitelink.touched ">Please Enter Valid Website Link</small></span>
+   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-lg-6 col-sm-12 form-group">
+    <label class="org-label">Organization Address</label>
+    <textarea placeholder=" Enter Your Address Here.." class="text-auth-organization-detail form-control" required [disabled]="organizationNotUpdate"
+      [(ngModel)]="organizationDetails.organizationAddress" #organizationaddress="ngModel"></textarea>
+      <span *ngIf="formSubmitted" >
+    <small class="text-danger text-center ml--30"
+      *ngIf="!organizationaddress.valid && organizationaddress.touched ">Please Enter Valid Organization
+      Address</small></span>
+      <div *ngIf="(organizationDetails.organizationAddress.length>=501)">
+        <small class="text-danger ml--30">Organization Name Cannot be more than 500 Characters</small>
+      </div>
+  </div>
+  <div class="col-md-6 col-lg-6 col-sm-12 form-group ">
+    <label class="org-label">Organization Country</label>
+    <ng-select class="w-100 select-input " placeholder="Country" [(ngModel)]="organizationDetails.organizationCountry"
+      required [disabled]="organizationNotUpdate"
+      [ngClass]="{'is-invalid':(rolevalidation.invalid)&&( rolevalidation.touched) }" #rolevalidation="ngModel">
+      <ng-option value="" selected>Select</ng-option>
+      <ng-option *ngFor="let country of countries" [value]="country">{{
+        country
+        }}</ng-option>
+    </ng-select>
+    <span *ngIf="formSubmitted" >
+    <small class="text-danger text-center ml--30"
+      *ngIf="!rolevalidation.valid &&rolevalidation.touched ">Please Select a Country </small></span>
+  </div>
+</div>
+<div class="row col-md-12 col-lg-12 col-sm-12">
+  <label class="org-label">Add Organization image</label>
+</div>
+<div class="row col-md-12 col-lg-12 col-sm-12">
+  <div class="d-flex"  *ngIf="organizationDetails.image || !organizationNotUpdate">
+
+    <div class="uploadFileSection" style="border-radius: 50px;">
+      <img *ngIf="organizationDetails.image" [src]="organizationDetails.image"
+        style="height: inherit; width: inherit ; border-radius: 50px;" />
+    </div>
+    <div class="img-button ml-3 mr-2" *ngIf="!organizationNotUpdate" >
+      <img class="add-img pointer" src="assets/img/gallery.png" (click)="uploads.click()" />
+      <input type="file" (change)="uploadImage($event)" style="display: none" accept="image/png, image/jpeg, image/jpg"
+        #uploads required />
+    </div>
+    <div class="img-button ml-2" *ngIf="!organizationNotUpdate" >
+      <img class="delete-button pointer" (click)="deleteImage()" src="assets/img/delete.svg" />
+    </div>
+  </div>
+  <div class="brand mb-2" *ngIf="organizationNotUpdate && !organizationDetails.image">
+    {{  orgName ?  orgName.charAt(0).toUpperCase() : "" }}
+  </div>
+</div>
+<div class="form-group flex-grow-1 mt-2 ml-4 mr-4 text-center">
+  <button *ngIf="organizationNotUpdate" type="submit" (click)="organizationNotUpdate = false" class="btn btn-primary">
+    Edit
+  </button>
+  <button *ngIf="!organizationNotUpdate" type="submit" (click)="updateOrganization()" class="btn btn-primary">
+    Update
+  </button>
+</div>

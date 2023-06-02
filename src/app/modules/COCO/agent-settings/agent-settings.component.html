@@ -1,0 +1,154 @@
+<div class="ml-81">
+    <div class="row col-12 mb-0 d-flex justify-content-between">
+        <p class="mb-0">
+            <span class="top-heading top-heading-container">&nbsp;&nbsp;AGENT SETTINGS</span>
+        </p>
+        <button type="button" class="btn btn-shona btn-shona-delete" (click)="deleteBot()">Delete</button>
+    </div>
+    <div class="row p-3 pt-0">
+        <div class="col-12 col-lg-6 col-md-6">
+            <div class="form-group row">
+                <div class="col-lg-9 col-md-9 col-12">
+                    <label>Bot Name</label>
+                    <input type="text" class="form-control" name="botName" [(ngModel)]="botDetails.botName"
+                        placeholder="Enter Bot Name" #botname="ngModel" required>
+                        <small class="text-danger text-center" *ngIf="!botname.valid && botname.touched">Please
+                          Enter Bot
+                          Name</small>
+                        <div *ngIf="(botDetails.botName.length>=16)">
+                          <small class="text-danger ml--30">Bot Name Cannot be more than 15 Characters</small>
+                        </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-12">
+                        <label>Bot Icon</label>
+                      <div class="d-flex text-center w-100">
+                        <div class="img-button mr-2">
+                          <img class="profile-img-icon pointer" src="assets/img/gallery.png" (click)="uploads.click()" />
+                          <input type="file" (change)="uploadImage($event)" style="display: none"
+                            accept="image/png, image/jpeg, image/jpg" #uploads required />
+                        </div>
+                        <div class="img-button mr-2">
+                          <img class="profile-img-icon pointer" (click)="deleteImage()" src="assets/img/delete.svg" />
+                        </div>
+                        <div class="img-button-no-border ml-3 justify-content-center text-center">
+                          <img *ngIf="botDetails.botIcon" [src]="botDetails.botIcon"
+                            style="height: inherit; width: inherit; border-radius: 7px" />
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" name="description" [(ngModel)]="botDetails.description"></textarea>
+            </div>
+            <span class="font-10">Note: Changes in above details will be reflected after you save the bot by clicking Save Bot</span>
+            <hr/>
+            <div class="form-group row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <label>Color</label>
+                    <input type="color" name="color" class="form-control" [(ngModel)]="botDetails.color"
+                        (input)="makeIFrameURL()">
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <label>Popup Time (Seconds)</label>
+                    <input type="number" name="popupTime" class="form-control" [(ngModel)]="botDetails.popupTime" min="0" (input)="makeIFrameURL()" (keydown)="numberOnly($event)">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <label>Font Type</label>
+                    <ng-select  class="select-input" name="fontType" [(ngModel)]="botDetails.fonttype" placeholder="Select Font Type" (change)="makeIFrameURL()" required >
+                        <!-- <ng-option  value="" selected>Select Font Type</ng-option> -->
+                        <ng-option *ngFor="let font of fontTypeList" [value]="font">{{ font }}</ng-option>
+                    </ng-select>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <label>Font Size</label>
+                    <input type="number" name="fontSize" class="form-control" [(ngModel)]="botDetails.fontsize" (input)="makeIFrameURL()">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <label>Width (px) </label>
+                    <input type="number" name="width" class="form-control" [(ngModel)]="botDetails.width" (keydown)="numberOnly($event)">
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <label>Height (px)</label>
+                    <input type="number" name="height" class="form-control" [(ngModel)]="botDetails.height" (keydown)="numberOnly($event)">
+                </div>
+            </div>
+            <div class="form-group text-center justify-content-center row ml-4">
+                <div class="mr-4 d-flex">
+                    <input type="checkbox" name="handoff" class="form-check-input largerCheckbox" [(ngModel)]="botDetails.liveAgentSupport" value="handoff" (change)="makeIFrameURL()"><span>Handoff</span>
+                </div>
+                <div class="mr-4 d-flex">
+                    <label></label>
+                    <input type="checkbox" name="attachment" class="form-check-input largerCheckbox" [(ngModel)]="botDetails.attachment" value="attachment" (change)="makeIFrameURL()"><span>Attachment</span>
+                </div>
+                <div class="mr-4 d-flex">
+                    <label></label>
+                    <input type="checkbox" name="microphone" class="form-check-input largerCheckbox" [(ngModel)]="botDetails.microphone" value="microphone" (change)="makeIFrameURL()"><span>Microphone</span>
+                </div>
+                <div class="mr-4 d-flex">
+                    <label></label>
+                    <input type="checkbox" name="contactus" class="form-check-input largerCheckbox" [(ngModel)]="botDetails.contactus" value="contactus" (change)="makeIFrameURL()"><span>Contact us</span>
+                </div>
+                <div class="mr-4 d-flex">
+                    <label></label>
+                    <input type="checkbox" name="autoInitialize" class="form-check-input largerCheckbox" [(ngModel)]="botDetails.autoInitialize" value="autoInitialize" (change)="makeIFrameURL()"><span>Auto Initialize</span>
+                </div>
+                <div class="mr-4 d-flex">
+                    <label></label>
+                    <input type="checkbox" name="sosButton" class="form-check-input largerCheckbox" [(ngModel)]="botDetails.sosButton" value="sosButton" (change)="makeIFrameURL()"><span>SOS Button</span>
+                </div>
+            </div>
+            <div class="row col-lg-12 col-md-12 col-sm-12 col-12 text-center justify-content-center mt-2">
+                <button type="submit" class="btn btn-shona" (click)="saveBotDetails()">Save Bot</button>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 col-md-6 w-100 h-100 text-center justify-content-center">
+            <ng-container *ngIf="iframeURL;else loadURL">
+                <iframe [src]="iframeURL" id="iframe-colive" allow="microphone" frameborder="0"
+                    [ngStyle]="{width:botDetails.width+'px',height:botDetails.height+'px'}" ></iframe>
+            </ng-container>
+            <ng-template #loadURL>
+
+            </ng-template>
+
+        </div>
+    </div>
+    <hr class="mr-3 ml-3"/>
+    <div class="row col-12 mb-0 d-flex justify-content-between">
+        <p class="mb-0">
+            <span class="top-heading top-heading-container">&nbsp;&nbsp;AGENT LOGS</span>
+        </p>
+        <!-- <button type="button" class="btn btn-shona btn-shona-delete" (click)="deleteBot()">Disable</button> -->
+    </div>
+     <div class="row p-3 pt-0">
+        <div class="col-12 col-lg-12 col-md-12">
+            <div class="form-group row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <label>Excel Sheet Link</label>
+                </div>
+                <div class="col-lg-10 col-md-10 col-12">
+                    <input type="text" class="form-control" name="botName" [(ngModel)]="excelLink"
+                         readonly #input1>
+                    <img class="copy-icon" src="assets/img/copy-icon.png" alt="" (click)="copyExcelUrl(input1)">
+                </div>
+                <div *ngIf="!logStatus" class="col-lg-2 col-md-2 col-12">
+                    <button class="btn btn-shona ml-4" type="submit" (click)="configureLogs()">
+                        Configure Logs
+                    </button>
+                </div>
+                <div *ngIf="logStatus" class="col-lg-2 col-md-2 col-12">
+                    <button class="btn btn-shona ml-4" type="submit" (click)="configureLogs()">
+                        Edit
+                    </button>
+                    <button class="btn btn-shona btn-shona-disable ml-2" type="button" (click)="disableLogs()">
+                        Disable
+                    </button>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>

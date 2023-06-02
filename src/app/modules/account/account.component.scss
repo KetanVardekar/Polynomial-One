@@ -1,0 +1,103 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+div {
+  position: absolute;
+  right: -6px;
+  z-index: 2;
+  top: 25px;
+  background: var(--color-quaternary);
+  border: 1px solid var(--color-quinary);
+  box-shadow: var(--shadow-popup);
+  width: 320px;
+  border-radius: 10px;
+  @include media-breakpoint-down(sm) {
+    position: fixed;
+    left: 0px;
+    top: 142px;
+    width: 99%;
+  }
+  .fa-close {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    color: var(--color-tertiary);
+    cursor: pointer;
+  }
+  ul {
+    padding: 10px;
+    margin: 0px;
+    text-align: left;
+    justify-content: left;
+    li {
+      a:hover {
+        color: #fff;
+        text-decoration: none !important;
+      }
+      a {
+        color: var(--color-tertiary);
+        // font-size: 12px;
+        // font-weight: 400;
+        font: normal normal 300 16px/30px Poppins;
+        letter-spacing: 0px;
+        display: block;
+        padding: 3px 4px;
+      }
+      &.heading {
+        a {
+          text-align: center;
+          font-weight: 600;
+          font-size: 14px;
+          padding: 5px 5px;
+        }
+      }
+      &.account {
+        // border-top: 1px solid var(--color-tertiary);
+        border-bottom: 1px solid var(--color-tertiary);
+        margin-bottom: 10px;
+        cursor: default;
+        justify-content: center !important;
+        text-align: center !important;
+
+        // li.account.d-flex:hover {
+        // background-color: #fff !important;
+        // }
+        // a{
+        // h5 {
+        //   margin-bottom: 0px;
+        //   font-size: 14px;
+        //   font-weight: 600;
+        // }
+        span {
+          font: normal normal 300 18px/30px Poppins;
+          letter-spacing: 0px;
+          color: #6376c7;
+        }
+        padding: 5px;
+        // }
+      }
+      ul {
+        li.account {
+          span:hover {
+            color: #fff;
+
+          }
+        }
+      }
+      &:hover:not(.heading, .account) {
+        color: var(--color-text-input) !important;
+        background-color: var(--color-primary) !important;
+
+      }
+    }
+    list-style-type: none;
+  }
+}

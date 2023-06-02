@@ -1,0 +1,52 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.card-container {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 6px #16161633;
+  border: 1px solid #ededed;
+  border-radius: 8px;
+  opacity: 1;
+  .org-card-title{
+    font: normal normal 400 16px/10px Poppins;
+  }
+  .card {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 6px #16161633;
+    border: 1px solid #1732A4;
+    border-radius: 8px;
+    opacity: 1;
+    margin: 8px;
+    padding: 4px;
+    justify-content: center;
+    text-align: center;
+    width: 18%;
+    .profile-img-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+    }
+    .number-value{
+      font-size: 20px;
+      font-weight: 400;
+      color: #1732A4;
+    }
+    .card-text{
+      font: normal normal 300 14px/10px Poppins;
+      letter-spacing: 0px;
+      color: #4D4D4D;
+    }
+  }
+}
+.org-border{
+  border-color: #ADADAD !important;
+  .org-number{
+    font: normal normal 500 22px/10px Poppins;
+    letter-spacing: 0px;
+  }
+  .org-text{
+    font: normal normal 300 12px/14px Poppins;
+    color: #4D4D4D;
+  }
+}

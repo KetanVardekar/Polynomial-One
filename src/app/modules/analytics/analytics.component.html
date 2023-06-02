@@ -1,0 +1,45 @@
+<div class="ml-81">
+  <div class="row col-12 mb-0">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;ANALYTICS DASHBOARD</span>
+    </p>
+  </div>
+  <div class="row col-12 col-md-12">
+    <nav class="w-100">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <ng-container>
+          <a class="nav-link nav-item active text-center" id="'organization'" data-toggle="tab" role="tab"
+            aria-controls="organization" aria-selected="true" [class.active]="tab == 'organization'"
+            (click)="tab = 'organization'">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'organization' }">
+                Organization Analytics
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <ng-container>
+          <a class="nav-link nav-item text-center" id="'platform'" data-toggle="tab" role="tab" aria-controls="activity"
+            aria-selected="false" [class.active]="tab == 'platform'" (click)="tab = 'platform'">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'platform' }">
+                Platform Analytics
+              </span>
+            </div>
+          </a>
+        </ng-container>
+      </div>
+    </nav>
+    <div class="tab-content w-100 mt-4 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active ml-3" id="organization" role="tabpanel"
+        [class.active]="tab == 'organization'" aria-labelledby="organization">
+        <app-organization-analytics></app-organization-analytics>
+      </div>
+      <div class="tab-backgroud tab-pane fade show active ml-3" id="platform" role="tabpanel"
+        [class.active]="tab == 'platform'" aria-labelledby="platform">
+
+        <app-platform-analytics></app-platform-analytics>
+      </div>
+    </div>
+  </div>
+</div>

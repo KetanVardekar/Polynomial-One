@@ -1,0 +1,76 @@
+<div class="ml-81 main mr-4">
+  <div class="row col-12 mb-0">
+    <p class="mb-0">
+      <span class="heading heading-container">&nbsp;&nbsp;Settings</span>
+    </p>
+  </div>
+  <div class="row pl-3" *ngIf="teamList && teamList.length; else noSettings">
+    <div class="col-md-6 col-lg-6 col-12">
+      <div class="form-group">
+        <label class="field-name">Name</label>
+        <input type="text" class="input-auth form-control ml-0" placeholder="Agent Name" required
+          [disabled]="editFlag" [(ngModel)]="name" />
+      </div>
+      <div class="form-group mt-4">
+        <label class="field-name">Team</label>
+        <ng-select class="w-100 ml-0 settings" placeholder="-Select-" required [disabled]="editFlag" [(ngModel)]="select"
+          [multiple]="false" [clearable]="false" [searchable]="false">
+          <ng-option *ngFor="let team of teamList" [value]="team._id">
+            {{ team.name }}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="form-group">
+        <label class="field-name">Upload Image</label>
+        <div class="d-flex">
+          <div class="user-info d-flex mb-3 mt-1">
+            <div class="profile-pic-settings mb-2 ">
+              {{ userName ? userName.charAt(0).toUpperCase() : "" }}
+            </div>
+          </div>
+        <div class="img-button ml-3 mr-2 mb-4 mt-2" *ngIf="!editIconFlag">
+          <img class="profile-img-icon pointer" src="assets/img/gallery.png" (click)="uploads.click()" />
+          <input type="file" style="display: none" (change)="uploadImage($event)"
+            accept="image/png,image/jpeg, image/jpg" #uploads required [(ngModel)]="image" />
+        </div>
+        <div class="img-button ml-2 mb-4 mt-2" *ngIf="!editIconFlag">
+          <img class="profile-img-icon pointer" src="assets/img/delete.svg" (click)="deleteImage()" />
+        </div></div>
+        <div class="d-flex" *ngIf="image || !editIconFlag">
+          <div class="uploadFileSection">
+            <img *ngIf="image" [src]="image" style="height: inherit; width: inherit;border-radius:50%;" />
+          </div>
+
+        </div>
+        <div class="brand mb-2" *ngIf="editIconFlag && !image">
+          <!-- {{ userName ? userName.charAt(0).toUpperCase() : "" }} -->
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6 col-12">
+      <div class="form-group">
+        <label class="field-name">Description</label>
+        <textarea cols="55" rows="5" class="form-control input-auth ml-0" [disabled]="editFlag"
+          [(ngModel)]="Description" style="height: auto" placeholder="Enter One line description for your agent">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed soluta velit impedit explicabo debitis. Pariatur provident illo inventorit! </textarea>
+      </div>
+    </div>
+    <div class="form-group flex-grow-1 mt-2 ml-4 mr-4 text-center">
+      <button type="submit" class="btn btn-shona" (click)="canEdit()" *ngIf="settingsNotUpdate"
+        (click)="settingsNotUpdate = false">
+        Edit
+      </button>
+      <button type="submit" class="btn btn-shona" (click)="canUpdate()" *ngIf="!settingsNotUpdate">
+        Update
+      </button>
+    </div>
+  </div>
+  <ng-template #noSettings>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available settings </span>
+      </div>
+    </div>
+  </ng-template>
+</div>

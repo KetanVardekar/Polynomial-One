@@ -1,0 +1,27 @@
+<div class="box">
+  <ul>
+    <li class="bell-flex tex mt-2 ">
+      <span class="font ml-3">Notification</span>
+      <hr class="mt-1">
+    </li>
+    <div class="show-notification" *ngIf="notificationList && notificationList.length; else noNotification">
+      <div class="rows" *ngFor="let value of notificationList">
+        <div class="d-flex">
+          <span class="bot-Image col-md-1 ml-2"></span>
+          <span class="col-md-11 notification-msg ">
+            <div>{{value.notificationMessage}}</div>
+            <span class="date-content ">{{value.timestamp | date:"shortTime"}}</span>
+          </span>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </ul>
+  <ng-template #noNotification>
+    <div class="nodata">
+      <div class="d-flex justify-content-center">
+        <span class="text"> No Notification Available </span>
+      </div>
+    </div>
+  </ng-template>
+</div>

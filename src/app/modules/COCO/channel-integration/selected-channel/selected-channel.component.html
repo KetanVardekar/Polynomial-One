@@ -1,0 +1,80 @@
+<div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0  ml-0 heading justify-content-between pointer">
+  <div> SELECT A CHANNEL</div>
+  <div class="justify-content-end d-flex">
+    <!-- <button class="btn-style" style="border: none;" (click)="createEditChannel() ">
+      <span class="mr-3" style="color: #1732a4;"> {{!showEditFlag ?
+        "Save" : "Edit"}}</span>
+    </button> -->
+    <div class="mr-2" (click)="back()">Back</div>
+  </div>
+
+
+</div>
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+    <label class="mt-1 field-name">Registered Platform</label>
+
+    <input type="text" class="input-auth-field form-control w-100" placeholder="Polynomial One" required
+      [disabled]="editFlag" />
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+    <label class="mt-1 field-name">Registered Email</label>
+
+    <input type="text" class="input-auth-field form-control w-100" placeholder="Pramod.b@polynomial.ai" required
+      [disabled]="editFlag" />
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+    <label class="mt-1 field-name">Position</label>
+
+    <input type="text" class="input-auth-field form-control w-100" placeholder="Tech Admin" required
+      [disabled]="editFlag" />
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+    <label class="mt-1 field-name">Channel</label>
+
+    <input type="text" class="input-auth-field form-control w-100" placeholder="Polynomial One" required
+      [disabled]="editFlag" />
+  </div>
+</div>
+<div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0   heading-configure">
+  Configure connection with the channel
+</div>
+<div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0   light-font">
+  Fill in the necessary details to configure your channel and get started
+</div>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+    <label class="mt-1 field-name">Platform to be connected to</label>
+    <ng-select class="  w-100" placeholder="Insight as a service" required [(ngModel)]="servicename">
+      <ng-option>Insight as a service</ng-option>
+      <ng-option>Expression as a service</ng-option>
+    </ng-select>
+
+
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+    <label class="mt-1 field-name">Agent to be connected </label>
+    <ng-select class="w-100" placeholder="Agent One" required [(ngModel)]="agentname">
+      <ng-option *ngFor="let agents of lensAgentList">{{agents.name}}</ng-option>
+    </ng-select>
+  </div>
+</div>
+<div class="row">
+
+  <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+    <label class="mt-1 field-name">Whatsapp Business Api Key</label>
+
+    <input type="text" class="input-auth form-control w-100" placeholder="Pramod.b@polynomial.ai" required
+      [(ngModel)]="apikey" />
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+    <label class="mt-1 field-name">URL </label>
+    <div class="d-flex">
+      <input type="text" class="input-auth-field form-control w-100" placeholder="" required [disabled]="editFlag"
+        #userinput />
+      <button class="btn btn-outline-shona " (click)="copyInputMessage(userinput)" value="click to copy">
+        Copy
+      </button>
+    </div>
+  </div>
+</div>

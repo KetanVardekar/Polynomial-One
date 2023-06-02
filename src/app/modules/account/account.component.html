@@ -1,0 +1,21 @@
+<div>
+  <!-- <i class="fa fa-close" aria-hidden="true"></i> -->
+  <ul>
+    <!-- <li class="heading"><a href="javascript:void();">Account</a></li> -->
+    <li class="account d-flex">
+      <!-- <a href="javascript:void();"> -->
+      <!-- <h5>{{ userName }}</h5> -->
+      <img src="assets/img/email_icon.svg" class="mr-2" width="30px" height="30px">
+      <span>{{ email }}</span>
+      <!-- </a> -->
+    </li>
+    <li><a href="javascript:void();" [routerLink]="['user',{'tabValue': 'profile'}]" (click)="setRoutes()">Profile </a></li>
+    <li><a href="javascript:void();" [routerLink]="['user',{'tabValue': 'activity'}]" (click)="setRoutes()">Activity</a></li>
+    <li><a href="javascript:void();" [routerLink]="['user',{'tabValue': 'password'}]" (click)="setRoutes()">Password</a></li>
+    <li><a href="javascript:void();" [routerLink]="['user',{'tabValue': 'settings'}]" (click)="setRoutes()">Settings</a></li>
+    <li *ngIf="role!='user'"><a href="javascript:void();" [routerLink]="['organization']" (click)="setRoutes()">Organization Management</a>
+    </li>
+    <li><a href="javascript:void();" [routerLink]="['user',{'tabValue': 'help'}]">Help</a></li>
+    <li (click)="logout()"><a href="javascript:void();" style="color: #E02626 !important;">Sign Out</a></li>
+  </ul>
+</div>

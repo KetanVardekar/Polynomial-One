@@ -1,0 +1,91 @@
+<div class="ml-81">
+  <div class="row col-12 mb-0 d-flex justify-content-between">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;ENTITIES</span>
+    </p>
+    <div *ngIf="configureEntitiesFlag || viewEntitiesFlag ">
+      <button class="btn btn-primary mt-4" (click)="back()" value="">
+        Back
+      </button>
+    </div>
+  </div>
+  <div class="row col-lg-12 col-md-12 mt-3 pr-0 mr-0 w-100"
+    *ngIf="((globalEntities || customEntities) && (globalEntities.length || customEntities.length)) || searchQuery || searchQuery == '' ; else noEntities">
+    <div class="w-100 d-flex justify-content-between" *ngIf="!configureEntitiesFlag && !viewEntitiesFlag" >
+      <nav class="w-100">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <ng-container>
+            <a class="nav-link nav-item active text-center" id="'global'" data-toggle="tab" role="tab"
+              aria-controls="global" aria-selected="true" [class.active]="tab == 'global'" (click)="tab = 'global'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'global' }">
+                  Global Entities
+                </span>
+              </div>
+            </a>
+          </ng-container>
+          <!-- <ng-container>
+            <a class="nav-link nav-item active text-center" id="'edit'" data-toggle="tab" role="tab"
+              aria-controls="edit" aria-selected="true" [class.active]="tab == 'edit'" (click)="tab = 'edit'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'edit' }">
+                  Global Entities
+                </span>
+              </div>
+            </a>
+          </ng-container> -->
+          <ng-container>
+            <a class="nav-link nav-item text-center" id="'custom'" data-toggle="tab" role="tab" aria-controls="custom"
+              aria-selected="false" [class.active]="tab == 'custom'" (click)="tab = 'custom'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'custom' }">
+                  Custom Entities
+                </span>
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </nav>
+      <div class="form-group flex-grow-1 w-40 d-flex">
+        <input placeholder="Search" type="text" name="query"
+          [(ngModel)]="searchQuery" value="" class="form-control input-auth" (keyup)="searchEntities()" />
+          <button class="btn btn-primary-search" (click)="searchEntities()">
+            <img class="search-icon" src="assets/img/Search icon.svg">
+          </button>
+      </div>
+      <!-- <button *ngIf="deploymentInfo.flag == 'rasa'" class="btn btn-shona ml-2" type="submit" (click)="trainAgent()">
+        Train Agent
+      </button> -->
+      <button class="btn btn-shona ml-3" type="submit" (click)="addEntity()">
+        Add Entity
+      </button>
+    </div>
+    <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="global" role="tabpanel" [class.active]="tab == 'global'"
+        aria-labelledby="global">
+        <app-global-entities [globalEntitiesData]="globalEntities"></app-global-entities>
+      </div>
+    </div>
+    <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="custom" role="tabpanel" [class.active]="tab == 'custom'"
+        aria-labelledby="custom">
+        <app-custom-entities [customEntitiesData]="customEntities " *ngIf="!viewEntitiesFlag && !configureEntitiesFlag"
+          (editEntities)=" editEntities($event)" (viewEntities)="viewEntities($event)"  (setEntityName)="setEntityName($event)">
+        </app-custom-entities>
+        <app-edit-entities [customEntitiesData]="customEntities" *ngIf="configureEntitiesFlag " [selectedEntityName]="entityName"
+          (addEditEntities)="addEditEntities($event)" (entityEmit)="entityEmit()">
+        </app-edit-entities>
+       <app-view-entities  (addViewEntities)="addViewEntities($event)" *ngIf="viewEntitiesFlag" [selectedEntityName]="entityName" ></app-view-entities>
+      </div>
+    </div>
+
+  </div>
+  <ng-template #noEntities>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available entities </span>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,45 @@
+.text {
+    font: normal normal 500 20px/15px Poppins;
+  }
+  .btn-shona {
+    color: var(--color-button) !important;
+    border: 2px solid var(--color-button);
+    background: #fff !important;
+    font-size: 14px !important;
+    border-radius: 6px;
+    padding: 4px 77px;
+    height: 32px;
+  }
+
+
+  .btn-primary {
+    font-size: 14px !important;
+    border-radius: 6px;
+    padding: 4px 77px;
+    height: 32px;
+    background: #1732a4;
+  }
+
+  input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched{
+  border: 1px solid red!important;
+  }
+
+// dropdown required error
+::ng-deep.required-error-dropdown.is-invalid {
+  border: 1px solid red;
+  border-radius: 5px !important;
+}
+::ng-deep.required-error-dropdown.is-invalid .ng-select-container {
+  border: none !important;
+}
+
+::ng-deep.form-control.is-invalid ~ .input-required,
+::ng-deep.dropdown-name.is-invalid ~ .input-required,
+::ng-deep.status-basic.is-invalid ~ .input-required {
+  display: block;
+}
+::ng-deep.is-invalid .ng-select-container {
+  border: 1px solid red !important;
+
+}

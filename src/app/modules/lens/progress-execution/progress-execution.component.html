@@ -1,0 +1,51 @@
+<div class="ml-81">
+  <div class="row col-12 mb-0">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;PROGRESS EXECUTION</span>
+    </p>
+    <div class="row col-lg-12 col-md-12 mt-3 pr-0 mr-0 w-100">
+      <div class="w-100 d-flex justify-content-between">
+        <nav class="w-100">
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <ng-container>
+              <a class="nav-link nav-item active text-center" id="'executed'" data-toggle="tab" role="tab"
+                aria-controls="executed" aria-selected="true" [class.active]="tab == 'executed'"
+                (click)="tab = 'executed'">
+                <div class="justify-content-center">
+                  <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'executed' }">
+                    To Be Executed
+                  </span>
+                </div>
+              </a>
+            </ng-container>
+            <ng-container>
+              <a class="nav-link nav-item text-center" id="'history'" data-toggle="tab" role="tab"
+                aria-controls="history" aria-selected="false" [class.active]="tab == 'history'"
+                (click)="tab = 'history'">
+                <div class="justify-content-center">
+                  <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'history' }"
+                    class="detail-font-color ">
+                    History
+                  </span>
+                </div>
+              </a>
+            </ng-container>
+          </div>
+        </nav>
+
+      </div>
+      <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+        <div class="tab-backgroud tab-pane fade show active" id="executed" role="tabpanel"
+          [class.active]="tab == 'executed'" aria-labelledby="executed">
+          <app-to-be-executed></app-to-be-executed>
+
+        </div>
+      </div>
+      <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+        <div class="tab-backgroud tab-pane fade show active" id="history" role="tabpanel"
+          [class.active]="tab == 'history'" aria-labelledby="history">
+          <app-history></app-history>
+        </div>
+      </div>
+    </div>
+  </div>

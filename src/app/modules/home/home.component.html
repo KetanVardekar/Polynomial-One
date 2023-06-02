@@ -1,0 +1,404 @@
+<div class="ml-81 mt-3 pl-3">
+  <div class="row col-12 mb-0 d-flex">
+    <span class="greetings">Greetings</span>&nbsp;&nbsp;
+    <span class="greetings username">{{ updatedUserName }}</span>
+  </div>
+  <div class="row col-12 sub-title">
+    <span>
+      Welcome to Polynomial One, you can access all of our platforms in a single
+      click.
+    </span>
+  </div>
+  <div class="row col-lg-12 col-md-12 mt-3 pr-0 mr-0 w-100">
+    <nav class="w-100">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <ng-container
+          *ngIf="(lensAgentList && lensAgentList.length)|| ( interactionAgentList&&interactionAgentList.length)">
+          <a class="nav-link nav-item active text-center" id="'myAgent'" data-toggle="tab" role="tab"
+            aria-controls="myAgent" aria-selected="true" [class.active]="tab == 'myAgent'"
+            (click)="tab = 'myAgent'; getAgentList()">
+            <div class="justify-content-center">
+              <!-- <span class="material-icons-outlined check-circle-icon">task_alt</span> -->
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'myAgent' }">
+                My Agents
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <ng-container>
+          <a class="nav-link nav-item text-center" id="'createAgent'" data-toggle="tab" role="tab"
+            aria-controls="createAgent" aria-selected="false" [class.active]="tab == 'createAgent'"
+            (click)="tab = 'createAgent'; getKitsList()">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'createAgent' }">
+                Create Agent
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <!-- <ng-container>
+          <a class="nav-link nav-item text-center" id="'mySolutions'" data-toggle="tab" role="tab"
+            aria-controls="mySolutions" aria-selected="false" [class.active]="tab == 'mySolutions'"
+            (click)="tab = 'mySolutions'">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'mySolutions' }">
+                My Solutions
+              </span>
+            </div>
+          </a>
+        </ng-container> -->
+      </div>
+    </nav>
+    <div class="tab-content w-100 mt-4 pl-3" id="nav-tabContent">
+  <div class="tab-backgroud tab-pane fade show active w-100" id="myAgent" role="tabpanel"
+        [class.active]="tab == 'myAgent'" aria-labelledby="myAgent">
+        <!-- last Updated agents -->
+        <ng-container *ngIf="agentList && agentList.length">
+          <div class="row w-100 col-md-12 col-lg-12 col-12 heading">
+            LAST UPDATED
+          </div>
+          <div class="container-fluid mt-3 pr-44">
+            <div class="row d-flex" [@listAnimation]="agentList.length">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative"
+                *ngFor="let agent of agentList">
+
+                <div class="card d-flex align-items-center" (click)="switchAgent(agent, 'IS')" [ngClass]="
+                    selectedAgent?.botType == agent.botType ? 'shadow' : ''
+                  ">
+                  <div class="w-100 justify-content-between d-flex ml-2 ">
+                    <img class="coco-img" src="assets/img/coco.svg" height="40px" width="40px" />
+
+                    <a href="{{agent.botDeploymentInfo.frontEndUrl}}" class="edit-agent-icon" target="_blank">
+                      <img src="assets/img/redirect.svg" data-toggle="modal" data-target="#editAgentModal"
+                        alt="Edit bot"class="img-edit" />
+                    </a>
+                  </div>
+                  <!-- Agent Image -->
+                  <ng-container>
+                    <div class="user-info mt--12">
+                      <div class="mb-2 mt-3 botImage" *ngIf="!agent.avatarUri" [style.background-color]="agent.color">
+                        {{
+                        agent.displayName
+                        ? agent.displayName.charAt(0).toUpperCase()
+                        : ""
+                        }}
+                      </div>
+                    </div>
+                    <div class="user-info mt--12" *ngIf="agent.avatarUri">
+                      <img [src]="agent.avatarUri" class="botImage pt-0 " height="90px" width="90px" />
+                    </div>
+                  </ng-container>
+                  <!-- agent name -->
+                  <!-- <h5 class="text-uppercase">{{ agent.name }}</h5> -->
+                  <!-- agent type -->
+                  <!-- <p>{{ agent.kitName }}</p> -->
+                  <!-- <hr *ngIf="agent.isActive || agent.updatedAt"> -->
+                  <!-- agent update and status -->
+                  <!-- <div class="status-update mt-2" *ngIf="agent.isActive || agent.updatedAt">
+                    <span *ngIf="agent.isActive">Status :{{agent.isActive?'Working':'Stop'}} </span><br>
+                    <span *ngIf="agent.updatedAt">Last update : {{agent.updatedAt | date : 'dd-MMM-yyyy'}}</span>
+                  </div> -->
+                  <!-- agent name -->
+                  <h5 class="text-uppercase">{{ agent.displayName }}</h5>
+                  <!-- agent type -->
+                  <p>{{ agent.description }}</p>
+
+                  <hr class="horizontal-line" *ngIf="agent.isActive || agent.updatedAt" />
+                  <!-- agent update and status -->
+                  <div class="status-update mt-2">
+                    <span>Status : &nbsp;{{ agent.isActive ? "Working" : " -" }} </span><br />
+                    <span>Last update :
+                      {{ agent.updatedAt | date: "dd-MMM-yyyy" }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!-- interaction Studio Agents -->
+        <ng-container *ngIf="interactionAgentList && interactionAgentList.length">
+          <div class="row w-100 col-md-12 col-lg-12 col-12 mr-0 heading justify-content-between pt-1">
+            <span>EXPRESSION AS A SERVICE</span>
+            <span><img src="assets/img/coco.svg" height="30px" width="30px" />COCO</span>
+          </div>
+          <div class="container-fluid mt-3 pr-44">
+            <div class="row d-flex" *ngIf="interactionAgentList && interactionAgentList.length"
+              [@listAnimation]="interactionAgentList.length">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative"
+                *ngFor="let agent of interactionAgentList">
+                <div class="card d-flex align-items-center" (click)="switchAgent(agent, 'IS')" [ngClass]="
+                selectedAgent?.botType == agent.botType ? 'shadow' : ''
+                ">
+                  <div class="w-100 justify-content-between d-flex ml-2 ">
+                    <a href="{{agent.botDeploymentInfo.frontEndUrl}}" class="edit-agent-icon" target="_blank">
+                      <img src="assets/img/redirect.svg" data-toggle="modal" data-target="#editAgentModal"
+                        alt="Edit bot" class="img-edit" />
+                    </a>
+                  </div>
+                  <!-- Agent Image -->
+                  <ng-container>
+                    <div class="user-info">
+                      <div class="mb-2 mt-3 botImage" *ngIf="!agent.avatarUri" [style.background-color]="agent.color">
+                        {{
+                        agent.displayName
+                        ? agent.displayName.charAt(0).toUpperCase()
+                        : ""
+                        }}
+                      </div>
+                    </div>
+                    <div class="user-info mt-3 mb-2" *ngIf="agent.avatarUri">
+                      <img [src]="agent.avatarUri" class="botImage pt-0" height="90px" width="90px" />
+                    </div>
+                  </ng-container>
+                  <!-- agent name -->
+                  <h5 class="text-uppercase">{{ agent.displayName }}</h5>
+                  <!-- agent type -->
+                  <p>{{ agent.description }}</p>
+                  <hr class="horizontal-line" *ngIf="agent.isActive || agent.updatedAt" />
+                  <!-- agent update and status -->
+                  <div class="status-update mt-2">
+                    <span>Status : &nbsp;{{
+                      agent.isActive ? "Working" : " -"
+                      }} </span><br />
+                    <span>Last update :
+                      {{ agent.updatedAt | date: "dd-MMM-yyyy" }}</span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!viewAllCocoAgentFlag"
+                class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative" (click)="viewCocoAgent()">
+                <div class="card d-flex align-items-center justify-content-center">
+                  <span style="color: blue">View All</span>
+                </div>
+              </div>
+            </div>
+            <div class="row d-flex" *ngIf="!interactionAgentList">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative" (click)="addAgent()">
+                <div class="card create-new d-flex align-items-center justify-content-center">
+                  <span class="add-icon">+</span>
+                  <h5 class="text-uppercase">Create agent</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!-- lens agents -->
+        <ng-container *ngIf="recordAgent && recordAgent.length">
+          <div class="row w-100 col-md-12 col-lg-12 col-12 mr-0 heading justify-content-between pt-1">
+            <span>INSIGHTS AS A SERVICE</span>
+            <span><img src="assets/img/lens.svg" height="30px" width="30px" style="padding: 5px" />LENS</span>
+          </div>
+          <div class="container-fluid mt-3 pr-44">
+            <div class="row d-flex" *ngIf="recordAgent && recordAgent.length" [@listAnimation]="recordAgent.length">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative"
+                *ngFor="let agent of recordAgent; let i = index">
+                <a href="javascript:void(0);" (click)="editAgent($event, agent)" class="edit-agent-icon">
+                  <img src="assets/img/home edit.svg
+                    " data-toggle="modal" data-target="#editAgentModal" alt="Edit bot" class="img-fluid theme-dark" />
+                  <img src="assets/img/home edit.svg" data-toggle="modal" data-target="#editAgentModal" alt="Edit bot"
+                    class="img-fluid theme-light" />
+                </a>
+                <div class="card  create-new d-flex align-items-center" (click)="switchAgent(agent, 'Lens')" [ngClass]="
+                    selectedAgent?.botType == agent.botType ? '' : ''
+                  ">
+                  <!-- Agent Image -->
+                  <ng-container>
+                    <div class="user-info">
+                      <div class="mb-2 mt-3 botImage" [id]="i" *ngIf="!agent.imageURL"
+                        [style.background-color]="agent.color">
+                        {{
+                        agent.name ? agent.name.charAt(0).toUpperCase() : ""
+                        }}
+                      </div>
+                    </div>
+
+
+                    <div class="user-info mt-3 mb-2" *ngIf="agent.imageURL">
+                      <img [src]="agent.imageURL" class="botImage pt-0" height="90px" width="90px" />
+                    </div>
+                  </ng-container>
+                  <!-- agent name -->
+                  <h5 class="text-uppercase">{{ agent.updateName }}</h5>
+                  <!-- agent type -->
+                  <p>{{ agent.kitName }}</p>
+                  <hr class="horizontal-line" *ngIf="agent.isActive || agent.updatedAt" />
+                  <!-- agent update and status -->
+                  <div class="status-update mt-2" *ngIf="agent.isActive || agent.updatedAt">
+                    <span *ngIf="agent.isActive">Status :&nbsp;{{ agent.isActive ? "Working" : "-" }} </span><br />
+                    <span *ngIf="agent.updatedAt">Last update :
+                      {{ agent.updatedAt | date: "dd-MMM-yyyy" }}</span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!viewAllAgentFlag" class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative"
+                (click)="viewAgent()">
+                <div class="card d-flex align-items-center justify-content-center">
+                  <span style="color: blue">View All</span>
+                </div>
+              </div>
+            </div>
+            <div class="row d-flex" *ngIf="!lensAgentList">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative" (click)="addAgent()">
+                <div class="card create-new d-flex align-items-center justify-content-center">
+                  <span class="add-icon">+</span>
+                  <h5 class="text-uppercase">Create agent</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="tab-backgroud tab-pane fade show active" id="createAgent" role="tabpanel"
+        [class.active]="tab == 'createAgent'" aria-labelledby="createAgent"   >
+        <div class="container-fluid mt-3 pr-44">
+          <div class="row d-flex">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative" (click)="addAgent()">
+              <div class="card create-new d-flex align-items-center justify-content-center">
+                <div class="w-100 justify-content-between d-flex mb-3  ml-2 ">
+                  <img src="assets/img/coco.svg" height="40px" width="40px" />
+                </div>
+                <div class="mb-2">
+                  <span class="add-icon">+</span>
+                  <h5 class="text-uppercase mb-0">Create agent</h5>
+                </div>
+                <hr class="horizontal-line" class="w-100"
+                  style="margin: 57px auto 14px auto; border: 1px solid #0000006e;" />
+                <span class="footer-title mt-0 mb-0">For Your Expressions</span>
+              </div>
+            </div>
+            <!-- meeting kit and normal kit -->
+            <ng-container *ngIf="kitsList && kitsList.length">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative"
+                *ngFor="let agent of kitsList">
+                <div class="card d-flex align-items-center p-0" (click)="getMeetlist(agent)" [ngClass]="
+                    selectedAgent?.botType == agent.botType ? '' : ''
+                  ">
+                  <div class="w-100 d-flex justify-content-between pt-2 pl-2 pr-2">
+                    <img src="assets/img/lens.svg" height="24px" width="24px" />
+                    <strong>v1</strong>
+                  </div>
+                  <!-- Agent Image -->
+                  <ng-container>
+                    <div class="user-info" style="margin-top: -20px">
+                      <div class="mb-2 mt-3 botImage" *ngIf="!agent.imageURL">
+                        <img [src]="agent.image" height="35px" width="35px" />
+                      </div>
+                    </div>
+                    <div class="user-info">
+                      <img *ngIf="agent.imageURL" [src]="agent.imageURL" class="botImage" height="90px" width="90px" />
+                    </div>
+                  </ng-container>
+                  <!-- agent name -->
+                  <h5 class="text-uppercase">{{ agent.name }}</h5>
+                  <!-- agent type -->
+                  <p class="mt-3" style="line-height: 16px">
+                    {{ agent.description }}
+                  </p>
+                  <hr class="horizontal-line" class="w-100 mt-3" style="border: 1px solid #0000006e;" />
+                  <span class="footer-title mt-2 mb-1">{{
+                    agent.bottomHeading
+                    }}</span>
+                  <!-- agent update and status -->
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="tab-backgroud tab-pane fade show active" id="mySolutions" role="tabpanel"
+        [class.active]="tab == 'mySolutions'" aria-labelledby="mySolutions">
+        <div class="container-fluid mt-3 pr-44">
+          <div class="row d-flex">
+
+            <ng-container *ngIf="mySolutionDataList.length">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pl-0 pr-0 position-relative"
+                *ngFor="let agent of mySolutionDataList">
+                <div class="card d-flex align-items-center p-5">
+                  <ng-container>
+                    <div class="user-info" style="margin-top: -20px">
+                    </div>
+                    <div class="user-info">
+                      <img *ngIf="agent.logo" [src]="agent.logo" class="" height="64px" width="64px" />
+                    </div>
+                  </ng-container>
+                  <h5 class="text-uppercases mt-1">{{ agent.name }}</h5>
+                  <p class="mt-2" style="line-height: 16px">
+                    {{ agent.about }}
+                  </p>
+                  <hr class="horizontal-line" class="w-25 mt-1" />
+                  <div class="w-100 d-flex justify-content-center mt-3 mb-4">
+                    <button class="btn btn-shona w-25 ml-2" (click)="about()">
+                      About</button>&nbsp;&nbsp;
+                    <button class="btn btn-primary w-25 ml-4" (click)="Active()">
+                      Activate
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container>
+              <div class="row w-100 col-md-12 col-lg-12 col-12 m-2 heading justify-content-between pt-1 bt-1">
+                <span>ACTIVE SOLUTION</span>
+              </div>
+              <div class="container-fluid mt-2 pr-4" (click)="solutionColive()">
+                <div class="row d-flex">
+                  <ng-container *ngIf="activesolutionList.length">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12  mt-2 pl-0 pr-0 position-relative"
+                      *ngFor="let agent of activesolutionList; let i = index">
+                      <a href="javascript:void(0);" (click)="editmySolution($event, agent)" class="edit-agent-icon">
+                        <!-- <img src="assets/img/home edit.svg" data-toggle="modal" data-target="#editAgentModal"
+                          alt="Edit bot" class="img-fluid theme-dark" /> -->
+                        <img src="assets/img/home edit.svg" data-toggle="modal" data-target="#editAgentModal"
+                          alt="Edit bot" class="img-fluid theme-light" />
+                      </a>
+                      <div class="card d-flex align-items-center p-3">
+                        <div class="w-100 d-flex justify-content-between ">
+                          <img *ngIf="agent.images" [src]="agent.images" height="24px" width="24px" />
+                        </div>
+                        <ng-container>
+                          <div class="user-info" style="margin-top: -20px">
+                            <div class="mb-2 mt-3 botImage" *ngIf="!agent.image">
+                              <img [src]="agent.image" height="35px" width="35px" />
+                            </div>
+                          </div>
+                          <div class="user-info">
+                            <img *ngIf="agent.image" [src]="agent.image" class="botImages" />
+                          </div>
+                        </ng-container>
+                        <h5 class="text-uppercases mt-1">{{ agent.hadding }}</h5>
+                        <p class="mt-1" style="line-height: 16px">
+                          {{ agent.introduction }}
+                        </p>
+                        <hr class="horizontal-line" class="w-25 mt-1" />
+                        <div class="status-update mt-1 " *ngIf="agent">
+                          <span *ngIf="agent">Status :{{ agent ? " Active" : "-" }}
+                          </span><br />
+                          <span>Last update :
+                            {{ agent.dates }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <ng-template #noAgent>
+      <div class="nodata justify-content-center mt-5 p-5">
+        <div>
+          <span class="add-icon">+</span>
+          <br />
+          <span class="sub-text">You need to create an agent or activate a solution.</span>
+        </div>
+        <div class="w-100 d-flex justify-content-center mt-4 mb-4">
+          <button class="btn btn-shonas mr-3" (click)="addAgent()">Create agent</button>
+          <button class="btn btn-shonas ml-3 " (click)="Active()">My solution</button>
+        </div>
+      </div>
+    </ng-template> -->
+
+  </div>
+</div>

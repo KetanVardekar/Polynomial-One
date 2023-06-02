@@ -1,0 +1,42 @@
+<div *ngIf="mapCoordinarorData && mapCoordinarorData.length ; else noMappedCoordinator">
+    <div class="row w-100 mt-2 user-sub-heading-div-heading">
+        <div class="col-md-2 mb-2">
+            <span class="mt-1">Intent</span>
+        </div>
+        <div class="col-md-2 mt-1">Mapped To</div>
+        <!-- <div class="col-md-2 mt-1">Agent</div> -->
+        <div class="col-md-2 mt-1">Date Created</div>
+        <div class="col-md-4 mt-1"></div>
+    </div>
+    <div class="row w-100 mt-2 user-sub-body-div-subtext" *ngFor="let maped of mapCoordinarorData">
+        <div class="col-md-2 mb-2 text-wrap">
+            <span class="mt-1">{{maped.intentName}}</span>
+        </div>
+        <div class="col-md-2 mt-1 text-wrap">{{maped.apiDetails.apiName}}</div>
+        <!-- <div class="col-md-2 mt-1 text-wrap">{{botName}}</div> -->
+        <div class="col-md-2 mt-1">{{maped.createdAt | date:"longDate"}}</div>
+        <div class="col-md-1 mt-1 d-flex justify-content-around">
+            <!-- detach Intent -->
+            <!-- <span class="pointer" style="color: #A41717;" (click)="detachIntent(maped.intentName)">Detach</span> -->
+
+            <!-- edit mapped Coordinator -->
+            <!-- <span class="pointer" style="color: #1732A4;"
+                (click)="editIntent(maped.intentName,maped.apiDetails.apiName)">Edit</span> -->
+            
+                <!-- Delete Mapped Coordinator                 -->
+            <div class="col-md-2  pointer d-flex justify-content-center">
+                <img class="pointer" src="assets/img/delete.svg" width="20" height="20"
+                    (click)="deleteMappedCoordinator($event)" />
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-template #noMappedCoordinator>
+    <div class="nodata">
+        <img src="assets/img/no-data.svg" class="no-found-img">
+        <div class="mb-5">
+            <span class="text mt-0"> No available Mapped Coordinator </span>
+        </div>
+    </div>
+</ng-template>

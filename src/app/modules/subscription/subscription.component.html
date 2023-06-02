@@ -1,0 +1,226 @@
+<div class="ml-81 mr-4">
+  <div class="row col-12 mb-0 pr-0">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;PLANS AND PAYMENT</span>
+    </p>
+  </div>
+  <div class="row col-12 sub-title pr-0 ml-1" style="margin-top: -10px;">
+    Subscribe to a suitable plan according to your circumstances and start your
+    jouney with us
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-sm-8 col-lg-8 pr-0">
+      <div class="row col-12">
+
+        <div class=" card-container col-md-12 col-sm-12 col-lg-12 w-100 p-2 mt-1 mb-3">
+          <div class="card-heading ">
+            Simple,Transparent Pricing
+          </div>
+          <div class="d-flex justify-content-lg-between mb-2">
+            <div class="card pointer" *ngFor="let data of listPlanList" (click)="changeEvent(data)"
+              [ngClass]="[data.selected ? 'afterload' : '']">
+              <!-- <div class="mb-1 ml-5 ">
+                <button type="button" class="btn btn-save">
+                  {{data.save ? data.save : '-'}} % Off
+                </button>
+              </div> -->
+              <div class="mt-2">
+                <span class="heading-style">{{data.planName ?data.planName :"-"}} Plan</span>
+              </div>
+              <span class="mt-2 mb-2">
+                <strong class="price">
+                  &#x20B9; {{data.planPrice}}<sub style="font-size: xx-small">/{{data.billing
+                    ?data.billing:"-"}}</sub></strong>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row col-12">
+        <div class=" card-container col-md-12 col-sm-12 col-lg-12 w-100 p-2 mt-1 ">
+          <div class="d-flex justify-content-between">
+            <!-- First Card -->
+            <div class="sub-card">
+
+              <div class="mt-1 details-value">
+                <span>Current Subscription</span>
+
+              </div>
+
+              <div class="mt-34">
+                <span class="heading-style">{{subscriptionList?.planName?subscriptionList.planName:'-'}}&nbsp;
+                  Plan</span>
+              </div>
+
+              <div class="mt-2 ">
+                <span class="price">
+                  &#x20B9; {{subscriptionList?.amount?subscriptionList.amount:'-'}}<sub
+                    style="font-size: xx-small">/month</sub></span>
+              </div>
+            </div>
+            <!-- Second Card -->
+            <div class="sub-card">
+
+              <div class="mt-1">
+                <span class="details-value">Invoice Period</span>
+              </div>
+              <div class="mt-5 mb-2">
+                <span class="card-text">{{(subscriptionList &&
+                  subscriptionList?.invoicePeriod)?subscriptionList?.invoicePeriod : '-'}}</span>
+              </div>
+
+            </div>
+            <!-- Third Card -->
+            <div class="sub-card">
+
+              <div class="mt-1">
+                <span class="details-value">Last Paid Date</span>
+              </div>
+              <div class="mt-5 mb-2">
+                <span class="card-text">{{ (subscriptionList.lastPaidDate !== 'NA') ? (subscriptionList.lastPaidDate |
+                  date: 'longDate') : "-" }}</span>
+              </div>
+            </div>
+            <!-- Fourth Card -->
+            <div class="sub-card">
+
+              <div class="mt-1">
+                <span class="details-value">Next Due Date</span>
+              </div>
+              <div class="mt-5 mb-2">
+                <span class="card-text">{{ (subscriptionList.nextDueDate !== 'NA') ? (subscriptionList.nextDueDate |
+                  date: 'longDate') : "-" }}</span>
+
+              </div>
+            </div>
+            <!-- Fifth Card       -->
+            <div class="sub-card">
+
+              <div class="mt-1">
+                <span class="details-value">Subscribed Date</span>
+              </div>
+              <div class="mt-5 mb-2">
+                <span class="card-text">{{ (subscriptionList.subscribedDate !== 'NA') ? (subscriptionList.subscribedDate
+                  | date: 'longDate') : "-" }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-lg-4">
+      <div class="row col-12 pl-0">
+        <div class=" card-container col-md-12 col-sm-12 col-lg-12 w-100 p-2 mt-1 ">
+          <div class="card-heading ">
+            Selected Plan Details
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="mt-2 ">
+              <p class="plan-details"><span class="dot ml-3">.</span> Selected Plan</p>
+              <p class="plan-details"><span class="dot ml-3">.</span> Total Interactions</p>
+              <p class="plan-details"><span class="dot ml-3">.</span> Total Insights</p>
+              <p class="plan-details"><span class="dot ml-3">.</span> Total Solutions</p>
+              <p class="plan-details"><span class="dot ml-3">.</span> Total Agents</p>
+              <p class="plan-details"><span class="dot ml-3">.</span> Total Agents</p>
+              <p class="plan-details"><span class="dot ml-3">.</span> Total Agents</p>
+
+            </div>
+            <div class="mt-2">
+              <p class="dash">{{ planListDetails?.selectedPlan?planListDetails?.selectedPlan:"-" }}</p>
+              <p class="dash">{{planListDetails?.interactionsOffered?planListDetails?.interactionsOffered:"-"}}</p>
+              <p class="dash">{{ planListDetails?.insightsOffered?planListDetails?.insightsOffered:"-"}}</p>
+              <p class="dash">{{planListDetails?.solutionsOffered?planListDetails?.solutionsOffered:"-"}}</p>
+              <p class="dash">{{planListDetails?.cocoAgents?planListDetails?.cocoAgents:"-"}}</p>
+              <p class="dash">{{planListDetails?.lensAgents?planListDetails?.lensAgents:"-" }}</p>
+              <p class="dash">{{ planListDetails?.cocoAgents?planListDetails.cocoAgents:"-"}}</p>
+
+
+            </div>
+
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn disable-active-plan " *ngIf="disableactivateFlag">Active
+              Plan</button>
+            <button type="button" class="btn btn-activate-plan" (click)="activatedPlan()"
+              *ngIf="activatePlanFlag">Active
+              Plan</button>
+            <button type="button" class="btn btn-activate-plan" (click)="upgradePlan()" *ngIf="upgradePlanFlag">Upgrade
+              Plan</button>
+            <button type="button" class="btn btn-payment-plan" *ngIf="enablePaymentFlag" (click)="makePayment()">Activate Plan</button>
+            <button type="button" class="btn  btn-payment-plan" disabled *ngIf="disablePaymentFlag">Make
+              Payment</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0 ml-2 mr-0 title-heading">
+    PAYMENT HISTORY
+  </div>
+  <ng-container *ngIf="historyList && historyList.length">
+    <div class="pr-0 ml-3 mr-3 pl-0 mb-3">
+      <table class="table">
+        <thead>
+          <tr>
+            <td scope="col">SI No</td>
+            <td scope="col">Subscription Plan</td>
+            <td scope="col">Invoice Date</td>
+            <td scope="col">Payment Date</td>
+            <td scope="col">Status</td>
+            <td scope="col">Amount</td>
+          </tr>
+        </thead>
+        <tbody class="tablecolor" *ngFor="let history of historyList; index as i">
+
+          <tr>
+            <th class="table-align" scope="row">{{ i + 1 }}</th>
+            <td class="table-align pl-0">
+              <strong>{{ history?.planName }}</strong>
+            </td>
+            <td class="table-align pl-0">{{history?.invoiceDate ?(history?.invoiceDate | date:
+              "longDate"): '-'}}</td>
+            <td class="table-align pl-0">{{ history?.paymentDate?(history?.paymentDate | date:
+              "longDate")
+              :'-'}}
+            </td>
+            <td>
+              <div>
+                <span class="btn btn-light" [ngStyle]="
+              history.status === 'Successful'
+                  ? { color: '#1732A4' }
+                  : history.status === 'Pending'
+                  ? { color: '#D4E118' }
+                  : { color: '#E02626' }
+              ">
+                  <div class="describe-status">{{ history?.status? history?.status:'-' }}</div>
+                </span>
+              </div>
+            </td>
+            <td class="table-align">
+              <strong>
+                &#x20B9; {{ history.amount
+                }}</strong>
+            </td>
+
+            <td>
+              <button type="button" class="btn btn-down" (click)="fetchInvoicePdf(history.invoiceID)">
+                <img class="img-size" src="assets\img\2133056_document_eps_file_format_pdf_icon copy.png" alt="" />
+                Download
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-pay mt-1"  [ngStyle]="history.status === 'pending'?{display:'block'}:{display:'none'}" (click)="payNow(history)" >
+                Pay Now
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</div>

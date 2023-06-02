@@ -1,0 +1,32 @@
+<form class="d-flex flex-column form-section" [formGroup]="listForm" id="listForm">
+  <h6 class="text-center m-2">List View</h6>
+  <div class="form-group  flex-grow-1">
+      <input placeholder="Title" name="title" formControlName="title" type="text" required />
+  </div>
+  <div class="form-group  flex-grow-1">
+      <input placeholder="Icon URL" name="url" formControlName="url" type="text" required />
+  </div>
+  <div class="form-section">
+      <div class="text-center">Values</div>
+      <ng-container *ngFor="let value of listArray.controls;let j = index;">
+          <div class="range-item position-relative mr-2" [formGroup]="value">
+              <i class="fa fa-close position-absolute" style="top: 8px;right: -16px;" (click)="remove(j)"
+                  *ngIf="listArray.controls.length>1" aria-hidden="true"></i>
+              <div class="form-group  flex-grow-1">
+                  <input placeholder="Text" name="text" formControlName="text" type="text" />
+              </div>
+              <div class="form-group  flex-grow-1">
+                  <input placeholder="URL" name="url" formControlName="url" type="text" />
+              </div>
+          </div>
+      </ng-container>
+      <div class="text-center mb-2">
+          <button class="btn btn-shona  ml-0" (click)="addValue()">Add
+              Value</button>
+      </div>
+  </div>
+</form>
+<div class="d-flex align-items-center justify-content-center">
+  <button (click)="add()" *ngIf="!isUpdate" class="btn btn-shona">Add card</button>
+  <button (click)="update()" *ngIf="isUpdate" class="btn btn-shona">Update card</button>
+</div>

@@ -1,0 +1,15 @@
+<div class="odd-msg-container" (click)="editOddMsgs()">
+  <div>
+      <i class="fa fa-close" aria-hidden="true" (click)="removeOddMsgs()"></i>
+  </div>
+  <div>
+      <ul>
+          <li class="odd-msg position-relative" *ngFor="let oddMessage of oddMessagesArray;let i = index;">
+              {{oddMessage}}
+              <i class="fa fa-close position-absolute" aria-hidden="true" style="right:0px;"
+                  (click)="removeOddMsg(i)"></i>
+          </li>
+      </ul>
+  </div>
+
+</div>

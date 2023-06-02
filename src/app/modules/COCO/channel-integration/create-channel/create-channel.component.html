@@ -1,0 +1,26 @@
+<div>
+  <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0 ml-1 heading">
+    SELECT A CHANNEL
+  </div>
+  <div class="row w-100 mt-3 user-sub-heading-div">
+    <div class="col-md-3 mb-2">
+      <span class="mt-1 sub-channel-heading">Channels</span>
+    </div>
+    <div class="col-md-9 mt-1 sub-channel-heading">Details</div>
+  </div>
+  <div class="row w-100 mt-2 user-sub-body-div" *ngFor="let data of createChannelData;let i=index">
+    <div class="col-md-3 mb-1 d-flex ">
+      <img class="img-icon" [src]='data.logo' alt="" srcset="">
+      <div class="mb-1 ml-4 sub-name">{{data.name}}</div>
+    </div>
+    <div class="col-md-9 d-flex">
+      <div class="col-md-4 pl-0 detail-font-color">{{data.details}}</div>
+      <div class="col-md-5 ml-3 config-color">
+        <!-- <div class="pointer" style="color: #1732A4;" (click)="configureSelect()">Configure</div> -->
+        <div class="pointer" style="color: #1732A4;" (click)="configure(i)">Configure</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

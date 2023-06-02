@@ -1,0 +1,41 @@
+<div class="container-fluid mt-2 p-2">
+  <div class="row">
+    <div class="col-md-1">
+      <img *ngIf="!addAgent" src="assets/img/lens.svg" width="36px" height="36px" />
+      <img *ngIf="addAgent" src=" assets/img/coco.svg" width="36px" height="36px" />
+
+    </div>
+    <div class="col-md-10 mt-2 justify-content-center text-center title">
+      <label>AGENT CREATED SUCCESSFULLY</label>
+    </div>
+    <div class="col-md-1">
+      <img class="pointer" src="assets/img/close.png" width="16px" height="16px" (click)="close()" />
+    </div>
+  </div>
+
+  <div class="text-center mt-2 ">
+    <img class="mb-4" src="assets/img/success.png" width="50px" height="50px" />
+  </div>
+  <div class="col-md-12 justify-content-center text-center">
+    <span class="text ">Congratulations <span class="text-userName">{{ userName }}</span> ,you
+      have successfully created an agent.</span>
+  </div>
+  <!-- <div *ngIf="!addAgent" class="col-md-12 mt-2 justify-content-center text-center">
+    <span class="text-lorem">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam corporis
+      odio porro ipsam aut, vitae voluptas, aperiam ipsum placeat ab minima
+      provident repudiandae blanditiis! Voluptates delectus sapiente iusto
+      dignissimos accusamus.</span>
+  </div>
+  <div *ngIf="addAgent" class="col-md-12 mt-2 justify-content-center text-center">
+    <span class="text-lorem">You are just one step closer. Send a request to the <span class="text-lorem-admin">ADMIN
+        CONFIG PANEL</span> requesting the approval of the created agent. We request you to please have patience as this
+      approval will take a little time.</span>
+  </div> -->
+  <div class="text-center">
+    <div  class="justify-content-center text-center w-100">
+      <button class="btn btn-shona mt-5 mb-4" (click)="redirectToHome()">
+        Return To Home
+      </button>
+    </div>
+  </div>
+</div>

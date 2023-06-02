@@ -1,0 +1,39 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.heading-text {
+  font: normal normal 500 20px/30px Poppins;
+  letter-spacing: 0.1px;
+  // color: var(--color-tertiary);
+  text-transform: capitalize;
+}
+.sub-heading {
+  font: normal normal 300 15px/29px Poppins;
+  letter-spacing: 0.48px;
+  color: #000000;
+  opacity: 1;
+}
+.rotate {
+  transform: rotate70deg(2);
+  width: 17px;
+}
+.rotate-down {
+  transform: rotate(360deg);
+  width: 17px;
+}
+.time-size {
+  width: 31%;
+}
+.dev-event-container {
+  height: 55vh;
+  overflow-y: scroll;
+}

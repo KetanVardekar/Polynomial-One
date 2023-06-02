@@ -1,0 +1,24 @@
+<div class="d-flex flex-column">
+  <form [formGroup]="oddMsgForm" class="form-section" id="oddMsgForm">
+      <h6 class="text-center m-2">{{ selectedRC }}</h6>
+      <div class=" position-relative mr-3" *ngFor="let text of oddMsgArray.controls;let i = index;">
+          <i class="fa fa-close position-absolute" style="top: 9px;right: -15px;"
+              *ngIf="oddMsgArray.controls.length>1" (click)="removeOddMsg(i)" aria-hidden="true"></i>
+          <ng-container [formGroup]="text">
+              <div class="form-group  flex-grow-1">
+                  <input placeholder="Text" name="text" formControlName="text" type="text" required />
+              </div>
+          </ng-container>
+      </div>
+      <div class="form-group  text-center flex-grow-1">
+          <button class="btn btn-shona  ml-0" *ngIf="!update" type="submit" (click)="addOddMsg()">Add</button>
+      </div>
+      <div class="form-group  text-center flex-grow-1">
+          <button class="btn btn-shona  ml-0" type="submit" *ngIf="!update"
+              [disabled]="oddMsgArray.controls.length===0" (click)="addOddMsgResp()">Add to
+              Preview</button>
+          <button class="btn btn-shona  ml-0" type="submit" *ngIf="update"
+              (click)="updateOddMsgResp()">Update</button>
+      </div>
+  </form>
+</div>

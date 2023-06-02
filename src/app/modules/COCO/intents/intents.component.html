@@ -1,0 +1,231 @@
+
+<div class="ml-81">
+  <div class="row col-12 mb-0 d-flex justify-content-between">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;INTENTS</span>
+    </p>
+
+  <div *ngIf="(editFlag || viewFlag)">
+    <button class="btn btn-primary mt-4" (click)="back()" value="">
+      Back
+    </button>
+  </div>
+</div>
+  <div class="row col-lg-12 col-md-12 mt-3 pr-0 mr-0 w-100"
+   >
+    <div *ngIf="!editFlag && !viewFlag" class="row col-lg-12 col-md-12 pr-0 mr-0 w-100">
+    <div class="w-100 d-flex justify-content-between">
+      <nav class="w-100">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <!-- Generic Intents -->
+          <ng-container>
+            <a class="nav-link nav-item active text-center" id="'generic'" data-toggle="tab" role="tab"
+              aria-controls="generic" aria-selected="true" [class.active]="tab == 'generic'" (click)="tab = 'generic'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'generic' }">
+                  Generic Intents
+                </span>
+              </div>
+            </a>
+          </ng-container>
+          <!-- Specific Intents -->
+          <ng-container>
+            <a class="nav-link nav-item text-center" id="'specific'" data-toggle="tab" role="tab"
+              aria-controls="specific" aria-selected="false" [class.active]="tab == 'specific'"
+              (click)="tab = 'specific'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'specific' }">
+                  Specific Intents
+                </span>
+              </div>
+            </a>
+          </ng-container>
+          <!-- FAQ Intents -->
+          <ng-container>
+            <a class="nav-link nav-item text-center" id="'faq'" data-toggle="tab" role="tab" aria-controls="faq"
+              aria-selected="false" [class.active]="tab == 'faq'" (click)="tab = 'faq'">
+              <div class="justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'faq' }">
+                  FAQs
+                </span>
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </nav>
+      <div class="form-group flex-grow-1 w-40 d-flex">
+        <input placeholder="Search" type="text" name="query" [(ngModel)]="searchQuery"
+          value="" class="form-control input-auth" (keyup)="searchEntities()"  style="width:371.61px" />
+          <button class="btb btn-primary-search" (keyup)="searchEntities()">
+            <img class="search-icon" src="assets/img/Search icon.svg">
+          </button>
+      </div>
+      <button *ngIf="deploymentInfo.flag == 'rasa'" class="btn btn-shona ml-2" type="submit" (click)="trainAgent()">
+        Train Agent
+      </button>
+      <button class="btn btn-shona ml-3" type="submit" (click)="addIntent()">
+        Add Intent
+      </button>
+    </div>
+
+    <div class="tab-content w-100 mt-4 pl-3" id="nav-tabContent">
+      <!-- Generic Intents -->
+      <div class="tab-backgroud tab-pane fade show active" id="generic" role="tabpanel"
+        [class.active]="tab == 'generic'" aria-labelledby="generic">
+        <ng-container *ngIf="genericIntents && genericIntents.length;else noGenericIntent" >
+        <div class="row w-100 mt-2 user-sub-heading-div">
+          <div class="col-md-2 mb-2">
+            <span class="mt-1 sub-heading-intents ">Intent</span>
+          </div>
+          <!-- <div class="col-md-2 mt-1 sub-heading-intents">Intent Type</div> -->
+          <!-- <div class="col-md-2 mt-1 v">Agent</div> -->
+          <div class="col-md-2 mt-1 sub-heading-intents">Date Created</div>
+          <div class="col-md-3 mt-1"></div>
+          <!-- <div class="col-md-1 mt-1 pointer">
+            <img class="deleteicon" src="../../assets/img/coco/black-delete-icon.svg" width="20" height="20" />
+          </div> -->
+        </div>
+        <div class="row w-100 mt-2 user-sub-body-div" *ngFor="let intent of genericIntents"
+          [@listAnimation]="genericIntents.length">
+          <div class="col-md-2 mb-2 text-wrap">
+            <span class="mt-1 sub-heading-details">{{ intent.intentName }}</span>
+          </div>
+          <!-- <div class="col-md-2 mt-1 sub-heading-details">Generic</div> -->
+          <!-- <div class="col-md-2 mt-1 text-wrap sub-heading-details">{{ botName }}</div> -->
+          <div class="col-md-2 mt-1 sub-heading-details">{{intent.createdAt | date:"longDate"}}</div>
+          <div class="col-md-3 mt-1 d-flex justify-content-around">
+            <div class="pointer edit-intents" (click)="viewIntent(intent)" style="color: #1732a4">
+              View
+            </div>
+            <div class="pointer edit-intents" (click)="editIntent(intent)" style="color: #1732a4">
+              Edit
+            </div>
+          </div>
+        </div></ng-container>
+        <ng-template #noGenericIntent>
+          <div class="nodata">
+            <img src="assets/img/no-data.svg" class="no-found-img">
+            <div class="mb-5">
+              <span class="text mt-0"> No available Generic Intent, Please Add Intent </span>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+       <!-- Specific Intents -->
+      <div class="tab-backgroud tab-pane fade show active" id="specific" role="tabpanel"
+        [class.active]="tab == 'specific'" aria-labelledby="specific">
+        <ng-container *ngIf="specificIntents && specificIntents.length;else noSpecificIntent" >
+        <div class="row w-100 mt-2 user-sub-heading-div">
+          <div class="col-md-2 mb-2">
+            <span class="mt-1 sub-heading-intents">Intent</span>
+          </div>
+          <!-- <div class="col-md-2 mt-1 sub-heading-intents">Intent Type</div> -->
+          <!-- <div class="col-md-2 mt-1 sub-heading-intents">Agent</div> -->
+          <div class="col-md-2 mt-1 sub-heading-intents">Date Created</div>
+          <div class="col-md-3 mt-1 sub-heading-intents"></div>
+          <!-- <div class="col-md-1 mt-1 pointer">
+            <img class="pointer" src="../../assets/img/coco/black-delete-icon.svg" width="20" height="20" />
+          </div> -->
+        </div>
+        <div class="row w-100 mt-2 user-sub-body-div" *ngFor="let intent of specificIntents"
+          [@listAnimation]="specificIntents.length">
+          <div class="col-md-2 mb-2 text-wrap">
+            <span class="mt-1 sub-heading-details">{{ intent.intentName }}</span>
+          </div>
+          <!-- <div class="col-md-2 mt-1 sub-heading-details">Specific</div> -->
+          <!-- <div class="col-md-2 mt-1 text-wrap sub-heading-details">{{ botName }}</div> -->
+          <div class="col-md-2 mt-1 sub-heading-details">{{intent.createdAt | date:"longDate"}}</div>
+          <div class="col-md-3 mt-1 d-flex justify-content-around">
+            <div class="pointer edit-intents" (click)="viewIntent(intent)" style="color: #1732a4">
+              View
+            </div>
+            <div class="pointer edit-intents" (click)="editIntent(intent)" style="color: #1732a4">
+              Edit
+            </div>
+          </div>
+          <div class="col-md-1 mt-1 pointer">
+            <img class="pointer" src="assets/img/delete.svg" (click)="deleteIntent(intent)" width="20" height="20" />
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noSpecificIntent>
+        <div class="nodata">
+          <img src="assets/img/no-data.svg" class="no-found-img">
+          <div class="mb-5">
+            <span class="text mt-0"> No available Specific Intent, Please Add Intent </span>
+          </div>
+        </div>
+      </ng-template>
+      </div>
+       <!-- FAQ Intents -->
+      <div class="tab-backgroud tab-pane fade show active" id="faq" role="tabpanel" [class.active]="tab == 'faq'"
+        aria-labelledby="faq">
+        <ng-container *ngIf="faqIntents && faqIntents.length;else noFAQ">
+        <div class="row w-100 mt-2 user-sub-heading-div">
+          <div class="col-md-2 mb-2">
+            <span class="mt-1 sub-heading-intents">Intent</span>
+          </div>
+          <!-- <div class="col-md-2 mt-1 sub-heading-intents">Intent Type</div> -->
+          <div class="col-md-2 mt-1 sub-heading-intents">Category</div>
+          <!-- <div class="col-md-2 mt-1 sub-heading-intents">Agent</div> -->
+          <div class="col-md-2 mt-1 sub-heading-intents">Date Created</div>
+          <div class="col-md-1 mt-1 sub-heading-intents"></div>
+          <div class="col-md-1 mt-1 sub-heading-intents"></div>
+          <!-- <div class="col-md-1 mt-1 pointer">
+            <img class="pointer" src="../../assets/img/coco/black-delete-icon.svg" width="20" height="20" />
+          </div> -->
+        </div>
+        <div class="row w-100 mt-2 user-sub-body-div" *ngFor="let intent of faqIntents" [@listAnimation]="faqIntents">
+          <div class="col-md-2 mb-2">
+            <span class="mt-1 text-wrap sub-heading-details">{{ intent.intentName }}</span>
+          </div>
+          <!-- <div class="col-md-2 mt-1 sub-heading-details">FAQ</div> -->
+          <div class="col-md-2 mt-1 sub-heading-details" [innerHTML] = "intent.intentName | texttransform"></div>
+          <!-- <div class="col-md-2 mt-1 text-wrap sub-heading-details">{{ botName }}</div> -->
+          <div class="col-md-2 mt-1 sub-heading-details">{{intent.createdAt | date:"longDate"}}</div>
+          <div class="col-md-1 mt-1 d-flex justify-content-around">
+            <div class="pointer edit-intents" (click)="viewIntent(intent)" style="color: #1732a4;margin-right: 50px!important;">
+              View
+            </div>
+            <div class="pointer edit-intents" (click)="editIntent(intent)" style="color: #1732a4;margin-right: 50px!important;">
+              Edit
+            </div>
+          </div>
+          <div class="col-md-1 mt-1 pointer">
+            <img class="pointer" src="assets/img/delete.svg"style="margin-left: 50px!important;" (click)="deleteIntent(intent)" width="20" height="20" />
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noFAQ>
+        <div class="nodata">
+          <img src="assets/img/no-data.svg" class="no-found-img">
+          <div class="mb-5">
+            <span class="text mt-0"> No available FAQ, Please Add Intent  </span>
+          </div>
+        </div>
+      </ng-template>
+      </div>
+    </div>
+  </div>
+  </div>
+   <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+     <app-edit-intents *ngIf="editFlag" [setIntentsName]="intentName" (intentsEmit)="intentsEmit()"  ></app-edit-intents>
+     <app-view-intents *ngIf="viewFlag" [setIntentsName]="intentName"  ></app-view-intents>
+   </div>
+  <ng-template #noSpecificIntents>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available intents </span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #noFAQIntents>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available intents </span>
+      </div>
+    </div>
+  </ng-template>
+</div>

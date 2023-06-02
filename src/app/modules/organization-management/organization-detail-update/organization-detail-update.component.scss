@@ -1,0 +1,307 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.main {
+  // background-color: var(--color-tertiary);
+  hr {
+    border-color: var(--color-table-border);
+    margin-bottom: 0px;
+  }
+
+  //nav-bar
+  //nav bar
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-item.show .nav-link {
+    color: #495057;
+    background-color: transparent;
+    border-bottom: 3px solid var(--color-input-border) !important;
+    border: none;
+    cursor: pointer;
+    width: 22%;
+    margin: 0px 0 0 0px;
+    text-decoration: none !important;
+  }
+  .nav-tabs .nav-link,
+  .nav-tabs .nav-item.show .nav-link :hover {
+    color: var(--color-input-border);
+    // border-bottom: 2px solid #cccccc !important;
+    border: none;
+    cursor: pointer;
+    width: 22%;
+    margin: 0px 0 0 0;
+    text-decoration: none !important;
+  }
+  .tab-title {
+    text-align: center;
+    font: normal normal 500 14px/15px Poppins;
+    letter-spacing: 0px;
+    color: var(--color-tertiary);
+    text-transform: capitalize;
+    opacity: 1;
+  }
+  .tab-title-active {
+    text-align: center;
+    font: normal normal 700 16px/15px Poppins;
+    letter-spacing: 0px;
+    color: var(--color-tertiary);
+    text-transform: capitalize;
+    opacity: 1;
+  }
+}
+.input-auth {
+  height: 40.7px;
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  display: block;
+  // padding: 8px 30px 8px 40px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  background: #ededed !important;
+  box-shadow: 0px 0px 4px #9b9de829;
+  border: 1px solid #adadad;
+  border-radius: 3px;
+  color: var(--color-tertiary);
+}
+
+.field-name {
+  font: normal normal 500 16px/25px Poppins;
+  letter-spacing: 0.19px;
+  color: var(--color-tertiary);
+}
+.btn-primary {
+  font-size: 14px !important;
+  border-radius: 3px;
+  padding: 4px 8px;
+  width: 12%;
+  height: 32px;
+  background: #1732a4;
+}
+input,
+textarea,
+select {
+  background-color: var(--color-text-input) !important;
+  font-weight: 300;
+}
+textarea,
+select {
+  &:hover,
+  &:focus {
+    background-color: var(--color-text-input);
+  }
+}
+
+//user management
+.user-heading-div {
+  background-color: #ededed;
+}
+.sub-heading{
+  font:normal normal 600 15px/18px Poppins;
+}
+//ORGANIZATION MANAGEMENT
+.organization-heading {
+  background-color: #ededed;
+  font: normal normal 600 17px/33px Poppins;
+  letter-spacing: 0px;
+  margin-left: -32px;
+  font-weight: 600;
+  padding: 3px 0 2px 8px;
+  // color: var(--color-tertiary);
+  text-transform: capitalize;
+}
+.org-label {
+  font: normal normal 500 13px/15px Poppins;
+  letter-spacing: 0px;
+  // color: var(--color-button-empty);
+  margin-left: -30px;
+}
+
+.uploadFileSection {
+  height: 100px;
+  width: 100px;
+  background-color: #ededed;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px var(--color-tertiary);
+}
+.img-button {
+ border: 1px solid  black;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 4px #00000020;
+  border: 1px solid #000000;
+  width: 35px;
+    height: 35px;
+  border-radius: 3px;
+  opacity: 1;
+}
+.profile-img-icon {
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  margin-right: 1px;
+  margin-top: 8px;
+}
+.delete-button{
+  width: 15px;
+    height: 15px;
+    margin-left: 9px;
+    margin-right: 1px;
+    margin-top: 9px;
+}
+.add-img{
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  margin-right: 1px;
+  margin-top: 8px;
+}
+.brand {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #f1f1f1;
+  border-radius: 56px;
+  background: #f1f1f1 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 6px var(--color-tertiary);
+  display: flex;
+  color: var(--color-tertiary);
+  align-items: center;
+  justify-content: center;
+  font: normal normal 500 40px/25px Poppins;
+}
+.box.ng-select-container.ng-has-value {
+  border: 2px solid #adadad !important;
+}
+.input-auth:disabled {
+  background: #00000029 !important;
+  opacity: 0.6;
+  pointer-events: none;
+}
+input.form-control:disabled {
+  background:#00000029!important;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.no-found-img {
+  top: 398px;
+  left: 667px;
+  width: 616px;
+  height: 367px;
+}
+.text {
+  font: normal normal 300 30px/50px Poppins;
+  letter-spacing: 0px;
+  color: #adadad;
+  opacity: 1;
+}
+.input-auth-organization-detail{
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  display: block;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 4px #9b9de829;
+ margin-left: -31px;
+  border-radius: 2px !important;
+  color: #000000;
+
+}
+.input-auth-organization-detail:enabled{
+ box-shadow: 0px 0px 4px #9b9de829;
+  border: 1px solid #000000 !important;
+ font-weight: 500;
+}
+textarea:disabled{
+  background-color: #ededed !important;
+  font: normal normal 500 14px/24px Poppins;
+  color: #6a6666;
+}
+.text-auth-organization-detail{
+  width: 100%;
+  font-size: 14px;
+  border: none;
+  display: block;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 4px #9b9de829;
+  height: 109px;
+  margin-left: -31px;
+  border-radius: 2px !important;
+  color: #000000;
+}
+.text-auth-organization-detail:enabled{
+  width: 100%;
+  font-size: 14px;
+  // border: none;
+  display: block;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 4px #9b9de829;
+  border: 1px solid #000000 !important;
+  margin-left: -31px;
+  border-radius: 2px  !important;
+  color: #000000;
+  font-weight: 500;
+}
+// .ng-select .select-container:disabled {
+//   border:none;
+// }
+// .ng-select.ng-select-disabled > .ng-select-container:disabled{
+//   border: none;
+// }
+
+// .ng-select .ng-select-container:enabled {
+//   color: #333;
+//   background-color: #fff;
+//   border-radius: 4px;
+//   border: 2px solid #adadad !important;
+//   min-height: 36px;
+//   align-items: center;
+// }
+
+.ml--28{
+  margin-left: -29px;
+}
+
+input[type="text"][disabled] {
+  font: normal normal 500 30px/50px Poppins;
+  color: #000000;
+}
+.ng-select {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  margin-left: -31px;
+}
+.box-content{
+  margin-left: -30px;
+}
+
+.ml--30{
+  margin-left: -30px;
+}
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,textarea.ng-invalid.ng-touched{
+  border: 1px solid red!important;
+  }
+.website-link:hover{
+color: #1732a4 !important;
+text-decoration: underline;
+}
+// dropdown required error
+::ng-deep.required-error-dropdown.is-invalid {
+  border: 1px solid red;
+  border-radius: 5px !important;
+}
+::ng-deep.required-error-dropdown.is-invalid .ng-select-container {
+  border: none !important;
+}
+
+::ng-deep.form-control.is-invalid ~ .input-required,
+::ng-deep.dropdown-name.is-invalid ~ .input-required,
+::ng-deep.status-basic.is-invalid ~ .input-required {
+  display: block;
+}
+::ng-deep.is-invalid .ng-select-container {
+  border: 1px solid red !important;
+
+}
+.btn-primary:disabled{
+  opacity: 0.4 !important;
+}

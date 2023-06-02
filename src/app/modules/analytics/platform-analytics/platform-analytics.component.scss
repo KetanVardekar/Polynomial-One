@@ -1,0 +1,55 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.card-container {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 3px #00000029;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  opacity: 1;
+  .org-card-title {
+    font: normal normal 400 16px/10px Poppins;
+  }
+  .card {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    // box-shadow: 0px 0px 5px #00000029;
+    border: 2px solid #1732a4;
+    border-radius: 8px;
+    opacity: 1;
+    margin: 8px;
+    padding: 4px;
+    justify-content: center;
+    text-align: center;
+    width: 18%;
+    .profile-img-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+    }
+    .number-value {
+      font-size: 20px;
+      font-weight: 400;
+      color: #1732a4;
+    }
+    .card-text {
+      font: normal normal 300 14px/10px Poppins;
+      letter-spacing: 0px;
+      color: #4d4d4d;
+    }
+  }
+}
+.org-border {
+  border-color: #adadad !important;
+  .org-number {
+    font: normal normal 500 22px/10px Poppins;
+    letter-spacing: 0px;
+  }
+  .org-text {
+    font: normal normal 300 12px/14px Poppins;
+    color: #4d4d4d;
+  }
+}
+.title-font{
+  font: normal normal 600 16px/15px Poppins;
+}

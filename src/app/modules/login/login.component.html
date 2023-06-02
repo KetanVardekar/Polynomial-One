@@ -1,0 +1,474 @@
+<div class="container-fluid">
+  <div class="row header">
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center logo-container">
+      <img class="logo" src="assets/img/Polynomial Logo_v.png" alt="Polynomial.ai" />
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center justify-content-end buttons-container">
+      <!-- <a class="btn-custom" href="https://www.polynomial.ai/" target="_blank">About Us</a>
+        <button class="btn-custom" [ngClass]="{'active':tab=='Login'}" (click)="tab='Login'">Login</button> -->
+    </div>
+  </div>
+  <div class="container pb-5">
+    <div class="row login-container">
+      <div class="col-lg-6 col-sm-12 col-md-6 text-center illustration">
+        <img src="assets/img/glossy-machine-learning.png" class="technology_illustration" alt="Polynomial.ai" />
+      </div>
+      <div class="col-lg-6 col-sm-12 col-md-6">
+        <ng-container *ngIf="loginModuleFlag; else registrationModule">
+          <div id="brand" [hidden]="tab != ''">
+            <div class="is_logo text-center">
+              <img src="assets/img/Login-brand-Icon.png" alt="Polynomail One" />
+            </div>
+            <h5 class="text-center mt-4">Polynomial One</h5>
+          </div>
+          <div [hidden]="tab != 'Login'" id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column">
+              <div id="login-box" [ngClass]="{
+                  verified:
+                    emailVerified ||
+                    forgetPasseordScreenFlag ||
+                    resetPasswordScreenFlag
+                }">
+                <div class="is_logo text-center">
+                  <img src="assets/img/Polynomial One logo2.svg" style="height: 77px" alt="Polynomial One" />
+                </div>
+                <h5 class="text-center mt-3 mb-0">
+                  Polynomial One
+                </h5>
+                <ng-container *ngIf="emailVerified && loginPasswordFlag">
+                  <div class="d-flex justify-content-center mt-3" *ngIf="orgIcon">
+                    <img [src]="orgIcon" alt="logo-icon" class="logo-icon" width="54px" height="54px" style="border-radius: 40px;"/>
+                  </div>
+                  <div class=" d-flex justify-content-center profile-pic mr-2" *ngIf="!orgIcon">
+                    {{ orgName ? orgName.charAt(0).toUpperCase() : "" }}
+                  </div>
+                  <div class="brand_name org-name text-center mb-2 mt-1">
+                    <span>{{ orgName }}</span>
+                  </div>
+                </ng-container>
+                <div class="sliding-container">
+                  <!-- Enter login Email -->
+                  <form class="auth-form" [formGroup]="verificationForm" id="verificationForm" *ngIf="loginEmailFlag">
+                    <div class="form-group flex-grow-1 mb-4 ml-4 mr-4">
+                      <label for="email" class="email-text">Enter Organization Email</label>
+                      <input placeholder="name@organization.com" id="email"
+                        class="input-auth-login email form-control lowercase" name="email" formControlName="email"
+                        type="text" #emailInput required />
+                      <span id="email-icon"><img src="assets/img/email_icon.svg" /></span>
+                    </div>
+                    <div class="form-group flex-grow-1 mb-35 ml-4 mr-4 text-center">
+                      <button class="btn btn-shona ml-0 mb-2" type="submit" (click)="verifyEmail()" [disabled]="
+                          verificationForm.status === 'INVALID' || emailVerified
+                        ">
+                        Next
+                      </button>
+                    </div>
+                  </form>
+                  <!-- enter log in password -->
+                  <form class="auth-form" [formGroup]="authenticationForm" id="authenticationForm"
+                    *ngIf="loginPasswordFlag">
+                    <div class="form-group flex-grow-1 mb-13 ml-4 mr-4">
+                      <label for="password" class="email-text">Enter password</label>
+                      <input placeholder="" (keydown)="keyDownHandler($event)"
+                        class="input-auth-login password form-control" name="password" id="password"
+                        formControlName="password" [type]="showPassword ? 'text' : 'password'" #passwordInput
+                        required />
+                      <span id="email-icon"><img src="assets/img/lock_icon.svg" height="18px" width="20px" /></span>
+                      <span id="password-icon" style="cursor: pointer" (click)="showHidePassword()">
+                        <img *ngIf="!showPassword" src="assets/img/hide password.png" height="18px" width="20px" />
+                        <img *ngIf="showPassword" src="assets/img/show password.png" height="18px" width="20px" />
+                      </span>
+                      <a href="javascript:void(0);" class="forgot-password" (click)="showForgetpasswordScreen()">Forgot
+                        password?</a>
+                    </div>
+                    <!-- <div class="password-validation">
+                      <label>New Password must contain the following:</label>
+                      <ul>
+                        <li [ngClass]="{ active: isMinLength }">
+                          <span class="dot"></span>Minimum 6 characters
+                        </li>
+                        <li [ngClass]="{ active: hasLowerCase }">
+                          <span class="dot"></span>At least 1 lowercase letter
+                        </li>
+                        <li [ngClass]="{ active: hasUpperCase }">
+                          <span class="dot"></span>At least 1 uppercase letter
+                        </li>
+                        <li [ngClass]="{ active: hasNumber }">
+                          <span class="dot"></span>At least 1 number
+                        </li>
+                        <li [ngClass]="{ active: hasSpecialChar }">
+                          <span class="dot"></span>At least special character
+                        </li>
+                      </ul>
+</div> -->
+                    <div class="form-group flex-grow-1 mb-35 login-controls-container ml-5 mr-5 mb-3">
+                      <button class="btn btn-outline-shona ml-0" type="submit" [disabled]="!emailVerified" (click)="
+                          emailVerified = false;
+                          loginEmailFlag = true;
+                          loginPasswordFlag = false
+                        " #backButton>
+                        Back
+                      </button>
+                      <button class="btn btn-shona" type="submit" (click)="login()" [disabled]="
+                          authenticationForm.status === 'INVALID' ||
+                          !emailVerified
+                        " #loginButton>
+                        Login
+                      </button>
+                    </div>
+                  </form>
+                  <!-- enter forgot password email -->
+                  <form class="auth-form" [formGroup]="forgotPasswordEmailForm" id="forgotPasswordEmailForm"
+                    *ngIf="forgetPasseordScreenFlag">
+                    <div class="form-group flex-grow-1 mb-35 ml-4 mr-4">
+                      <label for="email" class="email-text">Enter Organization email</label>
+                      <input placeholder="name@organization.com" id="email"  (keydown)="confirmEvent($event)"
+                        class="input-auth-login email form-control lowercase" name="email" formControlName="email"
+                        type="text" #forgetEmailInput required />
+                      <span id="email-icon"><img src="assets/img/email_icon.svg" /></span>
+                    </div>
+                    <!-- <div class="form-group flex-grow-1 login-controls-container mb-35 ml-4 mr-4 text-center">
+                      <button class="btn btn-shona  ml-0" type="submit" (click)="forgotPassword()"
+                        [disabled]="forgotPasswordEmailForm.status==='INVALID'">Confirm</button>
+                    </div> -->
+                    <div class="form-group flex-grow-1 mb-3 login-controls-container ml-5 mr-5 mt-4">
+                      <button class="btn btn-outline-shona ml-0" style="padding: 7px 31px" (click)="
+                          emailVerified = true;
+                          loginPasswordFlag = true;
+                          forgetPasseordScreenFlag = false
+                        " #backButton>
+                        Back
+                      </button>
+                      <button class="btn btn-confirm" type="submit" (click)="forgotPassword()" #confirmButton [disabled]="
+                          forgotPasswordEmailForm.status === 'INVALID'
+                        " >
+                        Confirm
+                      </button>
+                    </div>
+                    <div class="ml-4 mr-4 mb-4 text-left">
+                      <span id="email-message">* A verification mail will be sent to your provided
+                        email to reset your password.</span>
+                    </div>
+                  </form>
+                  <!-- reset password  -->
+                  <form class="auth-form mt-5" [formGroup]="resetPasswordForm" id="resetPasswordForm"
+                    *ngIf="resetPasswordScreenFlag">
+                    <div class="form-group flex-grow-1 mb-35 ml-4 mr-4">
+                      <label for="password" class="input-auth-login-password">Enter New password</label>
+                      <input placeholder="" (input)="keyDownHandler($event)"
+                        class="input-auth-login password form-control" name="password" id="password"
+                        formControlName="password" [type]="showPassword ? 'text' : 'password'" #newPasswordInput
+                        required />
+                      <span id="email-icon"><img src="assets/img/lock_icon.svg" height="18px" width="20px" /></span>
+                      <span id="password-icon" style="cursor: pointer" (click)="showHidePassword()">
+                        <img *ngIf="!showPassword" src="assets/img/hide password.png" height="18px" width="20px" />
+                        <img *ngIf="showPassword" src="assets/img/show password.png" height="18px" width="20px" />
+                      </span>
+                      <!-- <div class="password-validation">
+                        <label>New Password must contain the following:</label>
+                        <ul>
+                          <li [ngClass]="{ active: isMinLength }">
+                            <span class="dot"></span>Minimum 6 characters
+                          </li>
+                          <li [ngClass]="{ active: hasLowerCase }">
+                            <span class="dot"></span>At least 1 lowercase letter
+                          </li>
+                          <li [ngClass]="{ active: hasUpperCase }">
+                            <span class="dot"></span>At least 1 uppercase letter
+                          </li>
+                          <li [ngClass]="{ active: hasNumber }">
+                            <span class="dot"></span>At least 1 number
+                          </li>
+                          <li [ngClass]="{ active: hasSpecialChar }">
+                            <span class="dot"></span>At least special character
+                          </li>
+                        </ul>
+                      </div> -->
+                      <br />
+                      <label for="password" class="input-auth-login-password">Re-enter new password</label>
+                      <input placeholder="" (input)="checkConfirmPassword()" (input)="keyDownHandler($event)"
+                        class="input-auth-login-password password form-control" name="password" id="password"
+                        formControlName="confirmPassword" [type]="showPassword ? 'text' : 'password'"
+                        #confirmPasswordInput required />
+                      <span id="email-icon"><img src="assets/img/lock_icon.svg" height="18px" width="20px" /></span>
+                      <span id="password-icon" style="cursor: pointer" (click)="showHidePasswordConfirm()">
+                        <img *ngIf="!showPassword" src="assets/img/hide password.png" height="18px" width="20px" />
+                        <img *ngIf="showPassword" src="assets/img/show password.png" height="18px" width="20px" />
+                      </span>
+                    </div>
+                    <div class="form-group flex-grow-1 mb-35 ml-4 mr-4 text-center">
+                      <button class="btn btn-shona ml-0 mt-2" type="submit" (click)="resetPassword()"
+                        [disabled]="resetPasswordButtonFlag" #resetButton>
+                        Reset
+                      </button>
+
+                    </div>
+                  </form>
+                  <!-- password change success screen -->
+                  <div class="text-center mt-4" *ngIf="resetPasswordSuccessFlag">
+                    <img src="assets/img/success.png" width="40px" height=" 40px" />
+                    <div class="ml-4 mt-3 mr-4 mb-4 text-center">
+                      <span id="email-message">Your password has been successfully reset. Now you can
+                        use your new password to login to your account.</span>
+                      <button type="submit" class="btn btn-shona mt-4 ml-0" (click)="redirectToLogIn()">
+                        Login
+                      </button>
+                    </div>
+                  </div>
+                  <!-- password change success screen -->
+                  <div class="text-center mt-4" *ngIf="emailVarifiedSuccessFlag">
+                    <img src="assets/img/success.png" width="40px" height=" 40px" />
+                    <div class="ml-4 mt-3 mr-4 mb-4 text-center">
+                      <span id="email-message">Your Email has been successfully Verified. Now you can
+                        use your Email to login to your account.</span>
+                      <button type="submit" class="btn btn-shona mt-3 ml-0" (click)="redirectToLogIn()">
+                        Login
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="d-flex justify-content-center mt-3" *ngIf="loginEmailFlag && loginModuleFlag">
+                  <span id="not-member">Not a member ?</span>&nbsp;&nbsp;<span id="sign-up-text"
+                    (click)="showRegistrationModule()">Sign Up</span>
+                </div>
+                <div class="d-flex justify-content-center" *ngIf="resetPasswordScreenFlag">
+                  <span id="not-member">Already Member?</span>&nbsp;&nbsp;<span id="sign-up-text" (click)="
+                      resetPasswordScreenFlag = false;
+                      loginModuleFlag = true;
+                      loginEmailFlag = true;
+                      emailVerified = false
+                    ">Log in</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #registrationModule>
+          <div class="w-100 text-left ml-2">
+            <span class="signup-heading">Welcome To</span><span class="signup-heading signup-heading-color">
+              Polynomial One</span>
+          </div>
+          <div [hidden]="tab != 'Login'" id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column">
+              <div id="registration-box" [ngClass]="{ verified: registerOrganizationFlag }">
+                <div class="is_logo text-left mt-2">
+                  <span class="registration-sub-heading" *ngIf="registrationFlag">
+                    Start Your Journey With Us</span>
+                  <span class="registration-sub-heading" *ngIf="registerOrganizationFlag">
+                    Register Your Organization</span>
+                </div>
+                <div class="sliding-container">
+                  <!-- register User -->
+                  <form class="auth-form" [formGroup]="registrationForm" id="registrationForm" *ngIf="registrationFlag">
+                    <div class="row flex-grow-1 ml-1 mr-1">
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pr-2">
+                        <label for="firstName" class="field-name">First Name</label>
+                        <input placeholder="" id="firstName" class="input-auth form-control pl-10" name="firstName"
+                          formControlName="firstName" type="text" #firstName required (keydown)="alphaOnly($event)" />
+                      </div>
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pl-2">
+                        <label for="firstName" class="field-name">Last Name</label>
+                        <input placeholder="" id="lastName" class="input-auth form-control pl-10" name="lastName"
+                          formControlName="lastName" type="text" #lastName required (keydown)="alphaOnly($event)" />
+                      </div>
+                    </div>
+                    <div class="row flex-grow-1 ml-1 mr-1">
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pr-2">
+                        <label for="firstName" class="field-name">Company Email </label>
+                        <input placeholder="" id="companyEmail" (blur)="getCompanyEmail()"
+                          class="input-auth form-control pl-10 lowercase" name="comapnyEmail"
+                          formControlName="companyEmail" type="email" #companyEmail required />
+                      </div>
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pl-2">
+                        <label for="firstName" class="field-name">Company</label>
+                        <input placeholder="" id="companyName" class="input-auth form-control pl-10" name="companyName"
+                          formControlName="companyName" type="text" #companyName readonly [disabled]="true" />
+                      </div>
+                    </div>
+                    <div class="row flex-grow-1 ml-1 mr-1">
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pr-2">
+                        <label for="firstName" class="field-name">Job title </label>
+                        <ng-select placeholder="" id="jobTitle" class="w-100" name="jobTitle" formControlName="jobTitle"
+                          #jobTitle required placeholder="-Select-">
+                          <ng-option disabled>-Select-</ng-option>
+                          <ng-option *ngFor="let titles of jobTitles" [value]="titles">
+                            {{ titles }}
+                          </ng-option>
+                        </ng-select>
+                      </div>
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pl-2">
+                        <label for="firstName" class="field-name">Password</label>
+                        <input placeholder="" id="password" class="input-auth form-control pl-10" name="password"
+                          formControlName="password" [type]="showPassword ? 'text' : 'password'" #password required />
+
+                        <span id="password-icon" style="cursor: pointer" (click)="showHidePassword()">
+                          <img *ngIf="showPassword" src="assets/img/show password.png" height="18px" width="20px" />
+                          <img *ngIf="!showPassword" src="assets/img/hide password.png" height="18px" width="20px" />
+                        </span>
+                      </div>
+                    </div>
+                    <div class="row flex-grow-1 ml-1 mr-1">
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pr-2">
+                        <label for="firstName" class="field-name">Phone </label>
+                        <input placeholder="" id="phone" class="input-auth form-control pl-10" name="phone"
+                          formControlName="phone" (blur)="validatePhoneNo()" type="tel" #phone required
+                          (input)="numberOnly($event)" (keydown.space)="$event.preventDefault()" />
+                      </div>
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pl-2">
+                        <label for="firstName" class="field-name">Country</label>
+                        <ng-select placeholder="" id="country" class="w-100" name="country" formControlName="country"
+                          #Country required placeholder="-Select-">
+                          <ng-option value="">-Select-</ng-option>
+                          <ng-option *ngFor="let country of countries" [value]="country">
+                            {{ country }}
+                          </ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div class="d-flex w-100 ml-4 mr-4">
+                      <input type="checkbox" id="termsAndConditions" class="" name="termsAndConditions"
+                        formControlName="termsAndConditions" #termsAndConditions required />&nbsp;&nbsp;
+                      <span id="not-member">I accept the </span>&nbsp;<span id="sign-up-text">Terms & conditions</span>
+                    </div>
+                    <div class="d-flex ml-4 mr-4">
+                      <span id="policy-text">By registering, you confirm that you agree to the
+                        storing and processing of your personal data by
+                        Polynomial as described in the &nbsp;<span id="sign-up-privacy" class="mt--8">Privacy
+                          Statement.</span></span>
+                    </div>
+                    <div class="form-group flex-grow-1 mt-2 ml-4 mr-4 text-center">
+                      <button class="btn btn-shona btn-signup ml-0" type="submit" (click)="registerUser()"
+                        [disabled]="registrationForm.status === 'INVALID'">
+                        Sign Up
+                      </button>
+                    </div>
+                  </form>
+                  <!-- register organization -->
+                  <form class="auth-form mb-2" [formGroup]="registrationOrganizationForm"
+                    id="registrationOrganizationForm" *ngIf="registerOrganizationFlag">
+                    <div class="form-group ml-3 mr-3">
+                      <label for="organizationName" class="field-name">Organization name</label>
+                      <input placeholder="" id="organizationName" class="input-auth form-control pl-10"
+                        name="organizationName" formControlName="organizationName" type="text" #organizationName
+                        required />
+                        <!-- <small class="text-danger text-center ml--30"
+                        *ngIf="!registrationOrganizationForm.get('organizationName').valid && registrationOrganizationForm.get('organizationName').touched ">Organization Name Cannot be more than 128 Letters</small>
+
+                      <div *ngIf="registrationOrganizationForm.get('organizationName').maxlength">
+                        <small class="text-danger ml--30">Organization Name Cannot be more than 128 Letters</small>
+                      </div> -->
+                      <!-- <small class="text-danger" *ngIf="f['organizationName'].getError('required') !== null">Please Enter Organization Name</small>
+                      <small class="text-danger"  *ngIf="registrationOrganizationForm.f['organizationName'].getError('maxLength') !== null">Organization Name Cannot be more than 128 Letters</small> -->
+                     <div class="input-required"
+                      *ngIf="registrationOrganizationForm.get('organizationName').errors?.required">
+                      <span>Please Enter Organization Name</span>
+                    </div>
+
+                    <div class="input-required"
+                      *ngIf="registrationOrganizationForm.get('organizationName').errors?.maxlength.requiredLength">
+                      <span>Organization Name Cannot be more than 128 Characters </span>
+                  </div>
+                     </div>
+                    <div class="form-group ml-3 mr-3">
+                      <label for="organizationAddress" class="field-name">Organization Address</label>
+                      <input placeholder="" id="organizationAddress" class="input-auth form-control pl-10"
+                        name="organizationAddress" formControlName="organizationAddress" type="text"
+                        #organizationAddress required />
+                        <small class="text-danger text-center ml--30"
+                        *ngIf="!registrationOrganizationForm.get('organizationAddress').valid && registrationOrganizationForm.get('organizationAddress').touched ">Organization Name Cannot be more than 500 Letters</small>
+                    </div>
+                    <div class="form-group ml-3 mr-3">
+                      <label for="country" class="field-name">Country</label>
+                      <ng-select placeholder="-Select-" id="country" class="w-100" name="country"
+                        formControlName="country" #Country required>
+                        <ng-option *ngFor="let country of countries" [value]="country">
+                          {{ country }}
+                        </ng-option>
+                      </ng-select>
+                    </div>
+                    <div class="row flex-grow-1 ml-1 mr-1">
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pr-2">
+                        <label for="techAdminName" class="field-name">Platform Admin Name</label>
+                        <input placeholder="" id="techAdminName" class="input-auth form-control pl-10"
+                          name="techAdminName" formControlName="techAdminName" type="text" #techAdminName required
+                          (keydown)="alphaOnly($event)" />
+                      </div>
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pl-2">
+                        <label for="techAdminEmail" class="field-name">Platform Admin Email</label>
+                        <input placeholder="" id="techAdminEmail" class="input-auth form-control pl-10 lowercase"
+                          name="techAdminEmail" formControlName="techAdminEmail" type="email" #techAdminEmail required
+                          (blur)="emailValidation('ORGANIZATION')" />
+                      </div>
+                    </div>
+                    <div class="row flex-grow-1 ml-1 mr-1">
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pr-2">
+                        <label for="techAdminPhone" class="field-name">Platform Admin Phone Number</label>
+                        <input placeholder="" id="techAdminPhone" class="input-auth form-control pl-10"
+                          name="techAdminPhone" formControlName="techAdminPhone" type="tel" #techAdminPhone
+                          (blur)="validatePhoneNo()" (input)="numberOnly($event)" required
+                          (keydown.space)="$event.preventDefault()" />
+                      </div>
+                      <div class="form-group col-md-6 col-xs-12 col-lg-6 pl-2">
+                        <label for="techAdminPassword" class="field-name">Platform Admin Password</label>
+                        <input placeholder="" id="techAdminPassword" class="input-auth form-control pl-10"
+                          name="techAdminPassword" formControlName="techAdminPassword"
+                          [type]="showPassword ? 'text' : 'password'" #techAdminPassword required />
+                        <span id="password-icon" style="cursor: pointer" (click)="showHidePassword()">
+                          <img *ngIf="showPassword" src="assets/img/hide password.png" height="18px" width="20px" />
+                          <img *ngIf="!showPassword" src="assets/img/show password.png" height="18px" width="20px" />
+                        </span>
+                      </div>
+
+                    </div>
+                    <div class="d-flex w-100 ml-4 mr-4">
+                      <input type="checkbox" id="termsAndConditions" class="" name="termsAndConditions"
+                        formControlName="termsAndConditions" #termsAndConditions required />&nbsp;&nbsp;
+                      <span id="not-member">I accept the </span>&nbsp;<span id="sign-up-text">Terms & conditions</span>
+                    </div>
+                    <div class="d-flex ml-4 mr-4">
+                      <span id="policy-text">By registering, you confirm that you agree to the
+                        storing and processing of your personal data by
+                        Polynomial as described in the &nbsp;<span id="sign-up-privacy" class="mt--8">Privacy
+                          Statement.</span></span>
+                    </div>
+                    <div class="form-group flex-grow-1 mt-2 ml-4 mr-4 text-center">
+                      <button class="btn btn-shona btn-signup ml-0" type="submit" (click)="registerOrganization()"
+                        [disabled]="
+                          registrationOrganizationForm.status === 'INVALID'
+                        ">
+                        Sign Up
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center" *ngIf="registrationFlag">
+                <span id="not-member">Want to register the organization?</span>&nbsp;&nbsp;<span id="sign-up-text"
+                  (click)="showRegisterOrganization()">Click here</span>
+              </div>
+              <div class="d-flex justify-content-center" *ngIf="registerOrganizationFlag">
+                <span id="not-member">Want to register the User?</span>&nbsp;&nbsp;<span id="sign-up-text"
+                  (click)="showRegister()">Click here</span>
+              </div>
+              <div class="d-flex justify-content-center" *ngIf="
+                  registrationFlag ||
+                  registerOrganizationFlag ||
+                  resetPasswordScreenFlag
+                ">
+                <span id="not-member">Already Member?</span>&nbsp;&nbsp;<span id="sign-up-text" (click)="
+                    registrationFlag = false;
+                    registerOrganizationFlag = false;
+                    loginModuleFlag = true;
+                    loginEmailFlag = true;
+                    emailVerified = false
+                  ">Log in</span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

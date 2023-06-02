@@ -1,0 +1,94 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+//nav bar
+.nav-tabs {
+  border-bottom: 0px;
+}
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: #495057;
+  background-color: transparent;
+  border-bottom: 3px solid var(--color-input-border) !important;
+  border: none;
+  cursor: pointer;
+  width: 14%;
+  margin: 0px 0 0 17px;
+  text-decoration: none !important;
+}
+.nav-tabs .nav-link,
+.nav-tabs .nav-item.show .nav-link :hover {
+  color: var(--color-input-border);
+  // border-bottom: 2px solid #cccccc !important;
+  border: none;
+  cursor: pointer;
+  width: 14%;
+  margin: 0px 0 0 0;
+  text-decoration: none !important;
+}
+.tab-title {
+  text-align: center;
+  font: normal normal 500 14px/15px Poppins;
+  letter-spacing: 0px;
+  color: var(--color-tertiary);
+  text-transform: capitalize;
+  opacity: 1;
+}
+.tab-title-active {
+  text-align: center;
+  font: normal normal 700 16px/15px Poppins;
+  letter-spacing: 0px;
+  color: var(--color-tertiary);
+  text-transform: capitalize;
+  opacity: 1;
+}
+.no-found-img {
+  top: 398px;
+  left: 667px;
+  width: 616px;
+  height: 367px;
+}
+.text {
+  font: normal normal 300 30px/50px Poppins;
+  letter-spacing: 0px;
+  color: #adadad;
+  opacity: 1;
+}
+.sub-heading-response-library{
+  font: normal normal 500 14px/25px Poppins !important;
+}
+.sub-heading-details{
+  font: normal normal 400 13px/25px Poppins !important;
+}
+.btn-primary-search {
+  font-size: 14px !important;
+  border-radius: 0px 17px 17px 0px;
+  padding: -1px 23px;
+  background: #1732a4;
+  background-color: #1732a4 !important;
+  margin-left: -56px;
+  padding: 0px 16px;
+  border: none;
+}
+.search-bar{
+  margin-left: 66rem;
+  margin-top: -38px;
+  width: 376.68px;
+}
+.input-auth {
+  border-radius: 24px !important;
+}
+
+.no-found-img {
+  top: 398px;
+  left: 667px;
+  width: 616px;
+  height: 367px;
+}
+.text {
+  font: normal normal 300 30px/50px Poppins;
+  letter-spacing: 0px;
+  color: #adadad;
+  opacity: 1;
+}

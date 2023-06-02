@@ -1,0 +1,40 @@
+<div  *ngIf=" availableApiData &&availableApiData.length ; else noAvailableAPI ">
+<div class="row w-100 mt-2 user-sub-heading-div">
+    <div class="col-md-2 mb-2">
+        <span class="mt-1 sub-heading-available-api">API</span>
+    </div>
+    <div class="col-md-2 mt-1 sub-heading-available-api">Mapped To Intent</div>
+    <div class="col-md-2 mt-1 sub-heading-available-api">Agent</div>
+    <div class="col-md-2 mt-1 sub-heading-available-api" >Date Created</div>
+    <div class="col-md-3 mt-1"></div>
+    <div class="col-md-1 mt-1">
+        <img class="pointer" src="../../assets/img/coco/black-delete-icon.svg" width="20" height="20" />
+    </div>
+</div>
+<div class="row w-100 mt-2 user-sub-body-div" *ngFor="let api of availableApiData">
+    <div class="col-md-2 mb-2 text-wrap">
+        <span class="mt-1 sub-heading-details">{{ api.apiDetails.apiName?api.apiDetails.apiName:'-' }}</span>
+    </div>
+    <div class="col-md-2 mt-1 text-wrap sub-heading-details">{{ api.intentName?api.intentName:'-' }}</div>
+    <div class="col-md-2 mt-1 text-wrap sub-heading-details">{{ botName }}</div>
+    <div class="col-md-2 mt-1 sub-heading-details">{{api.createdAt | date:"longDate"}}</div>
+    <div class="col-md-3 mt-1 d-flex justify-content-around">
+        <div class="sub-heading-details" >{{ api.isActive ? "enabled" : "disabled" }}</div>
+        <div class="pointer sub-heading-details" (click)="editAPI(api)" style="color: #1732a4">
+            edit
+        </div>
+    </div>
+    <div class="col-md-1 pointer">
+        <img class="pointer" src="assets/img/delete.svg" (click)="deleteIntegration(api.apiDetails.apiName)" width="20"
+            height="20" />
+    </div>
+</div>
+</div>
+<ng-template #noAvailableAPI>
+  <div class="nodata">
+    <img src="assets/img/no-data.svg" class="no-found-img">
+    <div class="mb-5">
+      <span class="no-data mt-0">No Available API Found, Please Add API</span>
+    </div>
+  </div>
+</ng-template>

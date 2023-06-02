@@ -1,0 +1,19 @@
+.list-item{
+    color:var(--color-tertiary);
+    display:flex;
+    justify-content: flex-start;
+    align-items:center;
+    img{
+        width:30px;
+    }
+}
+.title-container{
+   .icon-container{
+    img{
+        width: 30px;
+    }
+}
+}
+.fa-edit,.fa-close{
+    cursor:pointer;
+}

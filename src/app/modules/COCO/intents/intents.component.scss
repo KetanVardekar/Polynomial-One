@@ -1,0 +1,76 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.input-auth {
+  border-radius: 24px !important;
+}
+.deleteicon {
+  color: #4d4d4d;
+}
+
+.btn-shona {
+  color: var(--color-button) !important;
+  border: 2px solid var(--color-button);
+  background: #fff !important;
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 12%;
+  height: 35px;
+}
+
+.modal-xl .modal-lg {
+  max-width: 90%;
+}
+
+.modal-content {
+  top: 50px !important;
+  left: 50px !important;
+  transform: translate(100px, 50px) !important;
+}
+.no-found-img {
+  top: 398px;
+  left: 667px;
+  width: 616px;
+  height: 367px;
+}
+.text {
+  font: normal normal 300 30px/50px Poppins;
+  letter-spacing: 0px;
+  color: #adadad;
+  opacity: 1;
+}
+.btn-primary-search {
+  font-size: 14px !important;
+  border-radius: 0px 17px 17px 0px;
+  padding: -1px 23px;
+  background: #1732a4;
+  background-color: #1732a4 !important;
+  margin-left: -56px;
+  padding: 0px 16px;
+  border: none;
+}
+.sub-heading-intents{
+  font: normal normal 500 14px/25px Poppins !important;
+}
+.sub-heading-details{
+  font: normal normal 400 13px/25px Poppins !important;
+}
+.edit-intents{
+  font: normal normal 400 13px/25px Poppins !important;
+}
+.btn-primary{
+  font-size: 14px !important;
+  border-radius: 10px;
+  padding: 0px 24px;
+  height: 28px;
+  background: #1732a4;
+  background-color: #1732a4 !important;
+  box-shadow: 4px 4px 12px #00000033;
+  font: normal normal normal 14px/25px Poppins;
+
+}
+.nav-tabs{
+  border-bottom: 0px;
+}

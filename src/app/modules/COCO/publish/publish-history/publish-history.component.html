@@ -1,0 +1,19 @@
+<div class="row w-100 mt-2 user-sub-heading-div" [@listAnimation]="publishHistoryData.length">
+    <div class="col-md-3 d-flex mb-2">
+        <span class="mt-1 sub-heading-publish">Name</span>
+    </div>
+    <div class="col-md-3 mt-1 sub-heading-publish">Type</div>
+    <div class="col-md-3 mt-1 sub-heading-publish">User</div>
+    <div class="col-md-3 sub-heading-publish">Time</div>
+</div>
+<div class="row w-100  user-sub-body-div" *ngFor="let his of publishHistoryData">
+    <div class="col-md-3 d-flex ">
+        <span class="publish-details">{{his.name?his.name:'---'}}</span>
+    </div>
+    <div class="col-md-3 publish-details ">
+        {{his.type}}
+    </div>
+    <div class="col-md-3 publish-details ">{{his.user}}</div>
+    <!-- <div class="col-md-3 publish-details">{{his.time|date}}</div> -->
+    <div class="col-md-3 publish-details"> Published  {{calculateDiff(his.time)}} days ago</div>
+</div>

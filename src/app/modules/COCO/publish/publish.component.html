@@ -1,0 +1,104 @@
+<div class="ml-81">
+  <div class="row col-12 mb-0">
+    <p class="mb-0">
+      <span class="top-heading-publish top-heading-container">&nbsp;&nbsp;PUBLISH</span>
+    </p>
+  </div>
+  <div class="row publish-container ml-3 mr-3">
+    <div class="col-md-12 col-sm-12 col-lg-12 w-100 pl-4 pr-4 mt-1">
+      <div class="row col-md-12 col-lg-12 col-sm-12 publish-container-heading">
+        <span>Publish Analytics</span>
+      </div>
+      <div class="row mt-2 mb-4">
+        <div class="col-md-4 col-lg-4 ">
+          <div class="row publish-card m-0 p-2">
+            <div class="col-md-3 p-3 mt-2">
+              <img src="assets/img/coco/Intent publish.svg" class="icon-size">
+            </div>
+            <div class="col-md-9 col-lg-9">
+              <span class="card-number">{{intentCount?intentCount:'-'}}</span><br>
+              <span class="card-text">Total Intents</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 ">
+          <div class="row publish-card m-0 p-2">
+            <div class="col-md-3 p-3  mt-2">
+              <img src="assets/img/coco/integrations publish.svg"  class="icon-size">
+            </div>
+            <div class="col-md-9 col-lg-9">
+              <span class="card-number">{{integratedAPICount?integratedAPICount:'-'}}</span><br>
+              <span class="card-text">Total Integrations</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4 ">
+          <div class="row publish-card m-0 p-2">
+            <div class="col-md-3 p-3 mt-2">
+              <img src="assets/img/coco/coding.svg "class="icon-size">
+            </div>
+            <div class="col-md-9 col-lg-9">
+              <span class="card-number">{{versionNumber?versionNumber:'-'}}</span><br>
+              <span class="card-text">Versions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row col-lg-12 col-md-12 mt-3 pr-0 mr-0 w-100"
+    *ngIf="publishHistory  && publishHistory.length   ; else noPublish ">
+    <div class=" w-100 d-flex justify-content-between">
+      <nav class="w-100">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <ng-container>
+            <a class="nav-link nav-item active text-center" id="'ready'" data-toggle="tab" role="tab"
+              aria-controls="ready" aria-selected="true" [class.active]="tab == 'ready'" (click)="tab = 'ready'">
+              <div class=" justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'ready' }">
+                  Ready To Publish
+                </span>
+              </div>
+            </a>
+          </ng-container>
+          <ng-container>
+            <a class="nav-link nav-item active text-center" id="'history'" data-toggle="tab" role="tab"
+              aria-controls="history" aria-selected="true" [class.active]="tab == 'history'" (click)="tab = 'history'">
+              <div class=" justify-content-center">
+                <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'history' }">
+                  Publish History
+                </span>
+              </div>
+            </a>
+          </ng-container>
+        </div>
+      </nav>
+      <div class="d-flex w-100 justify-content-end mt-2" *ngIf="tab=='ready'">
+        <button class="btn-shona ml-2" type="button" (click)="getEmbedUrl()">Generate Embedded Code</button>
+        <button class="btn-publish ml-2" type="button" (click)="publishIntents()">Publish</button>
+        <button class="btn-restore ml-2" type="button" (click)="toRestore()" >Restore</button>
+      </div>
+    </div>
+    <div class="tab-content w-100 mt-1  pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="ready" role="tabpanel" [class.active]="tab == 'ready'"
+        aria-labelledby="ready">
+        <app-ready-to-publish [readyToPublishData]="readyToPublishList"></app-ready-to-publish>
+      </div>
+    </div>
+
+    <div class="tab-content w-100  mt-1 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="history" role="tabpanel"
+        [class.active]="tab == 'history'" aria-labelledby="history">
+        <app-publish-history [publishHistoryData]="publishHistory"></app-publish-history>
+      </div>
+    </div>
+  </div>
+  <ng-template #noPublish>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available publish </span>
+      </div>
+    </div>
+  </ng-template>
+</div>

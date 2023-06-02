@@ -1,0 +1,22 @@
+<div class="row w-100 mt-2 user-sub-heading-div" [@listAnimation]="readyToPublishData.length">
+    <div class="col-md-4 d-flex form-group mb-2">
+        <input type="checkbox" class="form-control checkbox mt-2"  [(ngModel)]="selectAll"
+            (change)="selectDeselctAll($event)">
+        <span class="ml-4 mt-1 sub-heading-publish">Name</span>
+    </div>
+    <div class="col-md-4 mt-1  sub-heading-publish">Status</div>
+    <div class="col-md-3 mt-1  sub-heading-publish">Invalid Items</div>
+</div>
+<div class="row w-100 mt-2 user-sub-body-div " *ngFor="let publish of readyToPublishData">
+    <div class="col-md-4 d-flex form-group mb-2 word-break">
+        <input type="checkbox" class="form-control checkbox"
+            [disabled]="!publish.isValid || publish.updatedItems.length === 0" [(ngModel)]="publish.checked"
+            (change)="checkUncheck(publish,$event)">
+        <span class="ml-4 mt-1 publish-details word-break">{{publish.intentName}}</span>
+    </div>
+    <div class="col-md-4 mt-1 publish-details">{{publish.status}}</div>
+    <div class="col-md-3 mt-1 publish-details">{{publish.invalidItems? publish.invalidItems:'---'}}</div>
+    <div class="col-md-1 mt-1 pointer delete-alignment">
+      <img class="pointer" src="assets/img/delete.svg"  width="20" height="20" />
+    </div>
+</div>

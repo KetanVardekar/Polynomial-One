@@ -1,0 +1,32 @@
+{
+  "loadingConfigs":{
+  "bgsColor": "#1732a4",
+  "bgsOpacity": 0.3,
+  "bgsPosition": "bottom-right",
+  "bgsSize": 60,
+  "bgsType": "ball-spin-clockwise",
+  "blur": 3,
+  "delay": 0,
+  "fastFadeOut": true,
+  "fgsColor": "#1732a4",
+  "fgsPosition": "center-center",
+  "fgsSize": 90,
+  "fgsType": "ball-spin-clockwise",
+  "gap": 24,
+  "logoPosition": "center-center",
+  "logoSize": 120,
+  "logoUrl": "",
+  "masterLoaderId": "master",
+  "overlayBorderRadius": "0",
+  "overlayColor": "rgba(245,246,249,0.43)",
+  "pbColor": "#1732a4",
+  "pbDirection": "ltr",
+  "pbThickness": 4,
+  "hasProgressBar": true,
+  "text": "",
+  "textColor": "#FFFFFF",
+  "textPosition": "center-center",
+  "maxTime": -1,
+  "minTime": 300
+}
+}

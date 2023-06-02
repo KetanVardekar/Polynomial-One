@@ -1,0 +1,31 @@
+
+<div class="d-flex ">
+  <h5 class="d-flex align-items-center">
+   {{selectedEntityName}}
+  </h5>
+</div>
+<div *ngIf=" entitiesArray && entitiesArray.length ; else noEntities ">
+<div  *ngFor="let entity of entitiesArray; let i = index" (click)="entity.add = true"
+class=" mr-3 entity-list-wrap-entity flex-column d-flex jutify-content-between align-items-center ">
+<div class="details-container" >
+  <div class="entity-title flex-grow-1">
+    {{ entity.displayName }}
+  </div>
+  <div class="synonyms-container d-flex">
+    <div class="scroll-container">
+    <span class="synonym mr-3" *ngFor="let synonym of entity.synonyms; let j = index">
+      {{ synonym }}
+    </span>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<ng-template #noEntities>
+  <div class="nodata">
+    <img src="assets/img/no-data.svg" class="no-found-img">
+    <div class="mb-5">
+      <span class="text mt-0">Please Create An Entity First </span>
+    </div>
+  </div>
+</ng-template>

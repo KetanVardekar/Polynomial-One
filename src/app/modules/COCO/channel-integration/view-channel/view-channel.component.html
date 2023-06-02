@@ -1,0 +1,73 @@
+<div class="mr-4 ml-4  mb-4">
+    <div class="row col-12 text-left justify-content-end mt-3 ml-4">
+        <img class="pointer" src="assets/img/close.png" width="16px" height="16px" (click)="close()" />
+    </div>
+    <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0  ml-0 heading justify-content-between pointer">
+        <div> SELECT A CHANNEL</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+            <label class="mt-1 field-name">Registered Platform</label>
+
+            <input type="text" class="input-auth form-control w-100" placeholder="Polynomial One" required
+                [disabled]="editFlag" [(ngModel)]="viewAgenList.registeredPlatform" />
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+            <label class="mt-1 field-name">Registered Email</label>
+
+            <input type="text" class="input-auth form-control w-100" placeholder="Pramod.b@polynomial.ai" required
+                [disabled]="editFlag" [(ngModel)]="viewAgenList.registeredEmail" />
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+            <label class="mt-1 field-name">Position</label>
+
+            <input type="text" class="input-auth form-control w-100" placeholder="Tech Admin" required
+                [disabled]="editFlag" [(ngModel)]="viewAgenList.position" />
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+            <label class="mt-1 field-name">Channel</label>
+
+            <input type="text" class="input-auth form-control w-100" placeholder="Polynomial One" required
+                [disabled]="editFlag" [(ngModel)]="viewAgenList.channel" />
+        </div>
+    </div>
+    <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0   heading-configure">
+        Configure connection with the channel
+    </div>
+    <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0  mr-0   light-font">
+        Fill in the necessary details to configure your channel and get started
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+            <label class="mt-1 field-name">Platform to be connected to</label>
+
+            <input type="text" class="input-auth form-control w-100" placeholder="Insight as a service" required
+                [disabled]="editFlag" [(ngModel)]="viewAgenList.platform" />
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+            <label class="mt-1 field-name">Agent to be connected </label>
+
+            <input type="text" class="input-auth form-control w-100" placeholder="Agent One" required
+                [disabled]="editFlag" [(ngModel)]="viewAgenList.appName" />
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+            <label class="mt-1 field-name">Whatsapp Business Api Key</label>
+
+            <input type="text" class="input-auth form-control w-100" placeholder="Pramod.b@polynomial.ai" required
+                [disabled]="editFlag" [(ngModel)]="viewAgenList.key" />
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 form-group">
+            <label class="mt-1 field-name">URL </label>
+            <div class="d-flex">
+                <input type="text" class="input-auth form-control w-100" [(ngModel)]="viewAgenList.url" placeholder=""
+                    required [disabled]="editFlag" #userinput />
+                <button class="btn btn-outline-shona " (click)="copyInputMessage(userinput)" value="click to copy">
+                    Copy
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

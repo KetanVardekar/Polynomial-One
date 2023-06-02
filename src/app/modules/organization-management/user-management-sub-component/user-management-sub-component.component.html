@@ -1,0 +1,58 @@
+<div class="row w-100 col-md-12 d-flex justify-content-between user-management-heading-div">
+  <div class="text-left sub-heading">MEMBERS LIST</div>
+  <div class="d-flex">
+    <span *ngIf="deleteMembers && deleteMembers.length">|</span>&nbsp;&nbsp;
+    <span class="pointer" *ngIf="deleteMembers && deleteMembers.length" (click)="deleteMember()">Delete</span>
+  </div>
+</div>
+<div class="row w-100 mt-2 user-management-sub-heading-div fw-600 fs-15">
+
+  <div class="col-md-2 d-flex form-group mb-2 ">
+    <span class="ml-2 mt-1 table-head">Firstname</span>
+  </div>
+  <div class="col-md-2 mt-1 table-head">Lastname</div>
+  <div class="col-md-4 mt-1 table-head">Email Id</div>
+  <div class="col-md-2 mt-1 table-head">Role</div>
+  <div class="col-md-1 mt-1"></div>
+  <!-- <div class="col-md-1 mt-1">
+    <img class="" src="../../assets/img/coco/black-delete-icon.svg" width="20" height="20">
+  </div> -->
+</div>
+<div class="row w-100 mt-2 user-management-sub-body-div" *ngFor="let members of userMembers" [ngStyle]="members.userID === userID ? {color:'#1732A4'} : {color:'#000000' }">
+  <div class="col-md-2 d-flex form-group mb-2">
+    <span class="ml-2 members-details firstName-align ">{{ members.firstName }}</span>
+  </div>
+  <div class="col-md-2 members-details word-break ">
+    {{ members.lastName }}
+  </div>
+  <div class="col-md-4 members-details word-break lowercase">{{members.email}}</div>
+  <div class="col-md-2 members-details word-break">{{ members.role }}</div>
+  <!-- <div class="col-md-1" [ngStyle]="(members.userID ==userID ) ?{display:'block'}:{visibility:'hidden'}">
+    <img class="pointer " src="assets/img/home edit.svg" (click)="editMember(members)" width="20"
+      height="20" />
+  </div> -->
+
+  <!-- If platform admin ,have to show icon everywhere -->
+  <!-- <div class="col-md-1" [ngStyle]="((userRole =='platform_admin')|| (userRole=='technical_admin' && members.userID ==userID || members.role=='User' ) )?{display:'block'}:{visibility:'hidden'}">
+    <img class="pointer " src="assets/img/home edit.svg" (click)="editMember(members)" width="20"
+      height="20" />
+  </div> -->
+  <!-- if platform admin,not show the icon on platform admin -->
+  <div class="col-md-1" [ngStyle]="((userRole =='platform_admin'  && members.role =='Technical Admin' || members.role=='User' )|| (userRole=='technical_admin' && members.userID ==userID || members.role=='User' ) )?{display:'block'}:{visibility:'hidden'}">
+    <img class="pointer " src="assets/img/home edit.svg" (click)="editMember(members)" width="20"
+      height="20" />
+  </div>
+
+  <!-- <div  class="col-md-1" *ngIf="(userRole!='Platform Admin')? ((members.role=='Technical Admin' || members.role=='User') && members.userID!=userID)?true:false:((members.role=='User') && members.userID!=userID)?true:false " && !members.isEdit> -->
+    <div class="col-md-1" *ngIf="!members.isEdit">
+    <img  class="pointer " src="assets/img/delete.svg" (click)="deleteMember(members)" width="20" height="20" />
+  </div>
+  <!-- {{userRole}}--{{members.role}}---{{(userRole==='Technical_admin')?(members.role=='Technical Admin')?true:false:(members.role=='Platform Admin')?true:false}}---{{(userRole==='Technical_admin')}} -->
+  <!-- <div  class="col-md-1" *ngIf="(userRole==='Technical_admin')?(members.role=='Technical Admin')?true:false:(members.role=='Platform Admin')?true:false" && members.isEdit> -->
+    <div class="col-md-1" *ngIf="members.isEdit">
+    <img class="pointer " src="../../assets/img/coco/black-delete-icon.svg"  width="20" height="20" />
+  </div>
+</div>
+<div class="d-flex justify-content-center mt-4 mr-5 mb-4">
+<button class="btn btn-primary " (click)="addMember()">Add</button>
+</div>

@@ -1,0 +1,70 @@
+.main .heading-container {
+  margin-left: 16px;
+  border-left: 5px solid;
+  border-color: var(--color-tertiary);
+}
+
+.main .heading {
+  font: normal normal 400 32px/72px Poppins;
+  letter-spacing: 0px;
+  color: var(--color-tertiary);
+  text-transform: uppercase;
+}
+
+.main hr {
+  border-color: var(--color-table-border);
+  margin-bottom: 0px;
+}
+
+.field-name {
+  font: normal normal 500 16px/25px Poppins;
+  letter-spacing: 0.19px;
+  color: var(--color-tertiary);
+}
+
+.btn-outline-shona {
+  background: #fff !important;
+  border: 2px solid #093ae0 !important;
+  color: #093ae0 !important;
+  text-align: center;
+  font: normal normal 400 16px/35px Poppins;
+  letter-spacing: 0px;
+  width: 10%;
+  padding: 0px;
+}
+
+.btn-shona {
+  padding: 7px 15px;
+  min-width: 110px;
+  width: 100px;
+}
+
+.whitelist-box {
+  width: 99%;
+}
+
+.white-list-domain-link {
+  font: normal normal 300 16px/30px Poppins;
+  letter-spacing: 0px;
+  background: #ededed 0% 0% no-repeat padding-box;
+  color: var(--color-tertiary);
+  opacity: 1;
+  border-bottom: 2px solid #d8d6d6;
+}
+
+.btn-unselect {
+  margin: 0 0 0 32px;
+  padding: 3px 12px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  -webkit-box-shadow: 3px 3px 8px #00000033;
+          box-shadow: 3px 3px 8px #00000033;
+  border: 1px solid #4d4d4d;
+  color: #4d4d4d;
+  border-radius: 4px;
+  font: normal normal 400 12px/30px Poppins;
+}
+
+.text-details {
+  font-weight: 500;
+}
+/*# sourceMappingURL=access-keys.component.css.map */

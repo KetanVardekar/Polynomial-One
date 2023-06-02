@@ -1,0 +1,8 @@
+.fa-close {
+  cursor: pointer;
+}
+
+.fa-close:hover {
+  color: var(--color-primary);
+}
+/*# sourceMappingURL=odd-message-form.component.css.map */

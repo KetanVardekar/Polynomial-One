@@ -1,0 +1,485 @@
+<div class="ml-81 main ">
+  <div class="row col-12 mb-0 ml-3 pl-0">
+    <p class="mb-0">
+      <span class="top-heading top-user-container">&nbsp;&nbsp;User Management</span>
+    </p>
+  </div>
+  <hr style="margin-left: 16px;margin-right:28px" />
+  <div class="row col-12 col-md-12">
+    <nav class="w-100">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist" style="margin-left: 16px;">
+        <ng-container>
+          <a class="nav-link nav-item active text-center" id="'profile'" data-toggle="tab" role="tab"
+            aria-controls="profile" aria-selected="true" [class.active]="tab == 'profile'" (click)="tab = 'profile'">
+            <div class="justify-content-center ">
+              <!-- <span class="material-icons-outlined check-circle-icon">task_alt</span> -->
+              <span class="tab-title " [ngClass]="{ 'tab-title-active': tab == 'profile' }">
+                Profile
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <ng-container>
+
+          <a class="nav-link nav-item text-center" id="'activity'" data-toggle="tab" role="tab" aria-controls="activity"
+            aria-selected="false" [class.active]="tab == 'activity'" (click)="tab = 'activity'">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'activity' }">
+                Activity
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <ng-container>
+          <a class="nav-link nav-item text-center" id="'password'" data-toggle="tab" role="tab" aria-controls="password"
+            aria-selected="false" [class.active]="tab == 'password'" (click)="tab = 'password'">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'password' }">
+                password
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <ng-container>
+          <a class="nav-link nav-item text-center" id="'settings'" data-toggle="tab" role="tab" aria-controls="settings"
+            aria-selected="false" [class.active]="tab == 'settings'" (click)="tab = 'settings'">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'settings' }">
+                Settings
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <ng-container>
+          <a class="nav-link nav-item text-center" id="'help'" data-toggle="tab" role="tab" aria-controls="help"
+            aria-selected="false" [class.active]="tab == 'help'" (click)="tab = 'help'">
+            <div class="justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'help' }">
+                Help
+              </span>
+            </div>
+          </a>
+        </ng-container>
+      </div>
+      <hr style="margin-top:0px ; margin-left: 16px;" />
+    </nav>
+
+    <div class="tab-content w-100 mt-4 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="p" role="tabpanel" [class.active]="tab == 'profile'"
+        aria-labelledby="profile">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 row form-group d-flex">
+            <label class="mt-1 field-name col-3">Firstname</label>
+            <input type="text" class="input-auth-user form-control col-8 w-75 input-validation" placeholder="Firstname"
+              [(ngModel)]="profile.firstName" required [disabled]="editProfileFlag" (keydown)="alphaOnly($event) "
+              #firstName="ngModel" maxlength="50" />
+            <small class="text-danger text-center error-text"
+              *ngIf="!firstName.valid && firstName.touched && formSubmitted">Please Enter Valid FirstName</small>
+            <small class="text-danger text-center error-text"
+              *ngIf="profile.firstName.length >49 && formSubmitted">First Name Cannot be more than 50 latters</small>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 row d-flex">
+            <label class="mt-1 field-name col-3">Lastname</label>
+            <input type="text" class="input-auth-user form-control col-8 w-75 input-validation" placeholder="Lastname"
+              (keydown)="alphaOnly($event)" [(ngModel)]="profile.lastName" [disabled]="editProfileFlag" required
+              #lastName1="ngModel" maxlength="50" />
+            <small class="text-danger text-center error-text mb-3"
+              *ngIf="!lastName1.valid && lastName1.touched && formSubmitted">Please Enter Valid LastName</small>
+            <small class="text-danger text-center error-text mb-3"
+              *ngIf="profile.lastName.length > 49 && formSubmitted">Last Name Cannot be more than 50 latters</small>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 row d-flex">
+            <label class="mt-1 field-name col-3">E-mail</label>
+            <input type="email" class="input-auth-user form-control col-8 w-75 lowercase" placeholder="Email"
+              [(ngModel)]="profile.email" disabled />
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 row form-group d-flex">
+            <label class="mt-1 field-name col-3">Company</label>
+            <input type="text" class="input-auth-user col-8 form-control w-75" placeholder="Company"
+              [(ngModel)]="profile.company" required disabled (keydown)="alphaOnly($event)" />
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 row d-flex">
+            <label class="mt-1 field-name col-3">Phone</label>
+            <input type="tel" class="input-auth-user col-8 form-control w-75 input-validation"
+              placeholder="User register phone no " [(ngModel)]="profile.phoneNo" required [disabled]="editProfileFlag"
+              (input)="numberOnly($event)" #phoneNumber="ngModel" />
+            <small class="text-danger text-center error-text "
+              *ngIf="!phoneNumber.valid && phoneNumber.touched && formSubmitted">Phone number is required</small>
+            <small class="text-danger text-center error-text " *ngIf="profile.phoneNo.length > 10">Please enter
+              valid 10 digit Phone number</small>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 row d-flex">
+            <label class="mt-1 field-name col-3">Job Title</label>
+            <ng-select class="col-8 p-0 select-input" placeholder="Select Job title" [(ngModel)]="profile.jobTitle"
+              #jobTitle="ngModel" [ngClass]="{'is-invalid':(jobTitle.invalid)&&( jobTitle.touched) }" required
+              [disabled]="editProfileFlag" disabled >
+
+
+              <ng-option *ngFor="let titles of jobTitles" [value]="titles">
+                {{ titles }}
+              </ng-option>
+            </ng-select>
+            <small class="text-danger text-center error-text
+            " *ngIf="!jobTitle.valid && jobTitle.touched && formSubmitted">Please Select Job Title</small>
+          </div>
+
+        </div>
+
+        <!-- <div class="row d-flex">
+          <div class="col-md-6 col-lg-6 col-sm-6 d-flex">
+            <label class="mt-1 field-name phone-align col-3">Phone</label>
+            <input type="text" class="form-control  job-align " placeholder="User register phone no "
+              [(ngModel)]="profile.phoneNo" required [disabled]="editProfileFlag" (input)="numberOnly($event)"
+              #phoneNumber="ngModel" />
+              <small class=""
+          *ngIf="!phoneNumber.valid && phoneNumber.touched && formSubmitted">Phone number is required</small>
+        <small class="" *ngIf="profile.phoneNo.length > 10">Please enter
+          valid 10 digit Phone number</small>
+
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-sm-6 d-flex ">
+            <label class="job-label">Job Title</label>
+            <ng-select class="job-title-field" placeholder="Select Job title" [(ngModel)]="profile.jobTitle"
+              #jobTitle="ngModel" [ngClass]="{'is-invalid':(jobTitle.invalid)&&( jobTitle.touched) }" required
+              [disabled]="editProfileFlag" disabled>
+
+
+              <ng-option *ngFor="let titles of jobTitles" [value]="titles">
+                {{ titles }}
+              </ng-option>
+            </ng-select>
+            <small class="text-danger text-center error-text
+            " *ngIf="!jobTitle.valid && jobTitle.touched && formSubmitted">Please Select Job Title</small>
+          </div>
+        </div> -->
+
+
+        <div class="row d-flex">
+          <div class="col-md-6 col-lg-6 col-sm-6 d-flex">
+            <label class="field-name mt-3">Profile Picture</label>
+            <div class="brand" [style.background-color]="randomColor" *ngIf="!profile.displayPicture">
+              {{ updatedUserName ? updatedUserName.charAt(0).toUpperCase() : "" }}
+            </div>
+            <div *ngIf="profile.displayPicture" class="uploadFileSection" style="border-radius: 100px;">
+              <img [src]="profile.displayPicture" style="height: inherit; width: inherit; border-radius: 100px;" />
+
+            </div>
+            <div class="img-button ml-3 mr-2" *ngIf="!editProfileFlag">
+              <img class="profile-img-icon pointer" src="assets/img/gallery.png" (click)="uploads.click()" />
+              <input type="file" (change)="uploadImage($event)" style="display: none"
+                accept="image/png, image/jpeg, image/jpg" #uploads required />
+            </div>
+            <div class="img-button ml-2" *ngIf="!editProfileFlag">
+              <img class="profile-img-icon pointer" (click)="deleteImage()" src="assets/img/delete.svg" />
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-6">
+            <div class="d-flex">
+              <label class="country-label">Country</label>
+              <ng-select [(ngModel)]="profile.country" class="country-select-field" required
+                [disabled]="editProfileFlag" placeholder="Select Country" #country="ngModel"
+                [ngClass]="{'is-invalid':(country.invalid)&&( country.touched) }">
+                <ng-option *ngFor="let country of countries" [value]="country">{{country}}</ng-option>
+              </ng-select>
+            </div>
+            <small class="country-error-field" *ngIf="!country.valid && country.touched&& formSubmitted">Please Select
+              Country</small>
+          </div>
+
+        </div>
+        <div class="form-group flex-grow-1 btn-align ml-4 mr-4 text-center">
+          <button class="btn btn-primary btn-signup ml-0" (click)="updateProfile()" type="submit">
+            {{ editProfileFlag ? editProfile : save }}
+          </button>
+        </div>
+      </div>
+
+      <div class="tab-backgroud tab-pane fade show active" id="activity" role="tabpanel"
+        [class.active]="tab == 'activity'" aria-labelledby="activity">
+        <ng-container *ngIf="activityRecords && activityRecords.length ; else noActivity">
+          <div class="row w-100">
+            <div class="col-md-12 h-100 mb-5 pr-0">
+              <div class="row pb-2 ml-0 activity-table-heading">
+                <div class="col-md-2 col-lg-2 col-sm-2 pl-1">Name</div>
+                <div class="col-md-5 col-lg-5 col-sm-2">Activity</div>
+                <div class="col-md-2 col-lg-2 col-sm-2 pl-2">Platform</div>
+                <div class="col-md-2 col-lg-2 col-sm-2 pl-2">Date And Time</div>
+              </div>
+              <div class="activity-container">
+                <div class="row p-1 ml-0 activity-table-body" *ngFor="let activity of activityRecords">
+                  <div class="col-md-2 col-lg-2 col-sm-2 d-flex pl-0">
+                    <div class="profile-pic mr-2">
+                      <ng-container *ngIf="!activity.displayPicture;else activityImage">
+                        {{
+                        activity.userName
+                        ? activity.userName.charAt(0).toUpperCase()
+                        : ""
+                        }}
+                      </ng-container>
+                      <ng-template #activityImage>
+                        <div class="profile-pic" style="box-shadow: none; background:none"> <img
+                            [src]="activity.displayPicture" class="img-size"></div>
+
+                      </ng-template>
+                    </div>
+                    <span class="activity-username">{{ activity.userName }}</span>
+                  </div>
+                  <div class=" word-break col-md-5 col-lg-5 col-sm-2 activity-records">
+                    {{ activity.description }}
+                  </div>
+                  <div class="col-md-2 col-lg-2 col-sm-2 activity-records">
+                    {{ activity.platform?activity.platform:"--" }}
+                  </div>
+                  <div class="col-md-2 col-lg-2 col-sm-2 activity-records">
+                    {{ activity.timestamp | date:'MMM d'}} at {{activity.timestamp | date:'shortTime'}}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <ng-template #noActivity>
+        <div class="nodata">
+          <img src="assets/img/no-data.svg" class="no-found-img">
+          <div class="mb-5">
+            <span class="text mt-0"> No available activity </span>
+          </div>
+        </div>
+      </ng-template>
+
+
+
+      <div class="tab-backgroud tab-pane fade show active" id="matched" role="tabpanel"
+        [class.active]="tab == 'password'" aria-labelledby="password">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 form-group">
+            <label class="mt-1 field-name">Enter Old Password</label>
+
+            <input type="password" class="input-auth-password form-control " (keydown.space)="$event.preventDefault()"
+              id="currentPassword" placeholder="Enter Old Password" [(ngModel)]="password.oldPassword"
+              [type]="showPassword ? 'text' : 'password'" required />
+            <span id="password-icon" style="cursor: pointer" (click)="showHidePassword()">
+              <img *ngIf="!showPassword" src="assets/img/hide password.png" height="18px" width="20px" />
+              <img *ngIf="showPassword" src="assets/img/show password.png" height="18px" width="20px" />
+            </span>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 form-group">
+            <label class="mt-1 field-name">Enter New Password</label>
+            <input type="password" class="input-auth-password form-control" placeholder="Enter New Password"
+              [(ngModel)]="password.newPassword" (keyup)="keyUpHandler($event)"
+              (keydown.space)="$event.preventDefault()" [type]="showPasswordNew ? 'text' : 'password'" id="newPassword"
+              required />
+            <span id="password-icon" style="cursor: pointer" (click)="showHidePasswordNew()">
+              <img *ngIf="!showPasswordNew" src="assets/img/hide password.png" height="18px" width="20px" />
+              <img *ngIf="showPasswordNew" src="assets/img/show password.png" height="18px" width="20px" />
+            </span>
+
+            <div class="password-validation">
+              <label>The new password must contain the following:</label>
+              <ul>
+                <li [ngClass]="{ active: isMinLength }">
+                  <span class="dot"></span>Minimum 8 digit password
+                </li>
+                <li [ngClass]="{ active: hasUpperCase }">
+                  <span class="dot"></span>At least 1 uppercase letter
+                </li>
+                <li [ngClass]="{ active: hasLowerCase }">
+                  <span class="dot"></span>At least 1 lowercase letter
+                </li>
+                <li [ngClass]="{ active: hasNumber }">
+                  <span class="dot"> </span>At least 1 number
+                </li>
+                <li [ngClass]="{ active: hasSpecialChar }">
+                  <span class="dot"></span>At least special character
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 form-group">
+            <label class="mt-1 field-name">Confirm New Password</label>
+            <input type="password" class="input-auth-password form-control" placeholder="Confirm New Password"
+              (keyup)="keyUpHandler($event)" [(ngModel)]="password.confirmPassword"
+              (keydown.space)="$event.preventDefault()" [type]="showPasswordConfirm ? 'text' : 'password'"
+              id="confirmPassword" required />
+            <span id="password-icon" style="cursor: pointer" (click)="showHidePasswordConfirm()">
+              <img *ngIf="!showPasswordConfirm" src="assets/img/hide password.png" height="18px" width="20px" />
+              <img *ngIf="showPasswordConfirm" src="assets/img/show password.png" height="18px" width="20px" />
+            </span>
+
+            <!-- <div class="mb-3" class="font-color" *ngIf="
+            password.oldPassword !== '' &&
+            password.oldPassword !== null &&
+            password.oldPassword === password.newPassword
+              ">
+              New password should not be same as old password
+            </div> -->
+            <div class="font-color mt-2" *ngIf="
+                password.confirmPassword !== '' &&
+                password.confirmPassword !== null &&
+                password.confirmPassword !== password.newPassword
+              ">
+              Confirm password do not match new password
+            </div>
+          </div>
+
+          <div class="form-group flex-grow-1 mt-4 ml-4 mr-4 text-center">
+            <button (click)="changePassword()" class="btn btn-shona" [disabled]="
+                !(password.oldPassword &&
+                  password.newPassword &&
+                  password.confirmPassword) ||
+                !(
+                  hasLowerCase &&
+                  hasUpperCase &&
+                  hasNumber &&
+                  hasSpecialChar &&
+                  isMinLength
+                )
+              ">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="tab-backgroud tab-pane fade show active" id="settings" role="tabpanel"
+        [class.active]="tab == 'settings'" aria-labelledby="settings">
+        <div class="row pl-3">
+          <div class="col-12 pl-0 pr-0">
+            <div class="custom-panel">
+              <div class="response-box flex-grow-1">
+                <div class="response-inner-wrap custom-shadow d-flex flex-column">
+                  <div class="response-inner-fix flex-grow-1">
+                    <div class="row py-4">
+                      <div class="col-lg-3 col-md-3 col-sm-12 field-name">
+                        Change Language
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-12">
+                        <ng-select class="selectpicker justify-content-center" [multiple]="false" [clearable]="false"
+                          [searchable]="false" style="width: 200px " data-show-tokens="false"
+                          (change)="updateSettings()" [(ngModel)]="settings.language">
+                          <!-- data-live-search="true"> -->
+                          <ng-option data-tokens="Gertrude">English(UK)</ng-option>
+                          <ng-option data-tokens="Hugo">English(US)</ng-option>
+
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div class="row py-4">
+                      <div class="col-lg-3 col-md-3 col-sm-12 field-name">
+                        Allow Desktop Notifications
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-12">
+                        <label class="switch">
+                          <input type="checkbox" (change)="updateSettings()"
+                            [(ngModel)]="settings.isDesktopNotificationAllowed" />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row py-4">
+                      <div class="col-lg-3 col-md-3 col-sm-12 field-name">
+                        Allow Email Notifications
+                      </div>
+                      <div class="col-lg-9 col-md-9 col-sm-12">
+                        <label class="switch">
+                          <input type="checkbox" (change)="updateSettings()"
+                            [(ngModel)]="settings.isEmailNotificationAllowed" />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-backgroud tab-pane fade show active" id="help" role="tabpanel" [class.active]="tab == 'help'"
+        aria-labelledby="help">
+        <div class="row">
+          <div class="col-12 pl-0">
+            <div class="custom-panel">
+              <div class="response-box flex-grow-1">
+                <div class="response-inner-wrap custom-shadow d-flex flex-column">
+                  <div class="response-inner-fix flex-grow-1">
+                    <!-- <form> -->
+                    <div class="pt-2 mb-4">
+
+                      <div class="d-flex">
+                        <div class="input-group d-flex">
+                          <div class="form-outline w-100">
+                            <input type="search" id="form1" class="form-control ml--69" placeholder="Search"
+                              [(ngModel)]="searchData" (keyup)="helpDetails(searchData)" />
+                          </div>
+                        </div>
+                        <div>
+                          <button type="button" class="btn btn-search" (click)="helpDetails(searchData)">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <ng-container *ngIf="helpList&&helpList.length;else noHelp">
+                    <div *ngFor="let list of helpList; let i = index" class="accordion ml-3" id="accordionExample"
+                      (click)="descriptionFlag[i] =!descriptionFlag[i]" tabindex="-1">
+                      <ngb-accordion [animation]="true" #acc="ngbAccordion" [activeIds]="activeId" activeIds="ngb-panel"
+                        (panelChange)="toggleAccordian($event)">
+                        <ngb-panel>
+                          <ng-template ngbPanelTitle class="d-flex">
+                            <span class="float-left title-text" tabindex="-1"
+                              [ngClass]="!descriptionFlag[i]?'before-click':'after-click'">{{list.question}} </span>
+                            <span class="float-right">
+                              <img *ngIf="!descriptionFlag[i]" src="assets/img/lens/down-arrow.png" class="rotate-down"
+                                alt="">
+                              <img *ngIf="descriptionFlag[i]" src="assets/img/lens/down-arrow.png" class="rotate-up"
+                                alt="">
+                            </span>
+                          </ng-template>
+                          <ng-template ngbPanelContent class="d-flex title-text" *ngIf="descriptionFlag[i]">
+                            <span>
+                              {{list.answer}}</span>
+                          </ng-template>
+                        </ngb-panel>
+                      </ngb-accordion>
+
+                    </div>
+                  </ng-container>
+
+                  <ng-template #noHelp>
+                    <div class="nodata">
+                      <img src="assets/img/no-data.svg" class="no-found-img">
+                      <div class="mb-5">
+                        <span class="text mt-0"> Not Results Found</span>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <!-- </form> -->
+
+
+                </div>
+
+              </div>
+              <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0 mr-0 title-heading">
+                CONTACT US
+              </div>
+              <div class="row w-100 col-md-12 col-lg-12 col-12 pr-0 mr-0 mt-2">
+                <div class="help-highlight ml-3"> For any questions you can reach out to us at &nbsp; </div><span
+                  class="mail">coco@polynomial.ai </span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

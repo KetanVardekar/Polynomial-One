@@ -1,0 +1,138 @@
+<div class="sidebar-main collapsed d-flex flex-column justify-content-between h-100">
+  <div class="sidebar-top" [class.active]="sidebarActive">
+    <div class="brand mb-2 brand-align" (click)="sidebarActive=!sidebarActive" (clickOutside)="closeClick()">
+      <div *ngIf="orgIcon">
+        <a href="javascript:void(0);" class="logo"><img [src]="orgIcon" alt="logo" class="side-icon" /></a>
+      </div>
+      <div *ngIf="!orgIcon" class="profile-pic"[style.background-color]="randomColor" > {{ orgName ? orgName.charAt(0).toUpperCase() : "" }}</div>
+    </div>
+    <!-- <div class="menu-item">
+      <ul [@listAnimation]="routes.length">
+        <li *ngFor="let route of routes" routerLinkActive="active"><a [routerLink]="[route.link]" [title]="route.text"
+            class="menu-link">
+            <img [src]="route.icon" [alt]="route.text" />
+            <span>{{ route.text }}</span>
+          </a></li>
+      </ul>
+    </div> -->
+    <div class="bottom middle mt-0">
+      <ul [@listAnimation]="routes.length">
+        <li *ngFor="let route of routes" class="mb-2 d-flex align-items-center" [routerLink]="[route.link]"
+          [routerLinkActiveOptions]="{exact: false}" routerLinkActive="active">
+          <a href="javascript:void(0);" [title]="route.text">
+            <img [src]="route.icon" [alt]="route.text" class="img-fluid" /></a>
+          <h6 class="mb-0 ml-3 text-light">{{ route.text }}</h6>
+        </li>
+      </ul>
+    </div>
+    <!-- <div class="bottom middle mt-0">
+      <ul>
+        <li class="mb-2 d-flex align-items-center" routerLink="/entities">
+          <a href="javascript:void(0);"  title="Entiteis">
+            <img src="assets/img/Entities.svg" al class="img-fluid" /></a>
+            <h6 class="mb-0 ml-3 text-light">Entities</h6>
+        </li>
+        <li class="mb-2 d-flex align-items-center" routerLink="/intents">
+          <a href="javascript:void(0);"  title="Intent">
+            <img src="assets/img/Intent.svg" al class="img-fluid" /></a>
+            <h6 class="mb-0 ml-3 text-light">Intent</h6>
+        </li>
+
+        <li class="mb-2 d-flex align-items-center" routerLink="/response-library">
+          <a href="javascript:void(0);"  title="Entiteis">
+            <img src="assets/img/Responselibrary.svg" al class="img-fluid" /></a>
+            <h6 class="mb-0 ml-3 text-light">Responselibrary</h6>
+        </li>
+
+        <li class="mb-2 d-flex align-items-center" routerLink="/integration/integration">
+          <a href="javascript:void(0);" style=""><img
+              src="assets/img/integrations.svg" alt="Log out" class="img-fluid" /></a>
+              <h6 class="mb-0 ml-3 text-light">Integrations</h6>
+        </li>
+        <li class="mb-2 d-flex align-items-center" routerLink="/coordinator">
+          <a href="javascript:void(0);" ><img src="assets/img/Coordinator.svg" alt="Switch bot"
+              class="img-fluid" /></a>
+              <h6 class="mb-0 ml-3 text-light">Coordinator</h6>
+        </li>
+
+        <li class="mb-2 d-flex align-items-center" routerLink="/analytics">
+          <a href="javascript:void(0);" ><img src="assets/img/analytic.svg" alt="Switch bot"
+              class="img-fluid" /></a>
+              <h6 class="mb-0 ml-3 text-light">Analytic</h6>
+        </li>
+
+        <li class="mb-2 d-flex align-items-center" routerLink="/publish">
+          <a href="javascript:void(0);" ><img src="assets/img/Publish.svg" alt="Switch bot"
+              class="img-fluid" /></a>
+              <h6 class="mb-0 ml-3 text-light">Publish</h6>
+        </li>
+      </ul>
+    </div> -->
+    <div class="separator" *ngIf="routes.length>0"></div>
+    <div class="bottom">
+      <ul>
+        <li class="mb-2 d-flex align-items-center" (click)="redirectToHome('home')" [routerLink]="['home']"
+          [routerLinkActiveOptions]="{exact: false}" routerLinkActive="activate">
+          <a (click)="showLensAgents=false; showISAgents=false" href="javascript:void(0);" style="fill: #fff;"><img
+              src="assets/img/home.svg" alt="Log out" class="img-fluid" title="Home" /></a>
+          <h6 class="mb-0 ml-3 text-light">Home</h6>
+
+        </li>
+        <li *ngIf="!(routes && routes.length)" class="mb-2 d-flex align-items-center"
+          (click)="redirectToHome('subscription')" [routerLink]="['subscription']"
+          [routerLinkActiveOptions]="{exact: false}" routerLinkActive="activate">
+          <a (click)="showLensAgents=false; showISAgents=false" href="javascript:void(0);" style="fill: #fff;"><img
+              src="assets/img/subscription.png" alt="Log out" class="img-fluid" title="Subscription" /></a>
+          <h6 class="mb-0 ml-3 text-light">Subscription</h6>
+
+        </li>
+        <li *ngIf="!(routes && routes.length)" class="mb-2 d-flex align-items-center"
+          (click)="redirectToHome('analytics')" [routerLink]="['analytics']" [routerLinkActiveOptions]="{exact: false}"
+          routerLinkActive="activate">
+          <a (click)="showLensAgents=false; showISAgents=false" href="javascript:void(0);" style="fill: #fff;"><img
+              src="assets/img/analytics.png" alt="Log out" class="img-fluid" title="Analytics" /></a>
+          <h6 class="mb-0 ml-3 text-light">Analytics</h6>
+
+        </li>
+        <li *ngIf="!(routes && routes.length)" class="mb-2 d-flex align-items-center"
+          (click)="redirectToHome('tutorial')">
+          <a (click)="showLensAgents=false; showISAgents=false" href="javascript:void(0);" style="fill: #fff;"><img
+              src="assets/img/HELP.png" alt="Log out" class="img-fluid-help" title="Tutorial" /></a>
+          <h6 class="mb-0 ml-3 text-light">Tutorial</h6>
+
+        </li>
+        <!-- <li class="mb-2 d-flex align-items-center justify-content-start ml-0" (click)="switchTheme()">
+          <a href="javascript:void(0);" *ngIf="themeClass=='theme-light'" title="Switch to dark theme"><img
+              src="assets/img/moon.svg" alt="Switch Theme" class="img-fluid" /></a>
+          <h6 class="mb-0 ml-3 text-light" *ngIf="themeClass=='theme-light'">Dark Mode</h6>
+
+          <a href="javascript:void(0);" *ngIf="themeClass=='theme-dark'" title="Switch to light theme"><img
+              src="assets/img/sun.svg" alt="Switch Theme" class="img-fluid" /></a>
+          <h6 class="mb-0 ml-3 text-light" *ngIf="themeClass=='theme-dark'"> Light Mode</h6>
+
+        </li> -->
+        <li class="mb-2 d-flex align-items-center" (click)="logout()">
+          <a href="javascript:void(0);" title="Logout" style="fill: #fff;"><img src="assets/img/logout.svg"
+              alt="Log out" class="img-fluid" /></a>
+          <h6 class="mb-0 ml-3 text-light">Logout</h6>
+        </li>
+        <li class="mb-2 d-flex align-items-center">
+          <a href="javascript:void(0);" href="http://www.polynomial.ai/" target="_blank">
+            <img src="assets/img/Polynomial Logo small.png" alt="Switch bot" class="img-fluid polynomial-small" />
+            <img src="assets/img/Polynomial Logo white.png" alt="Switch bot" class="img-fluid polynomial-large" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="iframeURL && routes && routes.length && isIS">
+  <div id="colive-iframe-container" [ngClass]="show?'show':''">
+    <iframe [src]="iframeURL" id="iframe-colive" allow="microphone" frameborder="0"></iframe>
+    <div id="min-button" (click)="toggleBot()">
+      <img id="minimize-arrow" src="https://coliveshona.blob.core.windows.net/coliveshonabot/Minimize_arrow.png" alt="">
+    </div>
+  </div>
+  <img (click)="toggleBot()" *ngIf="activated" [src]="avatarUri" id="shona-logo" alt="Shona">
+</ng-container>

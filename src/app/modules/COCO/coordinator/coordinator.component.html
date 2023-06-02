@@ -1,0 +1,66 @@
+<div class="ml-81">
+  <div class="row col-12 mb-0">
+    <p class="mb-0">
+      <span class="top-heading top-heading-container">&nbsp;&nbsp;COORDINATOR</span>
+    </p>
+  </div>
+
+  <div class="row col-lg-12 col-md-12 mt-3 pr-0 mr-0 w-100 " >
+    <div class="w-100 d-flex justify-content-between">
+    <nav class="w-100">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <ng-container>
+          <a class="nav-link nav-item active text-center" id="'mapped'" data-toggle="tab" role="tab"
+            aria-controls="mapped" aria-selected="true" [class.active]="tab == 'mapped'" (click)="tab = 'mapped'">
+            <div class=" justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'mapped' }">
+                Mapped Coordinator
+              </span>
+            </div>
+          </a>
+        </ng-container>
+        <ng-container>
+          <a class="nav-link nav-item active text-center" id="'available'" data-toggle="tab" role="tab"
+            aria-controls="available" aria-selected="true" [class.active]="tab == 'available'"
+            (click)="tab = 'available'">
+            <div class=" justify-content-center">
+              <span class="tab-title" [ngClass]="{ 'tab-title-active': tab == 'available' }">
+                Available Coordinator
+              </span>
+            </div>
+          </a>
+        </ng-container>
+      </div>
+    </nav>
+    <div class="form-group flex-grow-1 search-bar d-flex">
+      <input placeholder="Search" type="text" name="query" [(ngModel)]="searchQuery"
+        value="" class="form-control input-auth" (keyup)="searchEntities()"  style="width:371.61px" />
+        <button class="btb btn-primary-search" (click)="searchEntities()">
+          <img class="search-icon" src="assets/img/Search icon.svg">
+        </button>
+    </div>
+  </div>
+
+    <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="mapped" role="tabpanel" [class.active]="tab == 'mapped'"
+        aria-labelledby="mapped">
+        <app-mapped-coordinator [apiList]="apiList" [mapCoordinarorData]="mappedCoordinators"></app-mapped-coordinator>
+      </div>
+    </div>
+    <div class="tab-content w-100 mt-2 pl-3" id="nav-tabContent">
+      <div class="tab-backgroud tab-pane fade show active" id="available" role="tabpanel"
+        [class.active]="tab == 'available'" aria-labelledby="available">
+        <app-available-coordinator [availableCoordinatorData]="availableCoordinators" [apiListData]="apiList">
+        </app-available-coordinator>
+      </div>
+    </div>
+  </div>
+  <!-- <ng-template #noCoordinator>
+    <div class="nodata">
+      <img src="assets/img/no-data.svg" class="no-found-img">
+      <div class="mb-5">
+        <span class="text mt-0"> No available coordinator </span>
+      </div>
+    </div>
+  </ng-template> -->
+</div>

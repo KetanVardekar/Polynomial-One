@@ -1,0 +1,30 @@
+<div class="row w-100 mt-3 user-sub-heading">
+  <div class="col-md-2 mb-2">
+
+    WorkFlow
+  </div>
+  <div class="col-md-5 mt-1">Details</div>
+  <div class="col-md-1 mt-1">Time</div>
+  <div class="col-md-2  mt-1">Execute Time</div>
+  <div class="col-md-2 mt-1"></div>
+  <div class="col-md-1 mt-1"></div>
+
+
+
+
+</div>
+<div class="row w-100 mt-2 user-sub-body-div detail-font-color" *ngFor="let details of historyarray">
+  <div class="col-md-2 pointer" (click)="addDevEventModule()">
+    {{details.workflow}}
+  </div>
+  <div class="col-md-5 pointer" (click)="addDevEventModule()">{{details.details}}</div>
+
+  <div class="col-md-1 details-fontsize pointer" (click)="addDevEventModule()">{{details.time}}</div>
+  <div class="col-md-1 execute-fontsize pointer" (click)="addDevEventModule()">{{details.executetime}}</div>
+  <div class="col-md-2 ">
+    <button type="button" class="btn btn-execute ml-3" (click)="addDevEventModule()">{{details.btn}}</button>
+
+  </div>
+  <div class="col-md-1 execute-decoration">{{details.view}}</div>
+
+</div>

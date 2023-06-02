@@ -1,0 +1,106 @@
+<div>
+  <div class="row w-100 mt-3 col-md-12 text-right justify-content-end">
+    <img src="assets/img/close.png" height="16px" width="16px" class="pointer" (click)="cancel()" />
+  </div>
+  <div class="row w-100 mt-0 col-md-12 text-center justify-content-center heading-text">
+    <span *ngIf="isAdd">ADD MEMBER</span>
+    <span *ngIf="!isAdd">EDIT MEMBER</span>
+  </div>
+  <div class="row w-100 col-md-12 text-center justify-content-center heading-subtext ml-2">
+    <span>Please fill in the details of the user who you want to add as a
+      member</span>
+  </div>
+  <div class="ml-4 mr-4 mt-2 mb-4">
+
+    <div class="row form-group">
+      <div class="col-md-6 col-lg-6 col-sm-12">
+        <label class="input-text">Firstname</label>
+        <input type="text" class="form-control" [(ngModel)]="memberDetails.firstName" placeholder="Enter Firstname"
+          #firstname="ngModel" (keydown)="alphaOnly($event)" required maxlength="50" tabindex="-1" [ngClass]="{
+            'is-invalid':
+            firstname.invalid && (formSubmitted || firstname.touched)
+          }" />
+        <small class="text-danger text-center ml--30" *ngIf="(!firstname.valid && firstname.touched)|| (formSubmitted && (!firstname.valid &&!firstname.touched )) ">Please Enter Firstname</small>
+        <div  *ngIf="memberDetails.firstName.length>49">
+          <small  class="text-danger ml--30">First Name Cannot be more than 50 Characters</small>
+        </div>
+
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12">
+        <label class="input-text">Lastname</label>
+        <input type="text" class="form-control" [(ngModel)]="memberDetails.lastName" placeholder="Enter Lastname"
+          (keydown)="alphaOnly($event)" required #lastname="ngModel" maxlength="50" [ngClass]="{
+            'is-invalid':
+            lastname.invalid && (formSubmitted || lastname.touched)
+          }"  tabindex="-1"/>
+          <small class="text-danger text-center ml--30" *ngIf="(!lastname.valid &&lastname.touched) || (formSubmitted && (!lastname.valid&&!lastname.touched))">Please Enter Lastname</small>
+          <div  *ngIf="memberDetails.lastName.length>49">
+            <small  class="text-danger ml--30">Last Name Cannot be more than 50 Characters</small>
+          </div>
+      </div>
+    </div>
+    <div class="form-group" *ngIf="isAdd">
+      <label class="input-text">Email Id</label>
+      <input type="email" class="form-control lowercase" [(ngModel)]="memberDetails.email" placeholder="Enter Email" email
+        [disabled]="!isAdd" #emailvalidation="ngModel" required [ngClass]="{
+          'is-invalid':
+          emailvalidation.invalid && (formSubmitted || emailvalidation.touched)
+        }" tabindex="-1" />
+        <small class="text-danger text-center ml--30" *ngIf="(!emailvalidation.valid &&emailvalidation.touched)|| (formSubmitted && !emailvalidation.valid&&!emailvalidation.touched) ">Please Enter Valid Email ID</small>
+
+    </div>
+    <div class="form-group" *ngIf="!isAdd">
+      <label class="input-text">Email Id</label>
+      <input type="email" class="  input-auth form-control lowercase" [(ngModel)]="memberDetails.email"
+        placeholder="Enter Email" required disabled   #emailvalidation="ngModel"  [ngClass]="{
+          'is-invalid':
+          emailvalidation.invalid && (formSubmitted || emailvalidation.touched)
+        }"/>
+        <small class="text-danger text-center ml--30" *ngIf="(!emailvalidation.valid &&emailvalidation.touched)|| (formSubmitted && !emailvalidation.valid) ">Please Enter Valid Email ID</small>
+    </div>
+
+    <!-- For edit member -->
+    <div class="form-group" *ngIf="!isAdd">
+      <label class="input-text">Role</label>
+      <ng-select class="w-100" placeholder="Select Role" [(ngModel)]="memberDetails.role"  #rolevalidation="ngModel" [ngClass]="{'is-invalid':(rolevalidation.invalid)&&( formSubmitted || rolevalidation.touched) }"
+        [disabled]="editMemberDetails.isEdit" required>
+        <ng-option *ngFor="let role of remainingArr" [value]="role.roleID">{{
+          role.displayName
+          }}</ng-option>
+      </ng-select>
+      <small class="text-danger text-center ml--30" *ngIf="!rolevalidation.valid &&rolevalidation.touched || formSubmitted  ">Please Select Role </small>
+    </div>
+    <!-- For add member -->
+    <div class="form-group" *ngIf="isAdd">
+      <label class="input-text">Role</label>
+      <ng-select class="w-100" placeholder="Select Role" [(ngModel)]="memberDetails.role"   #rolevalidation="ngModel" [ngClass]="{'is-invalid':(rolevalidation.invalid)&&( formSubmitted || rolevalidation.touched) }" required tabindex="4" >
+        <ng-option value="" disabled selected>Please Select Role</ng-option>
+        <ng-option *ngFor="let role of remainingArr" [value]="role.roleID">{{
+          role.displayName
+          }}</ng-option>
+      </ng-select>
+      <small class="text-danger text-center ml--30" *ngIf="(!rolevalidation.valid &&rolevalidation.touched) || (formSubmitted && (!rolevalidation.valid&&!rolevalidation.touched) )">Please Select Role </small>
+    </div>
+
+    <!-- <div class="form-group" *ngIf="editMemberDetails.isEdit ">
+      <label  class="input-text">Role</label>
+      <ng-select class="w-100" placeholder="Select Role" [(ngModel)]="memberDetails.role"
+        [disabled]="userRole  ==='61a280ddf9ea082b2cd61065'"  [disabled]="">
+        <ng-option *ngFor="let role of remainingArr" [value]="role.roleID">{{
+          role.displayName
+          }}</ng-option>
+      </ng-select>
+    </div> -->
+
+    <div class="w-100 mt-4">
+      <button type="submit" class="btn btn-shona w-100" (click)="isAdd?addMember():editMember()">
+        {{isAdd? "Add as Member" : "Edit Member"}}
+      </button>
+    </div>
+
+    <!-- <div *ngIf="!isAdd" class="w-100 d-flex justify-content-center mt-4">
+      <button class="btn btn-cancel w-100" (click)="cancel()">Cancel</button>&nbsp;&nbsp;
+      <button class="btn btn-shona w-100" (click)="editMember()">Save</button>
+    </div> -->
+  </div>
+</div>

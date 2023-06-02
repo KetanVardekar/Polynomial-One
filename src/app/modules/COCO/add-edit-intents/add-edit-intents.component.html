@@ -1,0 +1,48 @@
+<div id="modal-content">
+  <div class="row col-12 justify-content-center pl-5 w-100 modal-title-intent dm w.n">
+    ADD INTENT
+  </div>
+  <div class="pr-4 pl-4 mt-4">
+    <div class="form-group">
+      <label>Intent</label>
+      <input type="text" name="inetnt" id="inetnt" class="form-control input-auth" placeholder="Enter Intent Name"
+        [(ngModel)]="intentName" />
+    </div>
+    <div *ngIf="intentType=='3'">
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" id="category" class="form-control input-auth" placeholder="Enter Category for the FAQ"
+          [(ngModel)]="intentCategory" />
+      </div>
+      <div class="form-group">
+        <label>Base Question</label>
+        <input type="text" name="baseQuestion" id="baseQuestion" class="form-control input-auth" placeholder="Enter Some Sample Question"
+          [(ngModel)]="intentBaseQuestion" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="radio-items-parent">
+        <!-- <div class="radio-item">
+          <input type="radio" [(ngModel)]="intentType" id="intentType1" name="intentType" value="1" />
+          <label for="intentType1">Generic Intent</label>
+        </div> -->
+        <div class="radio-item">
+          <input type="radio" [(ngModel)]="intentType" id="intentType2" name="intentType" value="2" />
+          <label for="intentType2">Specific Intent</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" [(ngModel)]="intentType" id="intentType3" name="intentType" value="3" />
+          <label for="intentType3">FAQs</label>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center  mb-4">
+      <button class="btn btn-shona w-100" (click)="close()">
+        Cancel</button>&nbsp;&nbsp;
+      <button class="btn btn-primary w-100" (click)="addOrUpdateIntent()">
+        Add Intent
+      </button>
+    </div>
+  </div>
+</div>

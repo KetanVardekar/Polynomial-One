@@ -1,0 +1,77 @@
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+.btn-shona {
+  color: var(--color-button) !important;
+  border: 2px solid var(--color-button);
+  background: #fff !important;
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 22%;
+  height: 32px;
+}
+.btn-shonaupload {
+  border: 2px solid var(--color-button);
+  background: #1732a4;
+  font-size: 14px;
+  font-style: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 22%;
+  height: 32px;
+}
+
+.btn-primary {
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 12%;
+  height: 32px;
+  background: #1732a4;
+}
+.synonym-container {
+  margin: 4px;
+  background-color: #00000033;
+  border-radius: 16px;
+  .synonym-name {
+    padding: 0px 0px 0px 8px;
+    font: normal normal 300 13px/30px Poppins;
+  }
+  .synonym-remove {
+    margin: 10px;
+  }
+}
+.modal-title-intent{
+  font: normal normal 500 20px/15px Poppins;
+    letter-spacing: 0px;
+    color: var(--color-tertiary);
+    text-transform: capitalize;
+    margin-top: 35px;
+}
+.field-name{
+    font: normal normal 600 13px/14px Poppins;
+  }
+.input-auth-configure{
+    border-radius: 3px !important;
+      font-size: 14px !important;
+      border: 1px solid #000000!important;
+      padding-right: 37px;
+      // box-shadow: 0px 3px 6px #00000020;
+  }
+.redirecting-link{
+    text-decoration: underline;
+    font: normal normal normal 13px/18px Poppins;
+    letter-spacing: 0px;
+    color: #1732a4;
+    cursor: pointer;
+  }
+
+.img-size-three{
+    width: 57%;
+  }
+
+  .sub-text{
+    font: normal normal 500 13px/18px Poppins;
+  }

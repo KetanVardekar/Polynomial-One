@@ -1,0 +1,38 @@
+<div class="mb-5 dev-event-container ">
+  <div class="row col-12 text-left justify-content-end mt-4 pr-1">
+    <img class="pointer" src="assets/img/close.png" width="16px" height="16px" (click)="close()" />
+  </div>
+  <div class="row w-100 mt-0 col-md-12  d-flex justify-content-center heading-text">
+    <span> Dev Event Module</span>
+  </div>
+  <div>
+    <div class="row w-100 col-md-12 d-flex justify-content-start mt-3">
+      <span class="heading-text ml-5"> Build </span> &nbsp; &nbsp;
+      <span class="sub-heading"> suceeded 5 hours ago in 1 min 36 sec</span>
+    </div>
+    <div *ngFor="let data of  eventarray ; let i = index">
+
+      <div class="d-flex justify-content-between ">
+        <div class="mt-3 ml-5">
+          <img *ngIf="data.visible" src="assets/img/lens/down-arrow.png" class="rotate" alt="">&nbsp;
+          <img *ngIf="!data.visible" src="assets/img/lens/down-arrow.png" class="rotate-down" alt="">&nbsp;
+
+          <img *ngIf="data.visible" src="assets/img/lens/Stepper Icon 1.png" alt="" style="width: 17px;">&nbsp;
+          <img *ngIf="!data.visible" src="assets/img/success.png" alt="" style="width: 17px;">&nbsp;
+
+          <span class="mb-3 pointer" (click)="descriptionFlag[i] =!descriptionFlag[i] "
+            (click)="data.visible = !data.visible">{{data.devevent}} </span>
+          <div *ngIf="descriptionFlag[i]" class="ml-5 ">
+
+            <span>{{data.details}}</span>
+          </div>
+
+        </div>
+        <div class="mt-3 mr-5" *ngIf="data.visible"><img src="assets/img/lens/clock-icon.png" alt=""
+            style="width: 17px;"></div>
+        <span class=" ml-4 mt-3 mr-4 time-size" *ngIf="!data.visible">{{data.time}}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

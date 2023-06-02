@@ -1,0 +1,24 @@
+<!-- <div class="container-fluid m-2 p-2"> -->
+<div class="w-100 text-left pr-5 pl-5 pt-4 pb-4">
+  <!-- <div class="row col-12 text-left justify-content-end mt-3 pr-1">
+    <img class="pointer" src="assets/img/close.png" width="10px" height="10px" (click)="close()" />
+  </div>
+  <div class="row col-12 justify-content-center w-100 modal-title p-0 m-0">
+    <span class="text">Delete<span> {{ title }} </span></span> -->
+  <!-- </div> -->
+
+  <div  >
+    <label class="heading-text">Are you sure?</label>
+  </div>
+  <div>
+    <label class="sub-text">  {{title}}<span class="selected-font" > "{{selectedName}}" {{" "}}</span> <span>?</span></label>
+
+  </div>
+  <div class="w-100 d-flex justify-content-center mt-3">
+    <button class="mr-3 btn btn-cancel" (click)="close()">
+      Cancel
+    </button>
+    <button class="btn btn-shona" (click)="submit()">Confirm</button>
+  </div>
+</div>
+<!-- </div> -->

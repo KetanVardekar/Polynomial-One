@@ -1,0 +1,41 @@
+<div  *ngIf=" customEntitiesData &&customEntitiesData.length ; else noCustomEntities " >
+<div class="row w-100 mt-2 user-sub-heading-div">
+    <div class="col-md-2 mb-2">
+        <span class="mt-1 sub-heading-entities">Entity</span>
+    </div>
+    <div class="col-md-2 mt-1 sub-heading-entities">Entity Type</div>
+    <!-- <div class="col-md-2 mt-1 sub-heading-entities">Agent</div> -->
+    <div class="col-md-2 mt-1 sub-heading-entities">Date Created</div>
+    <div class="col-md-3 mt-1 "></div>
+    <!-- <div class="col-md-1 mt-1">
+        <img class="pointer" src="../../assets/img/coco/black-delete-icon.svg" width="20" height="20" />
+    </div> -->
+</div>
+<div class="row w-100 mt-2 user-sub-body-div" *ngFor="let custom of customEntitiesData">
+    <div class="col-md-2 d-flex form-group mb-2">
+        <span class="sub-heading-details ">{{ custom.entityName}}</span>
+    </div>
+    <div class="col-md-2 sub-heading-details">{{ custom.entityType}}</div>
+    <!-- <div class="col-md-2 sub-heading-details">{{ botName }}</div> -->
+    <div class="col-md-2 sub-heading-details">{{custom.createdAt | date:"longDate"}}</div>
+    <div class="col-md-3 mt-1 d-flex justify-content-around">
+        <div class="pointer edit-entities" (click)="viewEntity(custom)" style="color: #1732a4">
+            view
+        </div>
+        <div class="pointer edit-entities" (click)="editEntity(custom)" style="color: #1732a4">
+            Edit
+        </div>
+    </div>
+    <div class="col-md-1 mt-1 pointer">
+        <img class="pointer" src="assets/img/delete.svg" (click)="deleteEntity(custom)" width="20" height="20" />
+    </div>
+</div>
+</div>
+<ng-template #noCustomEntities>
+  <div class="nodata">
+    <img src="assets/img/no-data.svg" class="no-found-img">
+    <div class="mb-5">
+      <span class="no-text mt-0">No Custom Entities Found, Please Add Entity </span>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,25 @@
+.btn-shona {
+  border-radius: 6px;
+  padding: 4px 24px;
+  background-color: #1732a4;
+  font: normal normal 400 12px/15px Poppins;
+}
+
+.btn-cancel {
+  color: #1732a4 !important;
+  border: 2px solid #1732a4;
+  background: #fff !important;
+  font-size: 14px !important;
+  border-radius: 6px;
+  padding: 5px 15px;
+}
+
+.text {
+  font: normal normal 500 20px/15px Poppins;
+}
+
+.sub-text {
+  font: normal normal 400 16px/15px Poppins;
+  margin-right: 5px;
+}
+/*# sourceMappingURL=delete-pop-up.component.css.map */

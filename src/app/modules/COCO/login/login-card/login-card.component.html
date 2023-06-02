@@ -1,0 +1,13 @@
+<div class="login-card position-relative" (click)="edit();">
+  <i class="fa fa-close position-absolute" style="right: 2px;top: 1px;cursor: pointer;"
+      (click)="remove()" aria-hidden="true"></i>
+  <h5>{{loginCardData.title}}</h5>
+  <div>
+      <input type="text" disabled placeholder="Enter OTP" />
+      <p>RESEND</p>
+  </div>
+  <div>
+      <button [title]="action.value.data" *ngFor="let action of loginCardData.action;let i = index;" class="btn-action">
+          {{ action.title }}</button>
+  </div>
+</div>

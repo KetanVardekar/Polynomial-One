@@ -1,0 +1,66 @@
+<div class="">
+  <div class="row col-12 text-left justify-content-end mt-4 pr-1">
+    <img class="pointer" src="assets/img/close.png" width="16px" height="16px" (click)="close()">
+  </div>
+  <div class="row col-12 justify-content-center w-100 modal-title">
+    {{editEntity?'EDIT API DETAILS':'ADD API DETAILS'}}
+  </div>
+
+  <div class="pl-5 pr-5 mt-2 w-100" >
+    <div class="form-group">
+      <label>API Name</label>
+      <input type="text" name="name" class="form-control input-auth" id="name" [(ngModel)]="apiDetails.apiName" required #apiname="ngModel" tabindex="-1" [ngClass]="{
+        'is-invalid':
+        apiname.invalid && (formSubmitted || apiname.touched)
+      }" >
+      <small class="text-danger text-center ml--30" *ngIf="(!apiname.valid && apiname.touched) || (formSubmitted && (!apiname.valid &&!apiname.touched )) ">Please
+        Enter API
+        Name</small>
+      <div *ngIf="(apiDetails.apiName.length>=65)">
+        <small class="text-danger ml--30">API Name Cannot be more than 64 Characters</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>API URL</label>
+      <input type="text" name="url" class="form-control input-auth" id="url" [(ngModel)]="apiDetails.apiUrl" required #apiurl="ngModel" [ngClass]="{
+        'is-invalid':
+        apiurl.invalid && (formSubmitted || apiurl.touched)
+      }" tabindex="-1" >
+      <small class="text-danger text-center ml--30" *ngIf="(!apiurl.valid && apiurl.touched) || (formSubmitted && (!apiurl.valid &&!apiurl.touched )) ">Please
+        Enter API URL</small>
+      <!-- <div *ngIf="(apiDetails.apiUrl.length>=16)">
+        <small class="text-danger ml--30">Agent Name Cannot be more than 15 Characters</small>
+      </div> -->
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input type="text" name="description" class="form-control input-auth" id="description" #apidescription="ngModel"
+        [(ngModel)]="apiDetails.description" required  [ngClass]="{
+          'is-invalid':
+          apidescription.invalid && (formSubmitted || apidescription.touched)
+        }" tabindex="-1" >
+        <small class="text-danger text-center ml--30" *ngIf="(!apidescription.valid && apidescription.touched)|| (formSubmitted && (!apidescription.valid &&!apidescription.touched )) ">Please
+        Add Description</small>
+        <div *ngIf="(apiDetails.description.length>=129)">
+          <small class="text-danger ml--30">Description Cannot be more than 128 Characters</small>
+        </div>
+    </div>
+    <div class="form-group">
+      <label>Header</label>
+      <textarea name="apiHeaders" class="form-control input-auth" id="description" cols="30" rows="5"
+        placeholder="{'key':'value'}" [(ngModel)]="apiDetails.apiHeaders" tabindex="-1"></textarea>
+    </div>
+    <div class="mt-2 d-flex ">
+      <div class="mr-4"><label>{{ apiDetails.isActive?"Enabled":"Disabled" }}</label></div>
+      <label class="switch mt-1" [ngClass]="{'disabled': !edit}">
+        <input type="checkbox" [(ngModel)]="apiDetails.isActive">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="form-group flex-grow-1 mt-2 ml-4 mr-4 mb-4 text-center">
+      <button class="btn btn-shona btn-signup ml-0" (click)="addOrUpdateAPI()" type="submit">
+        {{editEntity? 'Update':'Add'}}
+      </button>
+    </div>
+  </div>
+</div>

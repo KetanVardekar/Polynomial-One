@@ -1,0 +1,66 @@
+.heading {
+  background-color: #ededed;
+  font: normal normal 400 14px/30px Poppins;
+  letter-spacing: 0px;
+  font-weight: 600;
+  margin-top: 15px;
+  padding-left: 12px;
+  color: var(--color-tertiary);
+  text-transform: capitalize;
+}
+
+.heading-configure {
+  background-color: #ffffff;
+  font: normal normal 400 14px/30px Poppins;
+  letter-spacing: 0px;
+  font-weight: 600;
+  margin-top: 15px;
+  padding-left: 12px;
+  color: var(--color-tertiary);
+  text-transform: capitalize;
+}
+
+.light-font {
+  color: #4d4d4d;
+}
+
+.field-name {
+  font: normal normal 500 16px/25px Poppins;
+  letter-spacing: 0.19px;
+  color: #4d4d4d;
+}
+
+.input-auth {
+  height: 40.7px;
+  width: 70%;
+  font-size: 14px;
+  border: none;
+  display: block;
+  -webkit-box-shadow: 0px 0px 4px #9b9de829;
+          box-shadow: 0px 0px 4px #9b9de829;
+  border: 1px solid #adadad;
+  border-radius: 4px;
+  color: var(--color-tertiary);
+}
+
+.input-auth:disabled {
+  background: #ededed 0% 0% no-repeat padding-box !important;
+}
+
+input.form-control:disabled,
+input.form-control[readonly] {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.btn-outline-shona {
+  background: #fff !important;
+  border: 2px solid #1732a4 !important;
+  color: #1732a4 !important;
+  text-align: center;
+  font: normal normal 400 16px/35px Poppins;
+  letter-spacing: 0px;
+  width: 10%;
+  padding: 0px;
+}
+/*# sourceMappingURL=view-channel.component.css.map */
